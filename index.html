@@ -1,0 +1,1817 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YAHYO.DESIGN — Arxitektura va interyer dizayni studiyasi</title>
+<meta name="description" content="YAHYO.DESIGN — Qo'qonda joylashgan arxitektura va interyer dizayni studiyasi. Interyer, eksteryer, landshaft dizayni, 3D vizualizatsiya va qurilish hujjatlari. Bepul konsultatsiya uchun bog'laning.">
+<meta name="keywords" content="arxitektor Qo'qon, interyer dizayneri, fasad dizayni, landshaft dizayni, 3D vizualizatsiya, qurilish loyihasi, Yahyo Saidxodjayev">
+<meta name="theme-color" content="#0A0A0B">
+<meta name="color-scheme" content="dark">
+<style>html{background:#050505;}</style>
+<link rel="icon" type="image/png" href="images/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Sora:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --brown-900:#050505;
+  --brown-800:#0A0A0B;
+  --brown-700:#151517;
+  --bronze:#D4AF37;
+  --bronze-light:#E9CE7A;
+  --ivory:#0A0A0B;
+  --ivory-deep:#141416;
+  --ink:#F5F3EE;
+  --ink-soft:rgba(245,243,238,.66);
+  --line:rgba(245,243,238,.12);
+  --line-on-dark:rgba(245,243,238,.24);
+  --shadow:0 25px 60px -20px rgba(0,0,0,.8);
+  --glow:0 0 32px rgba(212,175,55,.28);
+  --dur:.5s;
+  --ease:cubic-bezier(.22,.7,.2,1);
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth; background:#0A0A0B !important; color-scheme:dark; overflow-x:hidden; width:100%;}
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto;}
+  *{animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; scroll-behavior:auto !important;}
+}
+body{
+  margin:0;
+  font-family:'Sora',Georgia,serif;
+  background:#0A0A0B !important;
+  background:var(--ivory, #0A0A0B);
+  color:var(--ink, #F5F3EE);
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  font-size:calc(16px * var(--fs-scale, 1));
+  min-height:100vh;
+  min-height:100dvh;
+  overflow-x:hidden;
+  width:100%;
+  position:relative;
+}
+section, header, footer, nav, .lightbox, .mobile-drawer{background-color:#0A0A0B;}
+h1,h2,h3,.display{
+  font-family:'Spectral',Georgia,serif;
+  font-weight:500;
+  line-height:1.08;
+  margin:0;
+  letter-spacing:.02em;
+  text-transform:uppercase;
+}
+.hero h1 em{text-transform:uppercase;}
+p{margin:0;}
+a{color:inherit;}
+img{max-width:100%;display:block;}
+button{font-family:inherit;cursor:pointer;}
+.container{max-width:1180px;margin:0 auto;padding:0 28px;}
+.visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;}
+
+/* Skip link */
+.skip-link{
+  position:absolute; left:12px; top:-60px;
+  background:var(--ivory, #0A0A0B); color:var(--ink, #F5F3EE);
+  padding:12px 18px; border-radius:4px; z-index:999;
+  transition:top .2s var(--ease);
+  font-family:'Sora',serif; font-size:15px;
+  border:1px solid var(--ink, #F5F3EE);
+}
+.skip-link:focus{top:12px;}
+
+/* Focus visibility */
+a:focus-visible, button:focus-visible, input:focus-visible{
+  outline:3px solid var(--bronze, #D4AF37); outline-offset:3px;
+}
+
+/* ===== NAVBAR ===== */
+.nav{
+  position:fixed; top:0; left:0; right:0; z-index:200;
+  padding:22px 0;
+  transition:background var(--dur) var(--ease), padding var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+  border-bottom:1px solid transparent;
+}
+.nav.scrolled{
+  background:rgba(8,8,9,.82);
+  backdrop-filter:blur(14px);
+  padding:14px 0;
+  border-bottom-color:var(--line, rgba(245,243,238,.12));
+}
+.nav .container{display:flex; align-items:center; justify-content:space-between; gap:20px;}
+.brand{display:flex; align-items:center; gap:12px; text-decoration:none; flex-shrink:0;}
+.brand img{height:32px; width:auto;}
+.brand-word{
+  font-family:'Spectral',serif; font-size:18px; letter-spacing:.03em; font-weight:500;
+  color:var(--ink, #F5F3EE);
+}
+
+.nav-links{display:flex; align-items:center; gap:24px; list-style:none; margin:0; padding:0;}
+.nav-links a{
+  text-decoration:none; font-size:13px; color:var(--ink, #F5F3EE);
+  position:relative; padding:4px 0; transition:color var(--dur) var(--ease);
+  text-transform:uppercase; letter-spacing:.04em; white-space:nowrap;
+}
+.nav-links a::after{
+  content:''; position:absolute; left:0; bottom:0; width:0; height:1px;
+  background:var(--bronze, #D4AF37); transition:width .3s var(--ease);
+}
+.nav-links a:hover{color:var(--bronze-light, #E9CE7A);}
+.nav-links a:hover::after, .nav-links a:focus-visible::after{width:100%;}
+
+.nav-tools{display:flex; align-items:center; gap:10px;}
+.lang-group{display:flex; gap:4px;}
+.lang-btn{
+  background:none; border:none; color:var(--ink, #F5F3EE); font-size:13px; padding:5px 7px;
+  opacity:.55; transition:opacity .25s var(--ease), transform .25s var(--ease), color .25s var(--ease);
+  font-family:'Sora',serif;
+}
+.lang-btn.active{opacity:1; font-weight:600; color:var(--bronze-light, #E9CE7A); text-decoration:underline; text-underline-offset:4px;}
+.lang-btn:hover{transform:scale(1.12); opacity:1;}
+
+.burger{display:none; background:none; border:none; padding:6px;}
+.burger span{display:block; width:24px; height:2px; background:var(--ink, #F5F3EE); margin:5px 0; transition:background .3s, transform .3s;}
+.burger:hover span{background:var(--bronze, #D4AF37);}
+
+/* ===== HERO ===== */
+.hero{
+  position:relative; min-height:100svh; display:flex; flex-direction:column;
+  align-items:center; justify-content:center; text-align:center;
+  background:linear-gradient(180deg, var(--brown-900, #050505), var(--brown-800, #0A0A0B) 55%, var(--brown-700, #151517));
+  color:var(--ink, #F5F3EE); overflow:hidden; padding:120px 24px 80px;
+}
+.hero-vignette{
+  position:absolute; inset:0; pointer-events:none;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 30%, rgba(212,175,55,.16), transparent 70%),
+    linear-gradient(180deg, rgba(20,10,7,.25) 0%, transparent 20%, transparent 70%, rgba(20,10,7,.55) 100%);
+}
+.hero-pan{
+  position:absolute; inset:-4%; opacity:.10; pointer-events:none;
+  background-image:radial-gradient(circle at 1px 1px, var(--bronze-light, #E9CE7A) 1px, transparent 1px);
+  background-size:46px 46px;
+  animation:heroPan 34s linear infinite;
+}
+@keyframes heroPan{ from{transform:translate(0,0);} to{transform:translate(-46px,-46px);} }
+@media (prefers-reduced-motion: reduce){ .hero-pan{animation:none;} }
+.hero-eyebrow{
+  font-family:'Sora',serif; font-style:normal; color:var(--bronze-light, #E9CE7A); font-size:14px;
+  letter-spacing:.12em; text-transform:uppercase; margin-bottom:22px;
+}
+html.js-ready .hero-eyebrow{opacity:0; transform:translateY(14px);}
+.hero h1 em{
+  font-style:normal; font-weight:400;
+  background:linear-gradient(90deg, var(--bronze-light, #E9CE7A) 0%, #FFF6DD 25%, var(--bronze, #D4AF37) 50%, var(--bronze-light, #E9CE7A) 75%, #FFF6DD 100%);
+  background-size:200% auto;
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+  animation:shimmer 5s linear infinite;
+}
+@media (prefers-reduced-motion: reduce){ .hero h1 em{animation:none; color:var(--bronze-light, #E9CE7A); -webkit-text-fill-color:var(--bronze-light, #E9CE7A);} }
+@keyframes shimmer{ to{ background-position:200% center; } }
+.hero-mark{width:64px; height:64px; margin:0 auto 30px;}
+html.js-ready .hero-mark{opacity:0; transform:translateY(14px);}
+.hero h1{
+  font-size:clamp(30px,9vw,68px); max-width:920px; margin:0 auto;
+}
+html.js-ready .hero h1{opacity:0; transform:translateY(18px);}
+.hero .subtitle{
+  margin:26px auto 0; max-width:560px; font-size:18px; color:var(--bronze-light, #E9CE7A);
+  font-style:normal;
+}
+html.js-ready .hero .subtitle{opacity:0; transform:translateY(18px);}
+.btn{
+  display:inline-block; text-decoration:none; font-family:'Sora',serif; font-size:14px;
+  padding:15px 34px; border-radius:2px; border:1px solid var(--bronze-light, #E9CE7A);
+  color:var(--ink, #F5F3EE); letter-spacing:.1em; text-transform:uppercase; background:transparent;
+  transition:transform .3s var(--ease), background .3s var(--ease), color .3s var(--ease), box-shadow .3s var(--ease);
+}
+.btn:hover, .btn:focus-visible{
+  background:var(--bronze, #D4AF37); border-color:var(--bronze, #D4AF37); transform:scale(1.06);
+  box-shadow:0 10px 30px -8px rgba(212,175,55,.5);
+}
+.btn:active{transform:scale(.98);}
+.btn-dark{border-color:var(--ink, #F5F3EE); color:var(--ink, #F5F3EE);}
+.btn-dark:hover{background:var(--ink, #F5F3EE); color:var(--ivory, #0A0A0B);}
+.hero-cta-wrap{position:relative; display:inline-block; margin-top:38px;}
+html.js-ready .hero-cta-wrap{opacity:0; transform:translateY(18px);}
+.hero.is-ready .hero-cta-wrap{animation:riseIn .9s var(--ease) forwards; animation-delay:.66s;}
+.hero .btn{cursor:pointer; font-family:inherit;}
+.hero-cta-menu{
+  position:absolute; top:calc(100% + 12px); left:50%; transform:translateX(-50%) translateY(-8px);
+  background:var(--brown-700, #151517); border:1px solid var(--line-on-dark, rgba(245,243,238,.24));
+  border-radius:4px; padding:8px; min-width:240px; box-shadow:var(--shadow, 0 25px 60px -20px rgba(0,0,0,.8));
+  opacity:0; pointer-events:none; transition:opacity .25s var(--ease), transform .25s var(--ease);
+  z-index:50;
+}
+.hero-cta-menu.open{opacity:1; pointer-events:auto; transform:translateX(-50%) translateY(0);}
+.hero-cta-menu a{
+  display:flex; align-items:center; gap:14px; padding:13px 16px; border-radius:3px;
+  color:var(--ink, #F5F3EE); text-decoration:none; font-size:14.5px; white-space:nowrap;
+  transition:background .25s var(--ease), color .25s var(--ease);
+}
+.hero-cta-menu a:hover{background:rgba(212,175,55,.14); color:var(--bronze-light, #E9CE7A);}
+.hero-cta-menu a .cta-ico{
+  width:34px; height:34px; flex-shrink:0; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  background:rgba(212,175,55,.12); color:var(--bronze, #D4AF37);
+  transition:transform .4s var(--ease), background .3s var(--ease), color .3s var(--ease);
+}
+.hero-cta-menu a:hover .cta-ico{
+  background:var(--bronze, #D4AF37); color:#0A0A0B;
+  animation:iconWiggle .5s var(--ease);
+}
+.hero-cta-menu a svg{width:17px; height:17px; flex-shrink:0;}
+@keyframes iconWiggle{
+  0%{transform:rotate(0) scale(1);}
+  25%{transform:rotate(-12deg) scale(1.12);}
+  50%{transform:rotate(10deg) scale(1.12);}
+  75%{transform:rotate(-6deg) scale(1.08);}
+  100%{transform:rotate(0) scale(1.08);}
+}
+@media (prefers-reduced-motion: reduce){ .hero-cta-menu a:hover .cta-ico{animation:none;} }
+
+.hero.is-ready .hero-mark,.hero.is-ready .hero-eyebrow,.hero.is-ready h1,.hero.is-ready .subtitle{
+  animation:riseIn .9s var(--ease) forwards;
+}
+.hero.is-ready .hero-mark{animation-delay:.05s;}
+.hero.is-ready .hero-eyebrow{animation-delay:.18s;}
+.hero.is-ready h1{animation-delay:.32s;}
+.hero.is-ready .subtitle{animation-delay:.5s;}
+@keyframes riseIn{to{opacity:1; transform:translateY(0);}}
+
+/* ===== MARQUEE TICKER ===== */
+.marquee{
+  background:var(--brown-900, #050505); border-top:1px solid var(--line-on-dark, rgba(245,243,238,.24)); border-bottom:1px solid var(--line-on-dark, rgba(245,243,238,.24));
+  overflow:hidden; padding:16px 0; white-space:nowrap;
+}
+.marquee-track{
+  display:inline-flex; align-items:center; gap:36px;
+  animation:marqueeScroll 32s linear infinite;
+  will-change:transform;
+}
+@media (prefers-reduced-motion: reduce){ .marquee-track{animation:none;} }
+.marquee-track span{
+  font-family:'Spectral',serif; font-style:normal; font-weight:600; font-size:16px; color:var(--bronze-light, #E9CE7A);
+  letter-spacing:.05em; text-transform:uppercase; display:inline-flex; align-items:center; gap:36px;
+}
+.marquee-track .dot{color:var(--bronze, #D4AF37); font-style:normal; font-size:10px;}
+@keyframes marqueeScroll{ from{transform:translateX(0);} to{transform:translateX(-50%);} }
+
+/* ===== STATS ===== */
+.stats{
+  background:var(--ivory, #0A0A0B); border-bottom:1px solid var(--line, rgba(245,243,238,.12));
+}
+.stats .container{
+  display:grid; grid-template-columns:repeat(3,1fr);
+  padding:72px 28px 76px;
+  position:relative;
+}
+.stats .container::before{
+  content:''; position:absolute; top:0; left:28px; right:28px; height:1px; background:var(--line, rgba(245,243,238,.12));
+}
+.stat{
+  text-align:center; padding:0 20px;
+}
+.stat-ico{
+  color:var(--bronze, #D4AF37); margin-bottom:16px; display:flex; justify-content:center;
+  transition:filter .4s var(--ease), transform .4s var(--ease);
+}
+.stat-ico svg{width:34px; height:34px;}
+.stat:hover .stat-ico{transform:scale(1.12) rotate(-4deg); filter:drop-shadow(0 0 10px rgba(212,175,55,.55));}
+.stat .num{
+  font-family:'Spectral',serif; font-size:clamp(38px,5vw,58px); color:var(--bronze, #D4AF37); font-weight:400;
+  font-style:normal; letter-spacing:-.01em;
+}
+.stat .label{
+  margin-top:12px; font-size:12px; color:var(--ink-soft, rgba(245,243,238,.66));
+  letter-spacing:.14em; text-transform:uppercase;
+}
+
+/* ===== SECTION generic ===== */
+section{padding:110px 0;}
+.section-alt{background:var(--ivory-deep, #141416);}
+.section-head{max-width:640px; margin-bottom:56px;}
+.section-head h2{font-size:clamp(28px,4vw,42px);}
+.section-head .kicker{
+  display:block; margin-bottom:14px; font-size:14px; color:var(--bronze, #D4AF37); font-style:normal; font-family:'Sora',serif;
+}
+
+/* ===== ABOUT ===== */
+.about-grid{display:grid; grid-template-columns:.9fr 1.1fr; gap:70px; align-items:start;}
+.about-grid p{margin-bottom:20px; color:var(--ink-soft, rgba(245,243,238,.66)); font-size:16.5px; max-width:60ch;}
+.about-grid .lead{font-family:'Spectral',serif; font-size:24px; color:var(--ink, #F5F3EE); font-weight:400; margin-bottom:26px; max-width:20ch;}
+.principles{list-style:none; margin:28px 0 0; padding:0; display:grid; gap:14px;}
+.principles li{display:flex; gap:12px; align-items:flex-start; font-size:15.5px; color:var(--ink, #F5F3EE);}
+.principles li .mk{color:var(--bronze, #D4AF37); font-family:'Spectral',serif; font-size:18px; line-height:1.3;}
+.pullquote{
+  margin-top:34px; padding-left:20px; border-left:2px solid var(--bronze, #D4AF37);
+  font-family:'Spectral',serif; font-style:normal; font-size:20px; color:var(--bronze-light, #E9CE7A);
+}
+
+/* ===== STATEMENT (editorial big quote) ===== */
+.statement{
+  background:var(--brown-800, #0A0A0B); padding:100px 0; text-align:center;
+}
+.statement-text{
+  font-family:'Spectral',serif; font-style:normal; font-weight:400; color:var(--ink, #F5F3EE);
+  font-size:clamp(24px,3.6vw,40px); max-width:820px; margin:0 auto; line-height:1.35;
+  position:relative; padding:0 0 0 0;
+}
+.statement-text::before, .statement-text::after{
+  content:''; display:block; width:52px; height:1px; background:var(--bronze-light, #E9CE7A);
+  margin:0 auto 28px;
+}
+.statement-text::after{ margin:28px auto 0; }
+
+/* ===== PRICING ===== */
+.pricing-grid{
+  margin-top:56px; display:grid; grid-template-columns:repeat(3,1fr); gap:26px;
+  align-items:start;
+}
+.pricing-card{
+  background:var(--ivory, #0A0A0B); border:1px solid var(--line, rgba(245,243,238,.12));
+  border-radius:4px; padding:40px 32px; text-align:left; position:relative;
+  transition:transform .5s var(--ease), box-shadow .5s var(--ease), border-color .35s var(--ease), opacity .5s var(--ease);
+}
+html.js-ready .pricing-card{opacity:0; transform:translateY(30px);}
+html.js-ready .pricing-card.in{opacity:1; transform:translateY(0);}
+.pricing-card.popular{border-color:var(--bronze, #D4AF37); transform:translateY(-14px);}
+html.js-ready .pricing-card.popular.in{transform:translateY(-14px);}
+.pricing-card:hover{transform:translateY(-10px); box-shadow:var(--glow, 0 0 32px rgba(212,175,55,.28));}
+.pricing-card.popular:hover{transform:translateY(-22px);}
+.pricing-card .badge{
+  position:absolute; top:-14px; left:50%; transform:translateX(-50%);
+  background:var(--bronze, #D4AF37); color:#0A0A0B; font-size:11px; letter-spacing:.08em;
+  text-transform:uppercase; padding:6px 16px; border-radius:999px; white-space:nowrap; font-weight:600;
+}
+.pricing-card .p-name{font-family:'Spectral',serif; font-size:30px; font-weight:600; text-align:center; display:block;}
+.pricing-card .p-price{margin-top:18px; display:flex; align-items:baseline; gap:8px; justify-content:center;}
+.pricing-card .p-price .amount{font-family:'Spectral',serif; font-size:34px; color:var(--bronze, #D4AF37); font-weight:600;}
+.pricing-card .p-price .unit{font-size:13px; color:var(--ink-soft, rgba(245,243,238,.66));}
+.pricing-card .p-features{list-style:none; margin:28px 0 0; padding:0; display:grid; gap:13px;}
+.pricing-card .p-features li{display:flex; gap:10px; align-items:flex-start; font-size:14px; color:var(--ink, #F5F3EE);}
+.pricing-card .p-features li svg{width:16px; height:16px; flex-shrink:0; margin-top:2px; color:var(--bronze, #D4AF37);}
+.pricing-card .p-features li.not{color:var(--ink-soft, rgba(245,243,238,.4)); opacity:.55;}
+.pricing-card .p-features li.not svg{color:var(--ink-soft, rgba(245,243,238,.35));}
+.pricing-card .p-features li.not span{text-decoration:line-through; text-decoration-color:rgba(245,243,238,.25);}
+.pricing-card .p-cta{
+  display:block; text-align:center; margin-top:30px; padding:13px; border-radius:2px;
+  border:1px solid var(--line-on-dark, rgba(245,243,238,.24)); color:var(--ink, #F5F3EE);
+  text-decoration:none; font-size:13.5px; letter-spacing:.08em; text-transform:uppercase;
+  transition:background .3s var(--ease), color .3s var(--ease), border-color .3s var(--ease);
+}
+.pricing-card .p-cta:hover{background:var(--bronze, #D4AF37); color:#0A0A0B; border-color:var(--bronze, #D4AF37);}
+.pricing-card.popular .p-cta{background:var(--bronze, #D4AF37); color:#0A0A0B; border-color:var(--bronze, #D4AF37);}
+.pricing-card.popular .p-cta:hover{background:var(--bronze-light, #E9CE7A); border-color:var(--bronze-light, #E9CE7A);}
+
+/* ===== PRINCIPLES GRID (feature cards) ===== */
+.principles-grid{
+  margin-top:56px; display:grid; grid-template-columns:repeat(3,1fr); gap:1px;
+  background:var(--line, rgba(245,243,238,.12)); border:1px solid var(--line, rgba(245,243,238,.12));
+}
+.principle-card{
+  background:var(--ivory, #0A0A0B); padding:40px 32px; text-align:left;
+  transition:background .35s var(--ease), transform .35s var(--ease);
+}
+.principle-card:hover{background:var(--ivory-deep, #141416); transform:translateY(-4px); box-shadow:var(--glow, 0 0 32px rgba(212,175,55,.28));}
+.principle-card .p-ico{color:var(--bronze, #D4AF37); margin-bottom:22px;}
+.principle-card .p-ico svg{width:30px; height:30px;}
+.principle-card h3{font-size:18px; margin-bottom:10px; line-height:1.3;}
+.principle-card p{font-size:14.5px; color:var(--ink-soft, rgba(245,243,238,.66));}
+
+/* ===== HOW WE WORK ===== */
+.steps{display:grid; grid-template-columns:repeat(4,1fr); gap:0; position:relative;}
+.steps::before{
+  content:''; position:absolute; top:23px; left:6%; right:6%; height:1px; background:var(--line, rgba(245,243,238,.12));
+}
+.step{position:relative; padding:0 22px; text-align:left;}
+.step .idx{
+  display:inline-flex; align-items:center; justify-content:center;
+  width:46px; height:46px; border-radius:50%; background:var(--ivory-deep, #141416); border:1px solid var(--line, rgba(245,243,238,.12));
+  font-family:'Spectral',serif; color:var(--bronze, #D4AF37); font-size:17px; position:relative; z-index:2;
+  margin-bottom:22px;
+}
+.step h3{font-size:19px; margin-bottom:10px;}
+.step p{color:var(--ink-soft, rgba(245,243,238,.66)); font-size:15px;}
+
+/* ===== SERVICES ===== */
+.service-list{border-top:1px solid var(--line, rgba(245,243,238,.12));}
+.service-row{
+  display:grid; grid-template-columns:44px 1fr auto; gap:22px; align-items:center;
+  padding:24px 6px; border-bottom:1px solid var(--line, rgba(245,243,238,.12));
+  transition:background .3s var(--ease), padding-left .3s var(--ease);
+}
+.service-row:hover{background:var(--ivory-deep, #141416); padding-left:16px; box-shadow:inset 3px 0 0 var(--bronze, #D4AF37);}
+.service-row .ico{color:var(--bronze, #D4AF37); flex-shrink:0;}
+.service-row .ico svg{width:26px; height:26px; display:block;}
+.service-row h3{font-size:19px; margin-bottom:5px;}
+.service-row p{color:var(--ink-soft, rgba(245,243,238,.66)); font-size:14.5px;}
+.service-row .dur{
+  font-size:13px; color:var(--bronze, #D4AF37); white-space:nowrap; border:1px solid var(--line, rgba(245,243,238,.12));
+  padding:6px 12px; border-radius:999px;
+}
+
+/* ===== GALLERY ===== */
+.filters{display:flex; flex-wrap:wrap; gap:12px; margin-bottom:48px;}
+.filter-btn{
+  position:relative; background:var(--ivory, #0A0A0B); border:1px solid var(--line-on-dark, rgba(245,243,238,.24));
+  color:var(--ink-soft, rgba(245,243,238,.66)); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase; font-weight:500;
+  padding:11px 22px; border-radius:3px; font-family:'Sora',serif;
+  transition:color .25s var(--ease), border-color .25s var(--ease), background .15s var(--ease), box-shadow .15s var(--ease), transform .15s var(--ease);
+  box-shadow:0 2px 0 0 var(--line-on-dark, rgba(245,243,238,.24));
+}
+.filter-btn:hover{color:var(--ink, #F5F3EE); border-color:var(--bronze, #D4AF37);}
+.filter-btn.active{
+  background:var(--bronze, #D4AF37); color:#0A0A0B; border-color:var(--bronze, #D4AF37);
+  box-shadow:inset 0 2px 4px rgba(0,0,0,.35), 0 0 20px rgba(212,175,55,.35);
+  transform:translateY(1px);
+}
+.gallery-grid{display:grid; grid-template-columns:repeat(3,1fr); grid-auto-rows:1fr; gap:22px;}
+.g-item{
+  position:relative; aspect-ratio:4/5; overflow:hidden; border-radius:2px; cursor:pointer;
+  background:var(--brown-800, #0A0A0B); transition:transform .5s var(--ease), box-shadow .5s var(--ease), opacity .5s var(--ease);
+}
+.g-item.tall{aspect-ratio:4/6.4;}
+html.js-ready .g-item{opacity:0; transform:translateY(28px) scale(.97);}
+html.js-ready .g-item.in{opacity:1; transform:translateY(0) scale(1);}
+.g-item:hover, .g-item:focus-visible{transform:translateY(-8px) scale(1.015); box-shadow:var(--shadow, 0 25px 60px -20px rgba(0,0,0,.8)), 0 0 0 1px var(--bronze, #D4AF37);}
+.g-item.hide{opacity:0 !important; transform:scale(.9) !important; pointer-events:none; position:absolute; visibility:hidden;}
+.g-item svg{position:absolute; inset:0; width:100%; height:100%; transition:transform .6s var(--ease);}
+.g-item img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition:transform .6s var(--ease);}
+.g-item:hover img{transform:scale(1.08);}
+.g-item:hover svg{transform:scale(1.08);}
+.g-caption{
+  position:absolute; left:0; right:0; bottom:0; padding:20px;
+  background:linear-gradient(0deg, rgba(0,0,0,.9), rgba(0,0,0,.35) 60%, transparent);
+  color:var(--ink, #F5F3EE); text-align:left;
+  transform:translateY(8px); transition:transform .4s var(--ease);
+}
+.g-item:hover .g-caption{transform:translateY(0);}
+.g-caption .line{display:block; width:0; height:1px; background:var(--bronze, #D4AF37); margin-bottom:10px; transition:width .45s var(--ease) .05s;}
+.g-item:hover .g-caption .line{width:32px;}
+.g-caption .cat{font-size:11.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--bronze-light, #E9CE7A); font-style:normal;}
+.g-caption .title{font-family:'Spectral',serif; font-size:17px; margin-top:5px; font-weight:600;}
+.gallery-note{margin-top:26px; font-size:13.5px; color:var(--ink-soft, rgba(245,243,238,.66)); font-style:normal;}
+
+/* Before / After */
+.ba-wrap{margin-top:60px;}
+.ba-label{font-size:14px; color:var(--bronze, #D4AF37); font-style:normal; margin-bottom:16px; display:block;}
+.ba-slider{
+  position:relative; aspect-ratio:16/8; border-radius:2px; overflow:hidden; user-select:none;
+  box-shadow:var(--shadow, 0 25px 60px -20px rgba(0,0,0,.8));
+}
+.ba-slider .layer{position:absolute; inset:0;}
+.ba-slider .layer svg{width:100%; height:100%;}
+.ba-slider .after-layer{clip-path:inset(0 0 0 50%);}
+.ba-slider input[type=range]{
+  position:absolute; inset:0; width:100%; height:100%; margin:0; opacity:0; cursor:ew-resize;
+}
+.ba-handle{
+  position:absolute; top:0; bottom:0; left:50%; width:0; pointer-events:none;
+}
+.ba-handle::before{content:''; position:absolute; top:0; bottom:0; left:-1px; width:2px; background:var(--bronze, #D4AF37);}
+.ba-handle::after{
+  content:'⇔'; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+  width:42px; height:42px; background:var(--bronze, #D4AF37); border-radius:50%; display:flex; align-items:center; justify-content:center;
+  color:#0A0A0B; font-size:18px; box-shadow:var(--glow, 0 0 32px rgba(212,175,55,.28));
+}
+.ba-tags{position:absolute; bottom:16px; display:flex; justify-content:space-between; left:16px; right:16px; pointer-events:none;}
+.ba-tag{background:rgba(0,0,0,.7); color:var(--ink, #F5F3EE); font-size:12px; padding:6px 12px; border-radius:999px; letter-spacing:.03em; border:1px solid var(--line-on-dark, rgba(245,243,238,.24));}
+
+/* ===== FAQ ===== */
+.faq-list{border-top:1px solid var(--line, rgba(245,243,238,.12));}
+.faq-item{border-bottom:1px solid var(--line, rgba(245,243,238,.12));}
+.faq-q{
+  width:100%; text-align:left; background:none; border:none; padding:26px 4px;
+  display:flex; justify-content:space-between; align-items:center; gap:20px;
+  font-family:'Spectral',serif; font-size:19px; color:var(--ink, #F5F3EE);
+}
+.faq-q .plus{font-size:22px; color:var(--bronze, #D4AF37); transition:transform .35s var(--ease); flex-shrink:0;}
+.faq-item.open .faq-q .plus{transform:rotate(45deg);}
+.faq-a{max-height:0; overflow:hidden; transition:max-height .4s var(--ease);}
+.faq-a p{padding:0 4px 26px; color:var(--ink-soft, rgba(245,243,238,.66)); max-width:64ch; font-size:15.5px;}
+
+/* ===== CONTACT ===== */
+.contact{
+  background:linear-gradient(180deg, var(--brown-800, #0A0A0B), var(--brown-900, #050505));
+  color:var(--ink, #F5F3EE); text-align:center;
+}
+.contact h2{font-size:clamp(28px,4vw,44px); max-width:600px; margin:0 auto;}
+.contact .sub{margin:20px auto 0; max-width:480px; color:var(--bronze-light, #E9CE7A); font-size:16px;}
+.contact-links{display:flex; flex-wrap:wrap; justify-content:center; gap:16px; margin-top:44px;}
+.contact-links a{
+  border:1px solid var(--line-on-dark, rgba(245,243,238,.24)); border-radius:999px; padding:15px 28px;
+  text-decoration:none; color:var(--ink, #F5F3EE); font-size:15px; display:inline-flex; gap:10px; align-items:center;
+  transition:transform .3s var(--ease), background .3s var(--ease), border-color .3s var(--ease);
+}
+.contact-links a:hover{transform:scale(1.06); background:var(--bronze, #D4AF37); border-color:var(--bronze, #D4AF37);}
+.contact-links svg{width:18px; height:18px;}
+
+/* ===== FOOTER ===== */
+footer{background:var(--brown-900, #050505); color:var(--bronze-light, #E9CE7A); padding:36px 0; font-size:13.5px;}
+footer .container{display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px;}
+footer img{height:22px; opacity:.85;}
+
+/* Floating quick contact */
+.floaters{
+  position:fixed; right:22px; bottom:22px; z-index:150; display:flex; flex-direction:column; gap:12px;
+  opacity:0; transform:translateY(14px); pointer-events:none; transition:opacity .4s var(--ease), transform .4s var(--ease);
+}
+.floaters.show{opacity:1; transform:translateY(0); pointer-events:auto;}
+.float-btn{
+  width:52px; height:52px; border-radius:50%; background:var(--brown-800, #0A0A0B); color:var(--ink, #F5F3EE);
+  display:flex; align-items:center; justify-content:center; box-shadow:var(--shadow, 0 25px 60px -20px rgba(0,0,0,.8));
+  transition:transform .3s var(--ease), background .3s var(--ease);
+}
+.float-btn:hover{transform:scale(1.12) rotate(-6deg); background:var(--bronze, #D4AF37); box-shadow:var(--glow, 0 0 32px rgba(212,175,55,.28));}
+.float-btn svg{width:24px; height:24px;}
+
+/* Lightbox */
+.lightbox{
+  position:fixed; inset:0; background:rgba(0,0,0,.94); z-index:500;
+  display:flex; align-items:center; justify-content:center; opacity:0; pointer-events:none;
+  transition:opacity .3s var(--ease);
+}
+.lightbox.open{opacity:1; pointer-events:auto;}
+.lightbox-inner{max-width:min(90vw,720px); width:100%; text-align:center;}
+.lightbox-inner .lb-svg{width:100%; max-width:100%; height:auto; max-height:min(62vh,576px); aspect-ratio:4/5; background:var(--brown-800, #0A0A0B); border-radius:2px; overflow:hidden; margin:0 auto;}
+.lightbox-inner .lb-svg svg{width:100%; height:100%;}
+.lightbox-inner .lb-title{color:var(--ink, #F5F3EE); font-family:'Spectral',serif; margin-top:20px; font-size:20px;}
+.lightbox-inner .lb-cat{color:var(--bronze-light, #E9CE7A); font-style:normal; font-size:13px; margin-top:6px;}
+.lb-close, .lb-prev, .lb-next{
+  position:absolute; background:none; border:1px solid var(--line-on-dark, rgba(245,243,238,.24)); color:var(--ink, #F5F3EE);
+  border-radius:50%; width:46px; height:46px; display:flex; align-items:center; justify-content:center;
+  transition:transform .3s var(--ease), background .3s var(--ease);
+}
+.lb-close:hover, .lb-prev:hover, .lb-next:hover{background:var(--bronze, #D4AF37); transform:scale(1.1);}
+.lb-close{top:26px; right:26px;}
+.lb-prev{left:26px; top:50%; transform:translateY(-50%);}
+.lb-next{right:26px; top:50%; transform:translateY(-50%);}
+.lb-prev:hover, .lb-next:hover{transform:translateY(-50%) scale(1.1);}
+
+/* Reveal on scroll (subtle, used once per section on first entry) */
+.reveal{opacity:1;}
+html.js-ready .reveal{opacity:0; transform:translateY(24px); transition:opacity .8s var(--ease), transform .8s var(--ease);}
+html.js-ready .reveal.in{opacity:1; transform:none;}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width:920px){
+  .about-grid{grid-template-columns:1fr; gap:30px;}
+  .principles-grid{grid-template-columns:1fr;}
+  .steps{grid-template-columns:repeat(2,1fr); row-gap:40px;}
+  .steps::before{display:none;}
+  .gallery-grid{grid-template-columns:repeat(2,1fr);}
+  .pricing-grid{grid-template-columns:1fr; gap:44px;}
+  .pricing-card.popular{transform:translateY(0);}
+  html.js-ready .pricing-card.popular.in{transform:translateY(0);}
+  .pricing-card.popular:hover{transform:translateY(-10px);}
+  .stats .container{padding:40px 20px;}
+}
+@media (max-width:720px){
+  .nav-links, .lang-group.desktop-only{display:none;}
+  .burger{display:block;}
+  .nav-tools .lang-group{display:none;}
+  .nav-tools{gap:6px;}
+  section{padding:76px 0;}
+  .service-row{grid-template-columns:36px 1fr; row-gap:10px;}
+  .service-row .dur{grid-column:2; justify-self:start;}
+  .gallery-grid{grid-template-columns:1fr 1fr;}
+  .contact-links a{padding:13px 20px; font-size:14px;}
+}
+@media (max-width:540px){
+  .stats .container{grid-template-columns:repeat(3,1fr); gap:8px; padding:36px 14px;}
+  .stat{padding:0 4px;}
+  .stat-ico svg{width:24px; height:24px;}
+  .stat .num{font-size:clamp(22px,7vw,32px);}
+  .stat .label{font-size:9.5px; letter-spacing:.06em; margin-top:8px;}
+  .gallery-grid{grid-template-columns:1fr;}
+}
+
+/* ===== KICHIK TELEFONLAR UCHUN QO'SHIMCHA SOZLAMALAR (<=480px) ===== */
+@media (max-width:480px){
+  .container{padding:0 18px;}
+  section{padding:56px 0;}
+  .hero{padding:104px 18px 56px; min-height:100svh;}
+  .hero-mark{width:52px; height:52px; margin-bottom:22px;}
+  .hero .subtitle{font-size:16px; margin-top:20px;}
+  .hero-cta-menu{min-width:0; width:calc(100vw - 48px); max-width:280px;}
+  .section-head{margin-bottom:36px;}
+  .about-grid{gap:22px;}
+  .about-grid .lead{font-size:20px;}
+  .about-grid p{font-size:15.5px;}
+  .principles-grid{gap:1px;}
+  .principle-card, .pricing-card{padding:28px 20px;}
+  .pricing-card .p-name{font-size:24px;}
+  .steps{grid-template-columns:1fr; row-gap:32px;}
+  .step{padding:0;}
+  .service-row{grid-template-columns:32px 1fr; gap:14px; padding:18px 4px;}
+  .service-row .dur{grid-column:2; justify-self:start; margin-top:4px;}
+  .service-row h3{font-size:17px;}
+  .filters{gap:8px; margin-bottom:32px;}
+  .filter-btn{padding:9px 16px; font-size:11.5px;}
+  .g-caption{padding:14px;}
+  .g-caption .title{font-size:15px;}
+  .ba-slider .ba-handle::after{width:36px; height:36px; font-size:15px;}
+  .faq-q{font-size:16.5px; padding:20px 2px; gap:12px;}
+  .faq-a p{font-size:14.5px; padding:0 2px 20px;}
+  .contact-links{gap:10px;}
+  .contact-links a{padding:12px 18px; font-size:13.5px;}
+  footer .container{justify-content:center; text-align:center;}
+  .floaters{right:14px; bottom:14px; gap:10px;}
+  .float-btn{width:46px; height:46px;}
+  .float-btn svg{width:20px; height:20px;}
+  .lb-close, .lb-prev, .lb-next{width:38px; height:38px;}
+  .lb-close{top:12px; right:12px;}
+  .lb-prev{left:8px;}
+  .lb-next{right:8px;}
+  .lightbox-inner .lb-title{font-size:17px;}
+  #adminPanel{padding:24px 12px;}
+  .admin-box{padding:20px;}
+  .admin-box h3{font-size:19px;}
+}
+
+/* Mobile nav drawer */
+.mobile-drawer{
+  position:fixed; inset:0; background:var(--brown-900, #050505); z-index:300;
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:34px;
+  opacity:0; pointer-events:none; transition:opacity .35s var(--ease);
+}
+.mobile-drawer.open{opacity:1; pointer-events:auto;}
+.mobile-drawer a{color:var(--ink, #F5F3EE); text-decoration:none; font-family:'Spectral',serif; font-size:24px; text-transform:uppercase; letter-spacing:.03em;}
+.mobile-drawer .close-drawer{position:absolute; top:26px; right:26px; background:none; border:none; color:var(--ink, #F5F3EE); font-size:28px;}
+.mobile-drawer .lang-group{margin-top:10px;}
+.mobile-drawer .lang-btn{color:var(--ink, #F5F3EE); font-size:16px;}
+
+/* ADMIN PANEL */
+#adminPanel{position:fixed; inset:0; z-index:9999; background:rgba(5,5,5,.92); display:none; align-items:flex-start; justify-content:center; overflow:auto; padding:60px 20px;}
+#adminPanel.open{display:flex;}
+.admin-box{background:var(--ivory-deep,#141416); border:1px solid var(--line-on-dark,rgba(245,243,238,.24)); border-radius:10px; padding:28px; width:100%; max-width:480px; font-family:'Inter',sans-serif; color:var(--ink,#F5F3EE);}
+.admin-box h3{font-family:'Spectral',serif; font-size:22px; margin:0 0 18px; color:var(--bronze,#D4AF37);}
+.admin-box label{display:block; font-size:13px; margin:14px 0 6px; color:var(--ink-soft,rgba(245,243,238,.66));}
+.admin-box input[type=text],.admin-box input[type=password],.admin-box select{width:100%; padding:12px; background:var(--brown-800,#0A0A0B); border:1px solid var(--line,rgba(245,243,238,.12)); border-radius:6px; color:var(--ink,#F5F3EE); font-size:16px;}
+.admin-box input[type=file]{width:100%; margin-top:4px; color:var(--ink-soft,rgba(245,243,238,.66)); font-size:13px;}
+.admin-box button{margin-top:20px; width:100%; padding:12px; background:var(--bronze,#D4AF37); color:#0A0A0B; border:none; border-radius:6px; font-weight:600; cursor:pointer; font-size:14px;}
+.admin-box button:disabled{opacity:.5; cursor:not-allowed;}
+.admin-box .admin-msg{margin-top:12px; font-size:13px; min-height:18px;}
+.admin-box .admin-close{position:absolute; top:14px; right:18px; background:none; border:none; color:var(--ink-soft,rgba(245,243,238,.66)); font-size:22px; cursor:pointer;}
+.admin-box{position:relative;}
+.admin-list{margin-top:22px; border-top:1px solid var(--line,rgba(245,243,238,.12)); padding-top:14px; max-height:220px; overflow:auto;}
+.admin-list-item{display:flex; align-items:center; gap:10px; padding:8px 0; border-bottom:1px solid var(--line,rgba(245,243,238,.12)); font-size:13px;}
+.admin-list-item img{width:44px; height:44px; object-fit:cover; border-radius:4px; flex-shrink:0;}
+.admin-list-item span{flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+.admin-list-item button{margin:0; width:auto; padding:5px 10px; font-size:12px; background:rgba(220,80,80,.85); color:#fff;}
+</style>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
+</head>
+<body>
+
+<a href="#main" class="skip-link" data-i18n="a11y.skip">Asosiy kontentga o'tish</a>
+
+<!-- NAVBAR -->
+<nav class="nav" id="nav">
+  <div class="container">
+    <a href="#home" class="brand" aria-label="YAHYO.DESIGN">
+      <img class="logo-ivory" src="images/logo.png" alt="">
+      <span class="brand-word">YAHYO.DESIGN</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#work" data-i18n="nav.work">Ishlarimiz</a></li>
+      <li><a href="#about" data-i18n="nav.about">Biz haqimizda</a></li>
+      <li><a href="#services" data-i18n="nav.services">Xizmat turlari</a></li>
+      <li><a href="#pricing" data-i18n="nav.pricing">Narxlar</a></li>
+      <li><a href="#faq" data-i18n="nav.faq">Savol-javob</a></li>
+      <li><a href="#contact" data-i18n="nav.contact">Bog'lanish</a></li>
+    </ul>
+    <div class="nav-tools">
+      <div class="lang-group desktop-only" role="group" aria-label="Til / Язык / Language">
+        <button class="lang-btn" data-lang="uz">UZ</button>
+        <button class="lang-btn" data-lang="ru">RU</button>
+        <button class="lang-btn" data-lang="en">EN</button>
+      </div>
+      <button class="burger" id="burgerBtn" aria-label="Menyu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- MOBILE DRAWER -->
+<div class="mobile-drawer" id="mobileDrawer">
+  <button class="close-drawer" id="closeDrawer" aria-label="Yopish">×</button>
+  <a href="#work" data-i18n="nav.work">Ishlarimiz</a>
+  <a href="#about" data-i18n="nav.about">Biz haqimizda</a>
+  <a href="#services" data-i18n="nav.services">Xizmat turlari</a>
+  <a href="#pricing" data-i18n="nav.pricing">Narxlar</a>
+  <a href="#faq" data-i18n="nav.faq">Savol-javob</a>
+  <a href="#contact" data-i18n="nav.contact">Bog'lanish</a>
+  <div class="lang-group">
+    <button class="lang-btn" data-lang="uz">UZ</button>
+    <button class="lang-btn" data-lang="ru">RU</button>
+    <button class="lang-btn" data-lang="en">EN</button>
+  </div>
+</div>
+
+<main id="main">
+<!-- HERO -->
+<header class="hero" id="home">
+  <div class="hero-pan" aria-hidden="true"></div>
+  <div class="hero-vignette" aria-hidden="true"></div>
+  <img class="hero-mark" src="images/logo.png" alt="">
+  <span class="hero-eyebrow" data-i18n="hero.eyebrow">Arxitektura va interyer dizayni studiyasi</span>
+  <h1 data-i18n-html="hero.title.html">YAHYO.DESIGN bilan birgalikda <em>unutilmas ilk taassurot</em> yarating.</h1>
+  <p class="subtitle" data-i18n="hero.subtitle">Biz g'oyalarni yashash uchun qulay va estetik interyerga aylantiramiz.</p>
+  <div class="hero-cta-wrap">
+    <button type="button" class="btn" id="heroCtaBtn" data-i18n="hero.cta" aria-haspopup="true" aria-expanded="false">Biz bilan bog'laning</button>
+    <div class="hero-cta-menu" id="heroCtaMenu">
+      <a href="tel:+998771117060">
+        <span class="cta-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span>
+        <span>+998 77 111 70 60</span>
+      </a>
+      <a href="https://www.instagram.com/yahyo.design" target="_blank" rel="noopener">
+        <span class="cta-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="6"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"/></svg></span>
+        <span>Instagram</span>
+      </a>
+      <a href="https://t.me/SY_Design_and_Architecture" target="_blank" rel="noopener">
+        <span class="cta-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M21 4.5 3 11.7l6 2.1M21 4.5 14.5 20l-5.5-6.2M21 4.5 9 13.8"/></svg></span>
+        <span>Telegram</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- MARQUEE TICKER -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track" id="marqueeTrack"></div>
+</div>
+
+<!-- STATS -->
+<section class="stats reveal">
+  <div class="container">
+    <div class="stat">
+      <div class="stat-ico"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="24" cy="24" r="18"/><path d="M24 14v10l8 6"/></svg></div>
+      <div class="num" data-count="5" data-suffix="+">0</div>
+      <div class="label" data-i18n="stats.years">Yillik tajriba</div>
+    </div>
+    <div class="stat">
+      <div class="stat-ico"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="17" cy="17" r="6"/><circle cx="33" cy="17" r="6"/><path d="M6 40c0-7 5-12 11-12s11 5 11 12M22 40c0-7 5-12 11-12s11 5 11 12"/></svg></div>
+      <div class="num" data-count="100" data-suffix="+">0</div>
+      <div class="label" data-i18n="stats.clients">Mamnun mijoz</div>
+    </div>
+    <div class="stat">
+      <div class="stat-ico"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="7" y="7" width="14" height="14" rx="1"/><rect x="27" y="7" width="14" height="14" rx="1"/><rect x="7" y="27" width="14" height="14" rx="1"/><rect x="27" y="27" width="14" height="14" rx="1"/></svg></div>
+      <div class="num" data-count="9" data-suffix="">0</div>
+      <div class="label" data-i18n="stats.services">Xizmat yo'nalishi</div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY / WORK -->
+<section class="section-alt" id="work">
+  <div class="container">
+    <div class="section-head reveal">
+      <h2 data-i18n="gallery.heading">Ishlarimiz</h2>
+    </div>
+    <div class="filters reveal" id="filterList"></div>
+    <div class="gallery-grid reveal" id="galleryGrid"></div>
+    <p class="gallery-note" data-i18n="gallery.note">* Bu yerda tez orada haqiqiy loyiha suratlari joylashtiriladi. Hozircha namuna sifatida sxematik tasvirlar ko'rsatilmoqda.</p>
+
+    <div class="ba-wrap reveal">
+      <span class="ba-label" data-i18n="gallery.ba_label">Oldin / Keyin — suring va solishtiring</span>
+      <div class="ba-slider" id="baSlider">
+        <div class="layer before-layer" id="baBefore"></div>
+        <div class="layer after-layer" id="baAfter"></div>
+        <div class="ba-tags">
+          <span class="ba-tag" data-i18n="gallery.before">Oldin</span>
+          <span class="ba-tag" data-i18n="gallery.after">Keyin</span>
+        </div>
+        <div class="ba-handle" id="baHandle"></div>
+        <input type="range" min="0" max="100" value="50" id="baRange" aria-label="Oldin va keyin taqqoslash suringichi">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container about-grid">
+    <div class="reveal">
+      <div class="section-head" style="margin-bottom:0;">
+        <h2 data-i18n="about.heading">Biz haqimizda</h2>
+      </div>
+      <p class="lead" data-i18n="about.lead">Studiya emas — g'oyangizni yashaydigan makonga aylantiruvchi hamkoringiz.</p>
+    </div>
+    <div class="reveal">
+      <p data-i18n="about.p1">5 yildan beri biz Qo'qon va uning atrofida zamonaviy, funksional va estetik me'moriy yechimlar yaratib kelmoqdamiz. Ushbu yo'lda 100 dan ortiq mijozning ishonchini qozondik va ularning orzudagi makonlarini haqiqatga aylantirdik.</p>
+      <p data-i18n="about.p2">Asoschimiz Yahyo Saidxodjayev rahbarligida jamoamiz har bir loyihaga individual yondashadi — chunki har bir inson, har bir oila, har bir biznes o'ziga xos xarakterga ega, va uning makoni ham shunday bo'lishi kerak.</p>
+      <p data-i18n="about.p3">Biz g'oyadan boshlab, obyekt topshirilgunga qadar har bir detalga ahamiyat qaratamiz. Sizning vaqtingiz va mablag'ingizni qadrlaymiz, shuning uchun:</p>
+    </div>
+  </div>
+  <div class="container">
+    <div class="principles-grid" id="principlesList"></div>
+  </div>
+</section>
+
+<!-- HOW WE WORK -->
+<section class="section-alt">
+  <div class="container">
+    <div class="section-head reveal">
+      <h2 data-i18n="how.heading">Qanday ishlaymiz</h2>
+    </div>
+    <div class="steps" id="stepsList"></div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="container">
+    <div class="section-head reveal">
+      <h2 data-i18n="services.heading">Xizmat turlari</h2>
+    </div>
+    <div class="service-list reveal" id="serviceList"></div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing" class="section-alt">
+  <div class="container">
+    <div class="section-head reveal">
+      <h2 data-i18n="pricing.heading">Narxlar</h2>
+      <p class="lead" data-i18n="pricing.lead">Har bir loyiha o'ziga xos — quyidagi narxlar taxminiy boshlang'ich ko'rsatkich.</p>
+    </div>
+    <div class="pricing-grid" id="pricingGrid"></div>
+    <p class="gallery-note" data-i18n="pricing.note">* Narxlar taxminiy va 1 m² uchun ko'rsatilgan.</p>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" class="section-alt">
+  <div class="container">
+    <div class="section-head reveal">
+      <h2 data-i18n="faq.heading">Tez-tez so'raladigan savollar</h2>
+    </div>
+    <div class="faq-list reveal" id="faqList"></div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="container">
+    <h2 data-i18n="contact.heading">Loyihangizni boshlaylik</h2>
+    <p class="sub" data-i18n="contact.sub">Bepul konsultatsiya uchun bog'laning — g'oyangizni birga muhokama qilamiz.</p>
+    <div class="contact-links">
+      <a href="tel:+998771117060">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        +998 77 111 70 60
+      </a>
+      <a href="https://www.instagram.com/yahyo.design" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>
+        Instagram
+      </a>
+      <a href="https://t.me/SY_Design_and_Architecture" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4 20-7Z"/></svg>
+        Telegram
+      </a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="container">
+    <img src="images/logo.png" alt="YAHYO.DESIGN" style="opacity:.85;">
+    <span data-i18n="footer.rights">© 2026 YAHYO.DESIGN. Barcha huquqlar himoyalangan.</span>
+  </div>
+</footer>
+
+<!-- FLOATING CONTACT -->
+<div class="floaters" id="floaters">
+  <a class="float-btn" href="https://www.instagram.com/yahyo.design" target="_blank" rel="noopener" aria-label="Instagram">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>
+  </a>
+  <a class="float-btn" href="https://t.me/SY_Design_and_Architecture" target="_blank" rel="noopener" aria-label="Telegram">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4 20-7Z"/></svg>
+  </a>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Loyiha ko'rinishi">
+  <button class="lb-close" id="lbClose" aria-label="Yopish">×</button>
+  <button class="lb-prev" id="lbPrev" aria-label="Oldingi">‹</button>
+  <button class="lb-next" id="lbNext" aria-label="Keyingi">›</button>
+  <div class="lightbox-inner">
+    <div class="lb-svg" id="lbSvg"></div>
+    <div class="lb-title" id="lbTitle"></div>
+    <div class="lb-cat" id="lbCat"></div>
+  </div>
+</div>
+
+<script>
+/* ============ ICONS (line-art, architecture themed) ============ */
+const ICONS = {
+  clock: `<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="24" cy="24" r="18"/><path d="M24 14v10l8 6"/></svg>`,
+  scale: `<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M24 6v36M14 12h20"/><path d="M14 12 6 26h16L14 12ZM34 12l-8 14h16l-8-14Z"/><path d="M10 26a4 4 0 0 0 8 0M30 26a4 4 0 0 0 8 0"/></svg>`,
+  ruler: `<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="6" y="18" width="36" height="12" transform="rotate(-8 24 24)"/><path d="M12 20l2 4M20 19l2 4M28 18l2 4M36 17l2 4"/></svg>`,
+  interior: `<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="6" y="10" width="36" height="28" rx="1"/><path d="M6 30h36M16 30V18a4 4 0 0 1 4-4h8a4 4 0 0 1 4 4v12"/><circle cx="24" cy="24" r="2"/></svg>`,
+  exterior: `<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M6 42V20L24 6l18 14v22"/><path d="M18 42V26h12v16"/><path d="M6 42h36"/></svg>`,
+  structure: `<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M8 40V16l16-8 16 8v24"/><path d="M8 24h32M8 32h32M16 16v24M32 16v24"/></svg>`,
+  landscape: `<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 36c6-10 10-4 14-10s6-14 12-14 8 12 14 18"/><circle cx="34" cy="12" r="4"/><path d="M4 40h40"/></svg>`,
+  drawings: `<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="10" y="6" width="28" height="36" rx="1"/><path d="M16 16h16M16 22h16M16 28h10"/></svg>`,
+  lighting: `<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="24" cy="18" r="10"/><path d="M19 34h10M20 40h8M21 28l-3 6h12l-3-6"/></svg>`,
+  plumbing: `<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M10 8v14a6 6 0 0 0 6 6h0a6 6 0 0 0 6-6V8"/><path d="M16 28v6M32 8v32M26 14h12"/></svg>`,
+  electrical: `<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M26 4 10 26h10l-4 18 20-24H26l4-16Z" stroke-linejoin="round"/></svg>`,
+  documents: `<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M14 4h14l8 8v32H14Z"/><path d="M28 4v8h8"/><path d="M19 26h12M19 32h12M19 20h6"/></svg>`
+};
+const SERVICE_ICON_ORDER = ['interior','exterior','structure','landscape','drawings','lighting','plumbing','electrical','documents'];
+
+/* Big line-art scenes used for gallery placeholders + lightbox + before/after */
+function scene(kind, tone){
+  const stroke = tone || 'rgba(212,175,55,.85)';
+  const bg = 'none';
+  const scenes = {
+    interior: `<svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" fill="${bg}" xmlns="http://www.w3.org/2000/svg"><rect width="400" height="500" fill="#141416"/><g stroke="${stroke}" stroke-width="1.3" fill="none"><rect x="40" y="60" width="320" height="380"/><path d="M40 320h320"/><rect x="70" y="150" width="110" height="80"/><path d="M70 190h110"/><circle cx="270" cy="200" r="34"/><path d="M40 440h320M120 440v-40M280 440v-40"/></g></svg>`,
+    exterior: `<svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" fill="${bg}" xmlns="http://www.w3.org/2000/svg"><rect width="400" height="500" fill="#141416"/><g stroke="${stroke}" stroke-width="1.3" fill="none"><path d="M60 460V220L200 90l140 130v240"/><path d="M150 460V330h100v130"/><path d="M60 460h280"/><path d="M110 260h40v40h-40zM250 260h40v40h-40z"/></g></svg>`,
+    landscape: `<svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" fill="${bg}" xmlns="http://www.w3.org/2000/svg"><rect width="400" height="500" fill="#141416"/><g stroke="${stroke}" stroke-width="1.3" fill="none"><path d="M40 400c40-70 70-30 100-70s50-100 90-100 60 90 100 130c20 20 30 30 30 30"/><circle cx="270" cy="150" r="26"/><path d="M40 430h320"/><path d="M100 430v-40M160 430v-60M220 430v-30"/></g></svg>`,
+    office: `<svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" fill="${bg}" xmlns="http://www.w3.org/2000/svg"><rect width="400" height="500" fill="#141416"/><g stroke="${stroke}" stroke-width="1.3" fill="none"><rect x="50" y="80" width="300" height="340"/><path d="M50 420h300"/><rect x="80" y="160" width="60" height="40"/><rect x="170" y="160" width="60" height="40"/><rect x="260" y="160" width="60" height="40"/><rect x="80" y="240" width="60" height="40"/><rect x="170" y="240" width="60" height="40"/><rect x="260" y="240" width="60" height="40"/></g></svg>`,
+    before: `<svg viewBox="0 0 400 200" fill="${bg}" xmlns="http://www.w3.org/2000/svg"><rect width="400" height="200" fill="#141416"/><g stroke="rgba(212,175,55,.45)" stroke-width="1.2" fill="none"><rect x="20" y="20" width="360" height="160"/><path d="M20 150h360"/><rect x="60" y="60" width="80" height="60"/></g></svg>`,
+    after: `<svg viewBox="0 0 400 200" fill="${bg}" xmlns="http://www.w3.org/2000/svg"><rect width="400" height="200" fill="#241c0d"/><g stroke="rgba(233,206,122,.95)" stroke-width="1.3" fill="none"><rect x="20" y="20" width="360" height="160"/><path d="M20 150h360"/><rect x="60" y="60" width="80" height="60"/><circle cx="230" cy="80" r="24"/><path d="M280 150v-50h80v50"/><path d="M300 130h40"/></g></svg>`
+  };
+  return scenes[kind] || scenes.interior;
+}
+
+/* ============ I18N CONTENT ============ */
+const I18N = {
+  uz: {
+    "a11y.skip":"Asosiy kontentga o'tish",
+    "a11y.contrast":"Kontrast",
+    "nav.about":"Biz haqimizda","nav.work":"Ishlarimiz","nav.services":"Xizmat turlari","nav.pricing":"Narxlar","nav.faq":"Savol-javob","nav.contact":"Bog'lanish",
+    "hero.eyebrow":"Arxitektura va interyer dizayni studiyasi",
+    "hero.title":"YAHYO.DESIGN bilan birgalikda unutilmas ilk taassurot yarating.",
+    "hero.title.html":"YAHYO.DESIGN bilan birgalikda <em>unutilmas ilk taassurot</em> yarating.",
+    "hero.subtitle":"Biz g'oyalarni yashash uchun qulay va estetik interyerga aylantiramiz.",
+    "hero.cta":"Biz bilan bog'laning",
+    "stats.years":"Yillik tajriba","stats.clients":"Mamnun mijoz","stats.services":"Xizmat yo'nalishi",
+    "about.heading":"Biz haqimizda",
+    "about.lead":"Studiya emas — g'oyangizni yashaydigan makonga aylantiruvchi hamkoringiz.",
+    "about.quote":"Keling, birga g'oyangizni haqiqatga aylantiraylik.",
+    "about.p1":"5 yildan beri biz Qo'qon va uning atrofida zamonaviy, funksional va estetik me'moriy yechimlar yaratib kelmoqdamiz. Ushbu yo'lda 100 dan ortiq mijozning ishonchini qozondik va ularning orzudagi makonlarini haqiqatga aylantirdik.",
+    "about.p2":"Asoschimiz Yahyo Saidxodjayev rahbarligida jamoamiz har bir loyihaga individual yondashadi — chunki har bir inson, har bir oila, har bir biznes o'ziga xos xarakterga ega, va uning makoni ham shunday bo'lishi kerak.",
+    "about.p3":"Biz g'oyadan boshlab, obyekt topshirilgunga qadar har bir detalga ahamiyat qaratamiz. Sizning vaqtingiz va mablag'ingizni qadrlaymiz, shuning uchun:",
+    "principles":[
+      {t:"Aniq muddatlar", d:"Belgilangan muddatlarga qat'iy amal qilamiz", ico:"clock"},
+      {t:"To'liq shaffoflik", d:"Har bir hisob-kitobda to'liq shaffoflik ta'minlaymiz", ico:"scale"},
+      {t:"Unumli maydon", d:"Har bir kvadrat metrdan maksimal unumli foydalanamiz", ico:"ruler"}
+    ],
+    "how.heading":"Qanday ishlaymiz",
+    "how.steps":[
+      {t:"Konsultatsiya", d:"Ehtiyoj va g'oyalaringizni tinglaymiz, birinchi tahlilni o'tkazamiz."},
+      {t:"Loyihalash", d:"G'oyani chizma va vizualizatsiyaga aylantiramiz."},
+      {t:"Kelishuv", d:"Loyihani birga ko'rib chiqamiz va yakuniy shaklga keltiramiz."},
+      {t:"Ijro va nazorat", d:"Qurilish jarayonida ishtirok etib, sifatni nazorat qilamiz."}
+    ],
+    "services.heading":"Xizmat turlari",
+    "services.items":[
+      {t:"Interyer dizayni", d:"Xonalarni his-tuyg'u va funksionallik uyg'unligida loyihalash", dur:"2–4 hafta"},
+      {t:"Eksteryer dizayni", d:"Bino tashqi ko'rinishi va fasadni ishlab chiqish", dur:"2–3 hafta"},
+      {t:"Qurilish konstruksiyalari", d:"Binoning mustahkam va xavfsiz konstruktiv yechimi", dur:"3–5 hafta"},
+      {t:"Landshaft dizayni", d:"Hovli va tashqi hududni tabiiy uyg'unlikda loyihalash", dur:"1–3 hafta"},
+      {t:"Qurilishning to'liq chizmalari", d:"Ijro uchun tayyor, batafsil loyiha hujjatlari", dur:"2–4 hafta"},
+      {t:"Yoritish hisob-kitobi", d:"Xona kayfiyatiga mos yorug'lik tizimini hisoblash", dur:"3–7 kun"},
+      {t:"Santexnika tizimlari", d:"Suv ta'minoti va kanalizatsiya tizimini loyihalash", dur:"1–2 hafta"},
+      {t:"Elektrika tizimlari", d:"Xavfsiz va qulay elektr ta'minoti sxemasi", dur:"1–2 hafta"},
+      {t:"Uy-joy qurilish dokumentatsiyasi", d:"Ruxsatnoma uchun zarur rasmiy hujjatlar to'plami", dur:"2–3 hafta"}
+    ],
+    "pricing.heading":"Narxlar",
+    "pricing.lead":"Har bir loyiha o'ziga xos — quyidagi narxlar taxminiy boshlang'ich ko'rsatkich. Aniq narxni bepul konsultatsiyada birga hisoblaymiz.",
+    "pricing.note":"* Narxlar 1 m² uchun boshlang'ich ko'rsatkich. Kichik metrajli obyektlar uchun narx bepul konsultatsiyada alohida hisoblanadi.",
+    "pricing.cta":"Konsultatsiya olish",
+    "pricing.popular":"Tavsiya etiladi",
+    "pricing.features":["Planirovka (xonalar rejasi)","3D vizualizatsiya","Ishchi chizmalar","Elektrika loyihasi","Har bir yo'nalish ustasi bilan bir martalik konsultatsiya","Santexnika loyihasi","Yoritish hisob-kitobi (deluxe)","Haftasiga 2 martalik mualliflik nazorati"],
+    "pricing.plans":[
+      {
+        name:"Standart", price:"$5", unit:"/ m²",
+        desc:"Kichik xonadon va ofislar uchun boshlang'ich yechim",
+        included:[0,1,2]
+      },
+      {
+        name:"Premium", price:"$7", unit:"/ m²",
+        desc:"To'liq interyer va eksteryer loyihasi uchun optimal tanlov",
+        included:[0,1,2,3,4]
+      },
+      {
+        name:"VIP", price:"$12", unit:"/ m²",
+        desc:"Kalit topshirish darajasidagi to'liq xizmat",
+        included:[0,1,2,3,4,5,6,7]
+      }
+    ],
+    "gallery.heading":"Ishlarimiz",
+    "gallery.note":"* Boshqa yo'nalishlar bo'yicha loyiha suratlari tez orada qo'shiladi.",
+    "gallery.ba_label":"Oldin / Keyin — suring va solishtiring",
+    "gallery.before":"Oldin","gallery.after":"Keyin",
+    "gallery.filters":["Barchasi","Interyer","Eksteryer","Landshaft","Ofis"],
+    "gallery.items":[
+      {t:"Zamonaviy kvartira", cat:1, kind:"interior"},
+      {t:"Shaxsiy uy fasadi", cat:2, kind:"exterior"},
+      {t:"Hovli landshafti", cat:3, kind:"landscape"},
+      {t:"Ofis makoni", cat:4, kind:"office"},
+      {t:"Mehmonxona interyeri", cat:1, kind:"interior"},
+      {t:"Villa eksteryeri", cat:2, kind:"exterior"},
+      {t:"Yotoq xonasi — dam olish burchagi", cat:1, img:"images/gallery-1.jpg"},
+      {t:"Yotoq xonasi — shkaf zonasi", cat:1, img:"images/gallery-2.jpg"},
+      {t:"Yotoq xonasi — to'shak tafsilotlari", cat:1, img:"images/gallery-3.jpg"},
+      {t:"Yotoq xonasi — umumiy ko'rinish", cat:1, img:"images/gallery-4.jpg"},
+      {t:"Yotoq xonasi — kengaytirilgan zona", cat:1, img:"images/gallery-5.jpg"},
+      {t:"Yotoq xonasi — old tomondan ko'rinish", cat:1, img:"images/gallery-6.jpg"},
+      {t:"Yotoq xonasi — kiyim shkafi", cat:1, img:"images/gallery-7.jpg"},
+      {t:"Yotoq xonasi — televizor zonasi", cat:1, img:"images/gallery-8.jpg"},
+      {t:"Yotoq xonasi — TV devor paneli", cat:1, img:"images/gallery-9.jpg"},
+    ],
+    "faq.heading":"Tez-tez so'raladigan savollar",
+    "faq.items":[
+      {q:"Loyihalash qancha vaqt oladi?", a:"Loyihaning murakkabligiga qarab, odatda 2 haftadan 6 haftagacha vaqt talab qilinadi. Aniq muddatni birinchi konsultatsiyada belgilaymiz."},
+      {q:"Narx qanday hisoblanadi?", a:"Narx obyekt maydoni, ish turi va murakkablik darajasiga qarab individual hisoblanadi. Bepul konsultatsiya orqali aniq narxni bilib olishingiz mumkin."},
+      {q:"Faqat Qo'qonda ishlaysizmi?", a:"Asosiy faoliyatimiz Qo'qon va atrofida, ammo boshqa shaharlardagi loyihalar bo'yicha ham bog'lanishingiz mumkin."},
+      {q:"Qurilish jarayonida nazorat qilasizmi?", a:"Ha, mualliflik nazorati xizmatimiz orqali loyiha qurilish bosqichida ham ishtirok etamiz va sifatni kuzatib boramiz."},
+      {q:"Faqat loyihalashmi, yoki qurilishni ham amalga oshirasizmi?", a:"Biz loyihalash, hujjatlar tayyorlash va mualliflik nazoratini taqdim etamiz; qurilish ishlari uchun ishonchli hamkor pudratchilarni tavsiya qilamiz."}
+    ],
+    "contact.heading":"Loyihangizni boshlaylik",
+    "contact.sub":"Bepul konsultatsiya uchun bog'laning — g'oyangizni birga muhokama qilamiz.",
+    "footer.rights":"© 2026 YAHYO.DESIGN. Barcha huquqlar himoyalangan."
+  },
+  ru: {
+    "a11y.skip":"Перейти к основному содержанию",
+    "a11y.contrast":"Контраст",
+    "nav.about":"О нас","nav.work":"Наши работы","nav.services":"Услуги","nav.pricing":"Цены","nav.faq":"Вопросы","nav.contact":"Контакты",
+    "hero.eyebrow":"Студия архитектуры и дизайна интерьера",
+    "hero.title":"Создайте незабываемое первое впечатление вместе с YAHYO.DESIGN.",
+    "hero.title.html":"Создайте <em>незабываемое первое впечатление</em> вместе с YAHYO.DESIGN.",
+    "hero.subtitle":"Мы превращаем идеи в удобные и эстетичные интерьеры для жизни.",
+    "hero.cta":"Связаться с нами",
+    "stats.years":"Лет опыта","stats.clients":"Довольных клиентов","stats.services":"Направлений услуг",
+    "about.heading":"О нас",
+    "about.lead":"Не просто студия — партнёр, который превращает вашу идею в пространство для жизни.",
+    "about.quote":"Давайте вместе воплотим вашу идею в реальность.",
+    "about.p1":"Уже 5 лет мы создаём современные, функциональные и эстетичные архитектурные решения в Коканде и его окрестностях. За это время мы заслужили доверие более 100 клиентов и воплотили в жизнь их мечты о своём пространстве.",
+    "about.p2":"Под руководством основателя Яхьё Саидходжаева наша команда подходит к каждому проекту индивидуально — ведь у каждого человека, семьи и бизнеса свой характер, и таким же должно быть их пространство.",
+    "about.p3":"Мы уделяем внимание каждой детали — от идеи до сдачи объекта. Мы ценим ваше время и бюджет, поэтому:",
+    "principles":[
+      {t:"Точные сроки", d:"Строго соблюдаем сроки", ico:"clock"},
+      {t:"Полная прозрачность", d:"Обеспечиваем полную прозрачность в расчётах", ico:"scale"},
+      {t:"Эффективное пространство", d:"Максимально эффективно используем каждый квадратный метр", ico:"ruler"}
+    ],
+    "how.heading":"Как мы работаем",
+    "how.steps":[
+      {t:"Консультация", d:"Слушаем ваши идеи и потребности, проводим первичный анализ."},
+      {t:"Проектирование", d:"Превращаем идею в чертежи и визуализацию."},
+      {t:"Согласование", d:"Вместе рассматриваем проект и доводим до финальной версии."},
+      {t:"Исполнение и контроль", d:"Сопровождаем стройку и контролируем качество."}
+    ],
+    "services.heading":"Услуги",
+    "services.items":[
+      {t:"Дизайн интерьера", d:"Проектируем пространство на стыке эмоций и функциональности", dur:"2–4 недели"},
+      {t:"Дизайн экстерьера", d:"Разработка внешнего облика и фасада здания", dur:"2–3 недели"},
+      {t:"Строительные конструкции", d:"Прочные и безопасные конструктивные решения", dur:"3–5 недель"},
+      {t:"Ландшафтный дизайн", d:"Гармоничное озеленение и оформление территории", dur:"1–3 недели"},
+      {t:"Полная рабочая документация", d:"Детальные чертежи, готовые к реализации", dur:"2–4 недели"},
+      {t:"Расчёт освещения", d:"Световой сценарий под настроение пространства", dur:"3–7 дней"},
+      {t:"Сантехнические системы", d:"Проектирование водоснабжения и канализации", dur:"1–2 недели"},
+      {t:"Электротехнические системы", d:"Безопасная и удобная схема электроснабжения", dur:"1–2 недели"},
+      {t:"Документация на жилое строительство", d:"Пакет документов для получения разрешений", dur:"2–3 недели"}
+    ],
+    "pricing.heading":"Цены",
+    "pricing.lead":"Каждый проект уникален — цены ниже являются ориентировочными стартовыми показателями. Точную стоимость рассчитаем вместе на бесплатной консультации.",
+    "pricing.note":"* Цены — стартовый ориентир за 1 м². Для объектов небольшой площади стоимость рассчитывается индивидуально на бесплатной консультации.",
+    "pricing.cta":"Получить консультацию",
+    "pricing.popular":"Популярный выбор",
+    "pricing.features":["Планировка помещений","3D визуализация","Рабочие чертежи","Проект электрики","Разовая консультация со специалистом по каждому направлению","Проект сантехники","Расчёт освещения (делюкс)","Авторский надзор 2 раза в неделю"],
+    "pricing.plans":[
+      {
+        name:"Стандарт", price:"$5", unit:"/ м²",
+        desc:"Стартовое решение для небольших квартир и офисов",
+        included:[0,1,2]
+      },
+      {
+        name:"Премиум", price:"$7", unit:"/ м²",
+        desc:"Оптимальный выбор для полного проекта интерьера и экстерьера",
+        included:[0,1,2,3,4]
+      },
+      {
+        name:"VIP", price:"$12", unit:"/ м²",
+        desc:"Полный сервис уровня «под ключ»",
+        included:[0,1,2,3,4,5,6,7]
+      }
+    ],
+    "gallery.heading":"Наши работы",
+    "gallery.note":"* Фотографии проектов по другим направлениям появятся здесь в ближайшее время.",
+    "gallery.ba_label":"До / После — потяните и сравните",
+    "gallery.before":"До","gallery.after":"После",
+    "gallery.filters":["Все","Интерьер","Экстерьер","Ландшафт","Офис"],
+    "gallery.items":[
+      {t:"Современная квартира", cat:1, kind:"interior"},
+      {t:"Фасад частного дома", cat:2, kind:"exterior"},
+      {t:"Ландшафт двора", cat:3, kind:"landscape"},
+      {t:"Офисное пространство", cat:4, kind:"office"},
+      {t:"Интерьер гостиной", cat:1, kind:"interior"},
+      {t:"Экстерьер виллы", cat:2, kind:"exterior"},
+      {t:"Спальня — зона отдыха", cat:1, img:"images/gallery-1.jpg"},
+      {t:"Спальня — гардеробная зона", cat:1, img:"images/gallery-2.jpg"},
+      {t:"Спальня — детали кровати", cat:1, img:"images/gallery-3.jpg"},
+      {t:"Спальня — общий вид", cat:1, img:"images/gallery-4.jpg"},
+      {t:"Спальня — расширенная зона", cat:1, img:"images/gallery-5.jpg"},
+      {t:"Спальня — вид спереди", cat:1, img:"images/gallery-6.jpg"},
+      {t:"Спальня — гардеробная", cat:1, img:"images/gallery-7.jpg"},
+      {t:"Спальня — зона с телевизором", cat:1, img:"images/gallery-8.jpg"},
+      {t:"Спальня — TV-панель", cat:1, img:"images/gallery-9.jpg"},
+    ],
+    "faq.heading":"Часто задаваемые вопросы",
+    "faq.items":[
+      {q:"Сколько времени занимает проектирование?", a:"В зависимости от сложности проекта — обычно от 2 до 6 недель. Точный срок определяем на первой консультации."},
+      {q:"Как рассчитывается стоимость?", a:"Стоимость рассчитывается индивидуально, в зависимости от площади объекта и сложности работ. Точную цену вы узнаете на бесплатной консультации."},
+      {q:"Вы работаете только в Коканде?", a:"Основная деятельность — в Коканде и его окрестностях, но мы рассматриваем проекты и в других городах."},
+      {q:"Осуществляете ли вы контроль на стройке?", a:"Да, в рамках услуги авторского надзора мы сопровождаем проект на этапе строительства и следим за качеством."},
+      {q:"Вы только проектируете или строите тоже?", a:"Мы занимаемся проектированием, подготовкой документации и авторским надзором; для строительных работ рекомендуем проверенных подрядчиков."}
+    ],
+    "contact.heading":"Начнём ваш проект",
+    "contact.sub":"Свяжитесь с нами для бесплатной консультации — обсудим вашу идею вместе.",
+    "footer.rights":"© 2026 YAHYO.DESIGN. Все права защищены."
+  },
+  en: {
+    "a11y.skip":"Skip to main content",
+    "a11y.contrast":"Contrast",
+    "nav.about":"About","nav.work":"Our work","nav.services":"Services","nav.pricing":"Pricing","nav.faq":"FAQ","nav.contact":"Contact",
+    "hero.eyebrow":"Architecture & interior design studio",
+    "hero.title":"Create an unforgettable first impression with YAHYO.DESIGN.",
+    "hero.title.html":"Create <em>an unforgettable first impression</em> with YAHYO.DESIGN.",
+    "hero.subtitle":"We turn ideas into comfortable, aesthetic interiors made for living.",
+    "hero.cta":"Get in touch",
+    "stats.years":"Years of experience","stats.clients":"Happy clients","stats.services":"Service areas",
+    "about.heading":"About us",
+    "about.lead":"Not just a studio — a partner that turns your idea into a space worth living in.",
+    "about.quote":"Let's bring your idea to life together.",
+    "about.p1":"For 5 years we've been creating modern, functional, and aesthetic architectural solutions in Kokand and the surrounding area. Along the way we've earned the trust of more than 100 clients and brought their dream spaces to life.",
+    "about.p2":"Led by founder Yahyo Saidkhodjaev, our team takes an individual approach to every project — because every person, family, and business has its own character, and their space should too.",
+    "about.p3":"We pay attention to every detail, from the first idea to handover. We value your time and budget, which is why:",
+    "principles":[
+      {t:"Precise deadlines", d:"We strictly meet deadlines", ico:"clock"},
+      {t:"Full transparency", d:"We provide full transparency in every calculation", ico:"scale"},
+      {t:"Efficient space", d:"We make the most efficient use of every square meter", ico:"ruler"}
+    ],
+    "how.heading":"How we work",
+    "how.steps":[
+      {t:"Consultation", d:"We listen to your needs and ideas, and run an initial assessment."},
+      {t:"Design", d:"We turn the idea into drawings and visuals."},
+      {t:"Agreement", d:"We review the project together and finalize it."},
+      {t:"Execution & supervision", d:"We stay involved during construction and monitor quality."}
+    ],
+    "services.heading":"Services",
+    "services.items":[
+      {t:"Interior design", d:"Designing spaces where feeling meets function", dur:"2–4 weeks"},
+      {t:"Exterior design", d:"Developing the building's facade and outward look", dur:"2–3 weeks"},
+      {t:"Structural engineering", d:"Solid, safe structural solutions", dur:"3–5 weeks"},
+      {t:"Landscape design", d:"Harmonious planning of the outdoor grounds", dur:"1–3 weeks"},
+      {t:"Construction drawings", d:"Detailed documentation, ready for the build", dur:"2–4 weeks"},
+      {t:"Lighting calculation", d:"A lighting scheme matched to each room's mood", dur:"3–7 days"},
+      {t:"Plumbing systems", d:"Water supply and drainage system design", dur:"1–2 weeks"},
+      {t:"Electrical systems", d:"A safe, convenient electrical layout", dur:"1–2 weeks"},
+      {t:"Residential documentation", d:"The paperwork needed for permits", dur:"2–3 weeks"}
+    ],
+    "pricing.heading":"Pricing",
+    "pricing.lead":"Every project is unique — the prices below are approximate starting points. We'll work out the exact cost together at a free consultation.",
+    "pricing.note":"* Prices are a starting point per 1 m². For smaller properties, the cost is calculated individually at a free consultation.",
+    "pricing.cta":"Get a consultation",
+    "pricing.popular":"Most popular",
+    "pricing.features":["Floor planning","3D visualization","Construction drawings","Electrical design","One-time consultation with a specialist for each discipline","Plumbing design","Lighting calculation (deluxe)","On-site supervision twice a week"],
+    "pricing.plans":[
+      {
+        name:"Standard", price:"$5", unit:"/ m²",
+        desc:"A starting solution for small apartments and offices",
+        included:[0,1,2]
+      },
+      {
+        name:"Premium", price:"$7", unit:"/ m²",
+        desc:"The optimal choice for a full interior and exterior project",
+        included:[0,1,2,3,4]
+      },
+      {
+        name:"VIP", price:"$12", unit:"/ m²",
+        desc:"Full turnkey-level service",
+        included:[0,1,2,3,4,5,6,7]
+      }
+    ],
+    "gallery.heading":"Our work",
+    "gallery.note":"* Project photos for other categories will be added here soon.",
+    "gallery.ba_label":"Before / After — drag to compare",
+    "gallery.before":"Before","gallery.after":"After",
+    "gallery.filters":["All","Interior","Exterior","Landscape","Office"],
+    "gallery.items":[
+      {t:"Modern apartment", cat:1, kind:"interior"},
+      {t:"Private house facade", cat:2, kind:"exterior"},
+      {t:"Courtyard landscape", cat:3, kind:"landscape"},
+      {t:"Office space", cat:4, kind:"office"},
+      {t:"Living room interior", cat:1, kind:"interior"},
+      {t:"Villa exterior", cat:2, kind:"exterior"},
+      {t:"Bedroom — lounge corner", cat:1, img:"images/gallery-1.jpg"},
+      {t:"Bedroom — wardrobe area", cat:1, img:"images/gallery-2.jpg"},
+      {t:"Bedroom — bedding details", cat:1, img:"images/gallery-3.jpg"},
+      {t:"Bedroom — overview", cat:1, img:"images/gallery-4.jpg"},
+      {t:"Bedroom — extended view", cat:1, img:"images/gallery-5.jpg"},
+      {t:"Bedroom — front view", cat:1, img:"images/gallery-6.jpg"},
+      {t:"Bedroom — walk-in closet", cat:1, img:"images/gallery-7.jpg"},
+      {t:"Bedroom — TV area", cat:1, img:"images/gallery-8.jpg"},
+      {t:"Bedroom — TV wall panel", cat:1, img:"images/gallery-9.jpg"},
+    ],
+    "faq.heading":"Frequently asked questions",
+    "faq.items":[
+      {q:"How long does the design process take?", a:"Depending on the project's complexity, it usually takes 2 to 6 weeks. We define the exact timeline at the first consultation."},
+      {q:"How is the price calculated?", a:"The price is calculated individually based on the area and complexity of the work. You'll get an exact quote at a free consultation."},
+      {q:"Do you only work in Kokand?", a:"Our main work is in Kokand and the surrounding area, but we're happy to discuss projects in other cities too."},
+      {q:"Do you supervise the construction process?", a:"Yes, through our on-site supervision service we stay involved during construction and monitor quality."},
+      {q:"Do you only design, or do you build as well?", a:"We handle design, documentation, and on-site supervision; for construction work we recommend trusted contractor partners."}
+    ],
+    "contact.heading":"Let's start your project",
+    "contact.sub":"Reach out for a free consultation — let's discuss your idea together.",
+    "footer.rights":"© 2026 YAHYO.DESIGN. All rights reserved."
+  }
+};
+
+let currentLang = 'uz';
+let galleryFilter = 0;
+
+/* ============ RENDER FUNCTIONS ============ */
+function renderStaticText(lang){
+  document.documentElement.lang = lang;
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const key = el.getAttribute('data-i18n');
+    if(I18N[lang][key]) el.textContent = I18N[lang][key];
+  });
+  document.querySelectorAll('[data-i18n-html]').forEach(el=>{
+    const key = el.getAttribute('data-i18n-html');
+    if(I18N[lang][key]) el.innerHTML = I18N[lang][key];
+  });
+  document.querySelectorAll('.lang-btn').forEach(b=>{
+    b.classList.toggle('active', b.dataset.lang === lang);
+  });
+}
+
+function renderPrinciples(lang){
+  const wrap = document.getElementById('principlesList');
+  wrap.innerHTML = I18N[lang].principles.map(p=>`
+    <div class="principle-card">
+      <div class="p-ico">${ICONS[p.ico]}</div>
+      <h3>${p.t}</h3>
+      <p>${p.d}</p>
+    </div>`).join('');
+}
+
+function renderSteps(lang){
+  const wrap = document.getElementById('stepsList');
+  wrap.innerHTML = I18N[lang]["how.steps"].map((s,i)=>`
+    <div class="step">
+      <span class="idx">${i+1}</span>
+      <h3>${s.t}</h3>
+      <p>${s.d}</p>
+    </div>`).join('');
+}
+
+function renderServices(lang){
+  const wrap = document.getElementById('serviceList');
+  wrap.innerHTML = I18N[lang]["services.items"].map((s,i)=>`
+    <div class="service-row">
+      <span class="ico">${ICONS[SERVICE_ICON_ORDER[i]]}</span>
+      <div>
+        <h3>${s.t}</h3>
+        <p>${s.d}</p>
+      </div>
+    </div>`).join('');
+}
+
+const CHECK_ICON = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>`;
+const CROSS_ICON = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>`;
+
+function renderPricing(lang){
+  const wrap = document.getElementById('pricingGrid');
+  const allFeatures = I18N[lang]["pricing.features"];
+  const plans = I18N[lang]["pricing.plans"];
+  wrap.innerHTML = plans.map((p,i)=>`
+    <div class="pricing-card${i===1 ? ' popular' : ''}">
+      ${i===1 ? `<span class="badge">${I18N[lang]["pricing.popular"]}</span>` : ''}
+      <div class="p-name">${p.name}</div>
+      <div class="p-price"><span class="amount">${p.price}</span><span class="unit">${p.unit}</span></div>
+      <ul class="p-features">
+        ${allFeatures.map((f,fi)=>{
+          const has = p.included.includes(fi);
+          return `<li class="${has ? 'has' : 'not'}">${has ? CHECK_ICON : CROSS_ICON}<span>${f}</span></li>`;
+        }).join('')}
+      </ul>
+      <a href="#contact" class="p-cta">${I18N[lang]["pricing.cta"]}</a>
+    </div>`).join('');
+  wrap.querySelectorAll('.pricing-card').forEach((el,i)=>{
+    el.style.transitionDelay = (i * 0.12) + 's';
+  });
+  try{
+    const pricingObserver = new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){ entry.target.classList.add('in'); pricingObserver.unobserve(entry.target); }
+      });
+    }, {threshold:.15});
+    wrap.querySelectorAll('.pricing-card').forEach(el=> pricingObserver.observe(el));
+  } catch(e){ console.error('Pricing observer error:', e); }
+}
+
+function renderFilters(lang){
+  const wrap = document.getElementById('filterList');
+  wrap.innerHTML = I18N[lang]["gallery.filters"].map((f,i)=>
+    `<button class="filter-btn ${i===galleryFilter?'active':''}" data-cat="${i}">${f}</button>`
+  ).join('');
+  wrap.querySelectorAll('.filter-btn').forEach(b=>{
+    b.addEventListener('click', ()=>{
+      galleryFilter = parseInt(b.dataset.cat);
+      renderFilters(currentLang);
+      applyGalleryFilter();
+    });
+  });
+}
+
+let galleryItemsCache = [];
+function renderGallery(lang){
+  const wrap = document.getElementById('galleryGrid');
+  const items = I18N[lang]["gallery.items"];
+  galleryItemsCache = items;
+  wrap.innerHTML = items.map((it,i)=>`
+    <div class="g-item${i % 3 === 1 ? ' tall' : ''}" data-cat="${it.cat}" data-index="${i}" tabindex="0" role="button" aria-label="${it.t}">
+      ${it.img ? `<img src="${it.img}" alt="${it.t}" loading="lazy">` : scene(it.kind)}
+      <div class="g-caption">
+        <span class="line"></span>
+        <div class="cat">${I18N[lang]["gallery.filters"][it.cat]}</div>
+        <div class="title">${it.t}</div>
+      </div>
+    </div>`).join('');
+  wrap.querySelectorAll('.g-item').forEach((el, i)=>{
+    el.addEventListener('click', ()=>openLightbox(parseInt(el.dataset.index)));
+    el.addEventListener('keydown', e=>{ if(e.key==='Enter' || e.key===' '){ e.preventDefault(); openLightbox(parseInt(el.dataset.index)); }});
+    el.style.transitionDelay = (i % 6) * 0.08 + 's';
+  });
+  try{
+    const galleryObserver = new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){ entry.target.classList.add('in'); galleryObserver.unobserve(entry.target); }
+      });
+    }, {threshold:.15});
+    wrap.querySelectorAll('.g-item').forEach(el=> galleryObserver.observe(el));
+  } catch(e){ console.error('Gallery observer error:', e); }
+  applyGalleryFilter();
+}
+
+function applyGalleryFilter(){
+  document.querySelectorAll('.g-item').forEach(el=>{
+    const cat = parseInt(el.dataset.cat);
+    el.classList.toggle('hide', galleryFilter !== 0 && cat !== galleryFilter);
+  });
+}
+
+function renderFaq(lang){
+  const wrap = document.getElementById('faqList');
+  wrap.innerHTML = I18N[lang]["faq.items"].map((f,i)=>`
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">
+        <span>${f.q}</span><span class="plus">+</span>
+      </button>
+      <div class="faq-a"><p>${f.a}</p></div>
+    </div>`).join('');
+  wrap.querySelectorAll('.faq-item').forEach(item=>{
+    const btn = item.querySelector('.faq-q');
+    const ans = item.querySelector('.faq-a');
+    btn.addEventListener('click', ()=>{
+      const isOpen = item.classList.contains('open');
+      wrap.querySelectorAll('.faq-item.open').forEach(o=>{
+        o.classList.remove('open');
+        o.querySelector('.faq-a').style.maxHeight = null;
+        o.querySelector('.faq-q').setAttribute('aria-expanded','false');
+      });
+      if(!isOpen){
+        item.classList.add('open');
+        ans.style.maxHeight = ans.scrollHeight + 'px';
+        btn.setAttribute('aria-expanded','true');
+      }
+    });
+  });
+}
+
+function renderMarquee(lang){
+  const track = document.getElementById('marqueeTrack');
+  const items = I18N[lang]["services.items"].map(s => s.t);
+  items.push('YAHYO.DESIGN');
+  const groupHtml = items.map(t => `<span>${t}</span>`).join('');
+  track.innerHTML = groupHtml + groupHtml;
+}
+
+function renderAll(lang){
+  renderStaticText(lang);
+  renderPrinciples(lang);
+  renderSteps(lang);
+  renderServices(lang);
+  renderPricing(lang);
+  renderFilters(lang);
+  renderGallery(lang);
+  renderFaq(lang);
+  renderMarquee(lang);
+}
+
+function setLang(lang){
+  currentLang = lang;
+  renderAll(lang);
+}
+
+/* ============ LIGHTBOX ============ */
+let lbIndex = 0;
+function openLightbox(index){
+  lbIndex = index;
+  updateLightbox();
+  document.getElementById('lightbox').classList.add('open');
+}
+function updateLightbox(){
+  const full = galleryItemsCache;
+  let idx = lbIndex;
+  const it = full[idx];
+  document.getElementById('lbSvg').innerHTML = it.img ? `<img src="${it.img}" alt="${it.t}" style="width:100%;height:100%;object-fit:cover;display:block;">` : scene(it.kind);
+  document.getElementById('lbTitle').textContent = it.t;
+  document.getElementById('lbCat').textContent = I18N[currentLang]["gallery.filters"][it.cat];
+}
+function closeLightbox(){ document.getElementById('lightbox').classList.remove('open'); }
+
+document.addEventListener('DOMContentLoaded', ()=>{
+  document.documentElement.classList.add('js-ready');
+  try{
+  setLang('uz');
+
+  /* Nav scroll state */
+  const nav = document.getElementById('nav');
+  const onScroll = ()=>{
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+    document.getElementById('floaters').classList.toggle('show', window.scrollY > window.innerHeight * 0.6);
+  };
+  window.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+
+  /* Hero entrance */
+  requestAnimationFrame(()=> document.querySelector('.hero').classList.add('is-ready'));
+
+  /* Hero CTA quick-contact dropdown */
+  const heroCtaBtn = document.getElementById('heroCtaBtn');
+  const heroCtaMenu = document.getElementById('heroCtaMenu');
+  if(heroCtaBtn && heroCtaMenu){
+    heroCtaBtn.addEventListener('click', (e)=>{
+      e.stopPropagation();
+      const isOpen = heroCtaMenu.classList.toggle('open');
+      heroCtaBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+    document.addEventListener('click', (e)=>{
+      if(!heroCtaMenu.contains(e.target) && e.target !== heroCtaBtn){
+        heroCtaMenu.classList.remove('open');
+        heroCtaBtn.setAttribute('aria-expanded', 'false');
+      }
+    });
+    document.addEventListener('keydown', (e)=>{
+      if(e.key === 'Escape'){
+        heroCtaMenu.classList.remove('open');
+        heroCtaBtn.setAttribute('aria-expanded', 'false');
+      }
+    });
+  }
+
+  /* Language buttons (all instances) */
+  document.querySelectorAll('.lang-btn').forEach(b=>{
+    b.addEventListener('click', ()=> setLang(b.dataset.lang));
+  });
+
+  /* Mobile drawer */
+  const drawer = document.getElementById('mobileDrawer');
+  document.getElementById('burgerBtn').addEventListener('click', ()=> drawer.classList.add('open'));
+  document.getElementById('closeDrawer').addEventListener('click', ()=> drawer.classList.remove('open'));
+  drawer.querySelectorAll('a').forEach(a=> a.addEventListener('click', ()=> drawer.classList.remove('open')));
+
+  /* Stat counters (trigger once when visible) */
+  const statObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        entry.target.querySelectorAll('.num').forEach(numEl=>{
+          const target = parseInt(numEl.dataset.count);
+          const suffix = numEl.dataset.suffix || '';
+          let cur = 0;
+          const step = Math.max(1, Math.round(target/40));
+          const iv = setInterval(()=>{
+            cur += step;
+            if(cur >= target){ cur = target; clearInterval(iv); }
+            numEl.textContent = cur + suffix;
+          }, 25);
+        });
+        statObserver.unobserve(entry.target);
+      }
+    });
+  }, {threshold:.4});
+  document.querySelectorAll('.stats').forEach(el=> statObserver.observe(el));
+
+  /* Reveal on scroll */
+  const revealObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){ entry.target.classList.add('in'); revealObserver.unobserve(entry.target); }
+    });
+  }, {threshold:.12});
+  document.querySelectorAll('.reveal').forEach(el=> revealObserver.observe(el));
+
+  /* Parallax on hero pan layer (subtle, respects reduced motion) */
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const heroPanEl = document.querySelector('.hero-pan');
+  if(!prefersReduced && heroPanEl){
+    window.addEventListener('scroll', ()=>{
+      const y = window.scrollY;
+      if(y < window.innerHeight){
+        heroPanEl.style.transform = `translateY(${y*0.15}px)`;
+      }
+    }, {passive:true});
+  }
+
+  /* Before / After slider */
+  const baBefore = document.getElementById('baBefore');
+  const baAfter = document.getElementById('baAfter');
+  baBefore.innerHTML = scene('before');
+  baAfter.innerHTML = scene('after');
+  const baRange = document.getElementById('baRange');
+  const baHandle = document.getElementById('baHandle');
+  function updateBa(v){
+    document.querySelector('.after-layer').style.clipPath = `inset(0 0 0 ${v}%)`;
+    baHandle.style.left = v + '%';
+  }
+  baRange.addEventListener('input', e=> updateBa(e.target.value));
+  updateBa(50);
+
+  /* Lightbox controls */
+  document.getElementById('lbClose').addEventListener('click', closeLightbox);
+  document.getElementById('lightbox').addEventListener('click', (e)=>{ if(e.target.id === 'lightbox') closeLightbox(); });
+  document.getElementById('lbPrev').addEventListener('click', ()=>{
+    lbIndex = (lbIndex - 1 + galleryItemsCache.length) % galleryItemsCache.length;
+    updateLightbox();
+  });
+  document.getElementById('lbNext').addEventListener('click', ()=>{
+    lbIndex = (lbIndex + 1) % galleryItemsCache.length;
+    updateLightbox();
+  });
+  document.addEventListener('keydown', (e)=>{
+    if(!document.getElementById('lightbox').classList.contains('open')) return;
+    if(e.key === 'Escape') closeLightbox();
+    if(e.key === 'ArrowLeft') document.getElementById('lbPrev').click();
+    if(e.key === 'ArrowRight') document.getElementById('lbNext').click();
+  });
+  } catch(e){ console.error('Init error:', e); }
+  requestAnimationFrame(()=>{
+    document.querySelectorAll('.reveal:not(.in)').forEach(el=>{
+      const r = el.getBoundingClientRect();
+      if(r.top < window.innerHeight) el.classList.add('in');
+    });
+  });
+});
+
+/* =====================================================
+   AKA UCHUN: RASM YUKLASH TIZIMI (Firebase)
+   1) https://console.firebase.google.com ga kiring, yangi loyiha yarating
+   2) Build > Firestore Database > Create database (test mode) ni yoqing
+   3) Build > Storage > Get started ni yoqing
+   4) Project settings > General > "Add app" > Web (</>) ni bosing
+   5) Chiqqan firebaseConfig obyektini pastdagi FIREBASE_CONFIG ga qo'ying
+   6) ADMIN_PASSWORD ni o'zingiz xohlagan parolga o'zgartiring
+   Sahifani ochish uchun: sayt-manzili.html#admin
+   ===================================================== */
+const FIREBASE_CONFIG = {
+  apiKey: "REPLACE_ME",
+  authDomain: "REPLACE_ME.firebaseapp.com",
+  projectId: "REPLACE_ME",
+  storageBucket: "REPLACE_ME.appspot.com",
+  messagingSenderId: "REPLACE_ME",
+  appId: "REPLACE_ME"
+};
+const ADMIN_PASSWORD = "yahyo2026"; // <-- shu yerda o'zgartiring
+
+let fbDb = null, fbStorage = null, fbReady = false;
+try{
+  if(FIREBASE_CONFIG.apiKey !== "REPLACE_ME"){
+    firebase.initializeApp(FIREBASE_CONFIG);
+    fbDb = firebase.firestore();
+    fbStorage = firebase.storage();
+    fbReady = true;
+  }
+} catch(e){ console.error('Firebase init error:', e); }
+
+let uploadedItems = [];
+let galleryMigrated = false;
+
+async function loadUploadedItems(){
+  if(!fbReady) return;
+  try{
+    const metaDoc = await fbDb.collection('meta').doc('gallery').get();
+    galleryMigrated = metaDoc.exists && metaDoc.data().migrated === true;
+
+    const snap = await fbDb.collection('gallery_uploads').orderBy('createdAt','desc').get();
+    uploadedItems = snap.docs.map(d=>({ id:d.id, t:d.data().title, cat:d.data().cat, img:d.data().url, kind:null, storagePath:d.data().storagePath }));
+    renderGallery(currentLang);
+  } catch(e){ console.error('Yuklashda xato:', e); }
+}
+
+/* renderGallery ni statik + yuklangan rasmlar bilan ishlaydigan qilib kengaytiramiz.
+   Migratsiya qilingandan so'ng, mahalliy "images/gallery-*" rasmli statik elementlar
+   yashiriladi (chunki ular endi Firebase orqali keladi), takrorlanmasin uchun. */
+const _origRenderGallery = renderGallery;
+renderGallery = function(lang){
+  let staticItems = I18N[lang]["gallery.items"];
+  if(galleryMigrated){
+    staticItems = staticItems.filter(it => !(it.img && it.img.indexOf('images/gallery-') === 0));
+  }
+  const combined = staticItems.concat(uploadedItems);
+  const savedItems = I18N[lang]["gallery.items"];
+  I18N[lang]["gallery.items"] = combined;
+  _origRenderGallery(lang);
+  I18N[lang]["gallery.items"] = savedItems;
+};
+
+async function migrateStaticImages(){
+  if(!fbReady) return;
+  if(galleryMigrated){ adminLog("Rasmlar allaqachon Firebasega ko'chirilgan."); return; }
+  if(!confirm("Barcha eski (statik) rasmlar Firebasega ko'chiriladi. Davom etasizmi?")) return;
+  const btn = document.getElementById('adminMigrateBtn');
+  btn.disabled = true;
+  const sourceItems = I18N["uz"]["gallery.items"].filter(it => it.img && it.img.indexOf('images/gallery-') === 0);
+  let done = 0;
+  for(const it of sourceItems){
+    try{
+      adminLog(`Ko'chirilmoqda: ${done+1}/${sourceItems.length}...`);
+      const resp = await fetch(it.img);
+      const blob = await resp.blob();
+      const storagePath = 'gallery/' + Date.now() + '_' + it.img.split('/').pop();
+      const ref = fbStorage.ref(storagePath);
+      await ref.put(blob);
+      const url = await ref.getDownloadURL();
+      await fbDb.collection('gallery_uploads').add({
+        title: it.t,
+        cat: it.cat,
+        url: url,
+        storagePath: storagePath,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+      });
+      done++;
+    } catch(e){ console.error('Migratsiya xatosi:', it.img, e); }
+  }
+  await fbDb.collection('meta').doc('gallery').set({ migrated:true, migratedAt: firebase.firestore.FieldValue.serverTimestamp() });
+  galleryMigrated = true;
+  adminLog(`Tayyor! ${done}/${sourceItems.length} rasm Firebasega ko'chirildi.`);
+  await loadUploadedItems();
+  renderAdminList();
+  btn.style.display = 'none';
+}
+
+function adminLog(msg, isError){
+  const el = document.getElementById('adminMsg');
+  if(el){ el.textContent = msg; el.style.color = isError ? '#e08080' : '#8fd18f'; }
+}
+
+function renderAdminList(){
+  const wrap = document.getElementById('adminList');
+  if(!wrap) return;
+  if(!uploadedItems.length){ wrap.innerHTML = '<p style="opacity:.6;font-size:13px;">Hozircha yuklangan rasm yo\'q.</p>'; return; }
+  wrap.innerHTML = uploadedItems.map(it=>`
+    <div class="admin-list-item">
+      <img src="${it.img}" alt="">
+      <span>${it.t}</span>
+      <button data-id="${it.id}" data-path="${it.storagePath||''}">O'chirish</button>
+    </div>`).join('');
+  wrap.querySelectorAll('button[data-id]').forEach(b=>{
+    b.addEventListener('click', ()=> deleteUploadedItem(b.dataset.id, b.dataset.path));
+  });
+}
+
+async function deleteUploadedItem(id, storagePath){
+  if(!fbReady) return;
+  if(!confirm('Bu rasmni o\'chirmoqchimisiz?')) return;
+  try{
+    await fbDb.collection('gallery_uploads').doc(id).delete();
+    if(storagePath){ try{ await fbStorage.ref(storagePath).delete(); } catch(e){} }
+    await loadUploadedItems();
+    renderAdminList();
+    adminLog('O\'chirildi.');
+  } catch(e){ adminLog('Xato: ' + e.message, true); }
+}
+
+function openAdminPanel(){
+  if(!fbReady){
+    alert('Firebase hali sozlanmagan. Kod ichidagi FIREBASE_CONFIG maydonini to\'ldiring.');
+    return;
+  }
+  const authed = sessionStorage.getItem('adminAuthed') === '1';
+  document.getElementById('adminPanel').classList.add('open');
+  document.getElementById('adminLoginView').style.display = authed ? 'none' : 'block';
+  document.getElementById('adminUploadView').style.display = authed ? 'block' : 'none';
+  const migBtn = document.getElementById('adminMigrateBtn');
+  if(migBtn) migBtn.style.display = galleryMigrated ? 'none' : 'block';
+  if(authed) renderAdminList();
+}
+
+function closeAdminPanel(){
+  document.getElementById('adminPanel').classList.remove('open');
+  history.replaceState(null, '', location.pathname + location.search);
+}
+
+document.addEventListener('DOMContentLoaded', ()=>{
+  if(location.hash === '#admin') openAdminPanel();
+
+  const loginBtn = document.getElementById('adminLoginBtn');
+  if(loginBtn){
+    loginBtn.addEventListener('click', ()=>{
+      const pass = document.getElementById('adminPassInput').value;
+      if(pass === ADMIN_PASSWORD){
+        sessionStorage.setItem('adminAuthed', '1');
+        document.getElementById('adminLoginView').style.display = 'none';
+        document.getElementById('adminUploadView').style.display = 'block';
+        renderAdminList();
+      } else {
+        adminLog('Parol noto\'g\'ri.', true);
+      }
+    });
+  }
+
+  const closeBtn = document.getElementById('adminCloseBtn');
+  if(closeBtn) closeBtn.addEventListener('click', closeAdminPanel);
+
+  const migrateBtn = document.getElementById('adminMigrateBtn');
+  if(migrateBtn) migrateBtn.addEventListener('click', migrateStaticImages);
+
+  const uploadBtn = document.getElementById('adminUploadBtn');
+  if(uploadBtn){
+    uploadBtn.addEventListener('click', async ()=>{
+      const fileInput = document.getElementById('adminFileInput');
+      const titleInput = document.getElementById('adminTitleInput');
+      const catSelect = document.getElementById('adminCatSelect');
+      const file = fileInput.files[0];
+      if(!file){ adminLog('Rasm tanlanmagan.', true); return; }
+      if(!titleInput.value.trim()){ adminLog('Sarlavha kiriting.', true); return; }
+      uploadBtn.disabled = true;
+      adminLog('Yuklanmoqda...');
+      try{
+        const storagePath = 'gallery/' + Date.now() + '_' + file.name;
+        const ref = fbStorage.ref(storagePath);
+        await ref.put(file);
+        const url = await ref.getDownloadURL();
+        await fbDb.collection('gallery_uploads').add({
+          title: titleInput.value.trim(),
+          cat: parseInt(catSelect.value, 10),
+          url: url,
+          storagePath: storagePath,
+          createdAt: firebase.firestore.FieldValue.serverTimestamp()
+        });
+        adminLog('Muvaffaqiyatli yuklandi!');
+        fileInput.value = '';
+        titleInput.value = '';
+        await loadUploadedItems();
+        renderAdminList();
+      } catch(e){
+        adminLog('Xato: ' + e.message, true);
+      } finally {
+        uploadBtn.disabled = false;
+      }
+    });
+  }
+
+  if(fbReady) loadUploadedItems();
+});
+</script>
+
+<!-- ADMIN PANEL MARKUP -->
+<div id="adminPanel">
+  <div class="admin-box">
+    <button class="admin-close" id="adminCloseBtn">&times;</button>
+    <div id="adminLoginView">
+      <h3>Admin kirish</h3>
+      <label>Parol</label>
+      <input type="password" id="adminPassInput" placeholder="Parolni kiriting">
+      <button id="adminLoginBtn">Kirish</button>
+    </div>
+    <div id="adminUploadView" style="display:none;">
+      <h3>Yangi rasm qo'shish</h3>
+      <label>Rasm</label>
+      <input type="file" id="adminFileInput" accept="image/*">
+      <label>Sarlavha</label>
+      <input type="text" id="adminTitleInput" placeholder="Masalan: Yotoqxona dizayni">
+      <label>Kategoriya</label>
+      <select id="adminCatSelect">
+        <option value="1">Interyer</option>
+        <option value="2">Eksteryer</option>
+        <option value="3">Landshaft</option>
+        <option value="4">Ofis</option>
+      </select>
+      <button id="adminMigrateBtn" style="background:transparent; border:1px solid var(--bronze,#D4AF37); color:var(--bronze,#D4AF37); margin-top:10px;">Eski (statik) rasmlarni Firebasega ko'chirish</button>
+      <button id="adminUploadBtn">Yuklash</button>
+      <div class="admin-list" id="adminList"></div>
+    </div>
+    <div class="admin-msg" id="adminMsg"></div>
+  </div>
+</div>
+</body>
+</html>
