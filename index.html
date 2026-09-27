@@ -133,6 +133,36 @@ a:focus-visible, button:focus-visible, input:focus-visible{
 .burger span{display:block; width:24px; height:2px; background:var(--ink, #F5F3EE); margin:5px 0; transition:background .3s, transform .3s;}
 .burger:hover span{background:var(--bronze, #D4AF37);}
 
+/* NAV CONTACT (doim korinadigan bog'lanish tugmasi) */
+.nav-contact-wrap{position:relative;}
+.nav-contact-btn{
+  display:flex; align-items:center; gap:8px; cursor:pointer; font-family:inherit;
+  background:rgba(212,175,55,.12); border:1px solid rgba(212,175,55,.35); border-radius:999px;
+  color:var(--bronze-light, #E9CE7A); padding:9px 16px; font-size:12.5px; letter-spacing:.03em;
+  text-transform:uppercase; transition:background .25s var(--ease), border-color .25s var(--ease);
+}
+.nav-contact-btn:hover{background:var(--bronze, #D4AF37); color:#0A0A0B; border-color:var(--bronze, #D4AF37);}
+.nav-contact-btn svg{width:15px; height:15px; flex-shrink:0;}
+.nav-contact-menu{
+  position:absolute; top:calc(100% + 12px); right:0; transform:translateY(-8px);
+  background:var(--brown-700, #151517); border:1px solid var(--line-on-dark, rgba(245,243,238,.24));
+  border-radius:4px; padding:8px; min-width:220px; box-shadow:var(--shadow, 0 25px 60px -20px rgba(0,0,0,.8));
+  opacity:0; pointer-events:none; transition:opacity .25s var(--ease), transform .25s var(--ease);
+  z-index:250;
+}
+.nav-contact-menu.open{opacity:1; pointer-events:auto; transform:translateY(0);}
+.nav-contact-menu a{
+  display:flex; align-items:center; gap:12px; padding:11px 14px; border-radius:3px;
+  color:var(--ink, #F5F3EE); text-decoration:none; font-size:13.5px; white-space:nowrap;
+  transition:background .25s var(--ease), color .25s var(--ease);
+}
+.nav-contact-menu a:hover{background:rgba(212,175,55,.14); color:var(--bronze-light, #E9CE7A);}
+.nav-contact-menu a svg{width:16px; height:16px; flex-shrink:0; color:var(--bronze, #D4AF37);}
+@media (max-width:480px){
+  .nav-contact-btn{padding:8px 12px;}
+  .nav-contact-btn .nav-contact-label{display:none;}
+}
+
 /* ===== HERO ===== */
 .hero{
   position:relative; min-height:100svh; display:flex; flex-direction:column;
@@ -440,6 +470,11 @@ html.js-ready .g-item.in{opacity:1; transform:translateY(0) scale(1);}
 .g-item img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition:transform .6s var(--ease);}
 .g-item:hover img{transform:scale(1.08);}
 .g-item:hover svg{transform:scale(1.08);}
+.g-badge{
+  position:absolute; top:16px; right:16px; z-index:5;
+  background:var(--bronze, #D4AF37); color:#0A0A0B; font-size:12px; font-weight:600;
+  padding:6px 12px; border-radius:999px; letter-spacing:.02em;
+}
 .g-caption{
   position:absolute; left:0; right:0; bottom:0; padding:20px;
   background:linear-gradient(0deg, rgba(0,0,0,.9), rgba(0,0,0,.35) 60%, transparent);
@@ -628,6 +663,8 @@ html.js-ready .reveal.in{opacity:1; transform:none;}
   #adminPanel{padding:24px 12px;}
   .admin-box{padding:20px;}
   .admin-box h3{font-size:19px;}
+  .mobile-drawer-links{gap:20px;}
+  .mobile-drawer a{font-size:19px;}
 }
 
 /* Mobile nav drawer */
@@ -637,6 +674,7 @@ html.js-ready .reveal.in{opacity:1; transform:none;}
   opacity:0; pointer-events:none; transition:opacity .35s var(--ease);
 }
 .mobile-drawer.open{opacity:1; pointer-events:auto;}
+.mobile-drawer-links{display:flex; flex-direction:row; flex-wrap:wrap; align-items:center; justify-content:center; gap:32px;}
 .mobile-drawer a{color:var(--ink, #F5F3EE); text-decoration:none; font-family:'Spectral',serif; font-size:24px; text-transform:uppercase; letter-spacing:.03em;}
 .mobile-drawer .close-drawer{position:absolute; top:26px; right:26px; background:none; border:none; color:var(--ink, #F5F3EE); font-size:28px;}
 .mobile-drawer .lang-group{margin-top:10px;}
@@ -685,6 +723,26 @@ html.js-ready .reveal.in{opacity:1; transform:none;}
       <li><a href="#contact" data-i18n="nav.contact">Bog'lanish</a></li>
     </ul>
     <div class="nav-tools">
+      <div class="nav-contact-wrap">
+        <button type="button" class="nav-contact-btn" id="navCtaBtn" aria-haspopup="true" aria-expanded="false" data-i18n="hero.cta" aria-label="Biz bilan bog'laning">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          <span class="nav-contact-label">Biz bilan bog'laning</span>
+        </button>
+        <div class="nav-contact-menu" id="navCtaMenu">
+          <a href="tel:+998771117060">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            <span>+998 77 111 70 60</span>
+          </a>
+          <a href="https://www.instagram.com/yahyo.design" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="6"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"/></svg>
+            <span>Instagram</span>
+          </a>
+          <a href="https://t.me/SY_Design_and_Architecture" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M21 4.5 3 11.7l6 2.1M21 4.5 14.5 20l-5.5-6.2M21 4.5 9 13.8"/></svg>
+            <span>Telegram</span>
+          </a>
+        </div>
+      </div>
       <div class="lang-group desktop-only" role="group" aria-label="Til / Язык / Language">
         <button class="lang-btn" data-lang="uz">UZ</button>
         <button class="lang-btn" data-lang="ru">RU</button>
@@ -700,12 +758,11 @@ html.js-ready .reveal.in{opacity:1; transform:none;}
 <!-- MOBILE DRAWER -->
 <div class="mobile-drawer" id="mobileDrawer">
   <button class="close-drawer" id="closeDrawer" aria-label="Yopish">×</button>
-  <a href="#work" data-i18n="nav.work">Ishlarimiz</a>
-  <a href="#about" data-i18n="nav.about">Biz haqimizda</a>
-  <a href="#services" data-i18n="nav.services">Xizmat turlari</a>
-  <a href="#pricing" data-i18n="nav.pricing">Narxlar</a>
-  <a href="#faq" data-i18n="nav.faq">Savol-javob</a>
-  <a href="#contact" data-i18n="nav.contact">Bog'lanish</a>
+  <div class="mobile-drawer-links">
+    <a href="#work" data-i18n="nav.work">Ishlarimiz</a>
+    <a href="#pricing" data-i18n="nav.pricing">Narxlar</a>
+    <a href="#contact" data-i18n="nav.contact">Bog'lanish</a>
+  </div>
   <div class="lang-group">
     <button class="lang-btn" data-lang="uz">UZ</button>
     <button class="lang-btn" data-lang="ru">RU</button>
@@ -1009,7 +1066,7 @@ const I18N = {
     "gallery.note":"* Boshqa yo'nalishlar bo'yicha loyiha suratlari tez orada qo'shiladi.",
     "gallery.ba_label":"Oldin / Keyin — suring va solishtiring",
     "gallery.before":"Oldin","gallery.after":"Keyin",
-    "gallery.filters":["Barchasi","Interyer","Eksteryer","Landshaft","Ofis"],
+    "gallery.filters":["Barchasi","Interyer","Eksteryer","Landshaft","Ofis","Yotoqxona"],
     "gallery.items":[
       {t:"Zamonaviy kvartira", cat:1, kind:"interior"},
       {t:"Shaxsiy uy fasadi", cat:2, kind:"exterior"},
@@ -1017,15 +1074,15 @@ const I18N = {
       {t:"Ofis makoni", cat:4, kind:"office"},
       {t:"Mehmonxona interyeri", cat:1, kind:"interior"},
       {t:"Villa eksteryeri", cat:2, kind:"exterior"},
-      {t:"Yotoq xonasi — dam olish burchagi", cat:1, img:"images/gallery-1.jpg"},
-      {t:"Yotoq xonasi — shkaf zonasi", cat:1, img:"images/gallery-2.jpg"},
-      {t:"Yotoq xonasi — to'shak tafsilotlari", cat:1, img:"images/gallery-3.jpg"},
-      {t:"Yotoq xonasi — umumiy ko'rinish", cat:1, img:"images/gallery-4.jpg"},
-      {t:"Yotoq xonasi — kengaytirilgan zona", cat:1, img:"images/gallery-5.jpg"},
-      {t:"Yotoq xonasi — old tomondan ko'rinish", cat:1, img:"images/gallery-6.jpg"},
-      {t:"Yotoq xonasi — kiyim shkafi", cat:1, img:"images/gallery-7.jpg"},
-      {t:"Yotoq xonasi — televizor zonasi", cat:1, img:"images/gallery-8.jpg"},
-      {t:"Yotoq xonasi — TV devor paneli", cat:1, img:"images/gallery-9.jpg"},
+      {t:"Yotoq xonasi — dam olish burchagi", cat:5, img:"images/gallery-1.jpg"},
+      {t:"Yotoq xonasi — shkaf zonasi", cat:5, img:"images/gallery-2.jpg"},
+      {t:"Yotoq xonasi — to'shak tafsilotlari", cat:5, img:"images/gallery-3.jpg"},
+      {t:"Yotoq xonasi — umumiy ko'rinish", cat:5, img:"images/gallery-4.jpg"},
+      {t:"Yotoq xonasi — kengaytirilgan zona", cat:5, img:"images/gallery-5.jpg"},
+      {t:"Yotoq xonasi — old tomondan ko'rinish", cat:5, img:"images/gallery-6.jpg"},
+      {t:"Yotoq xonasi — kiyim shkafi", cat:5, img:"images/gallery-7.jpg"},
+      {t:"Yotoq xonasi — televizor zonasi", cat:5, img:"images/gallery-8.jpg"},
+      {t:"Yotoq xonasi — TV devor paneli", cat:5, img:"images/gallery-9.jpg"},
     ],
     "faq.heading":"Tez-tez so'raladigan savollar",
     "faq.items":[
@@ -1106,7 +1163,7 @@ const I18N = {
     "gallery.note":"* Фотографии проектов по другим направлениям появятся здесь в ближайшее время.",
     "gallery.ba_label":"До / После — потяните и сравните",
     "gallery.before":"До","gallery.after":"После",
-    "gallery.filters":["Все","Интерьер","Экстерьер","Ландшафт","Офис"],
+    "gallery.filters":["Все","Интерьер","Экстерьер","Ландшафт","Офис","Спальня"],
     "gallery.items":[
       {t:"Современная квартира", cat:1, kind:"interior"},
       {t:"Фасад частного дома", cat:2, kind:"exterior"},
@@ -1114,15 +1171,15 @@ const I18N = {
       {t:"Офисное пространство", cat:4, kind:"office"},
       {t:"Интерьер гостиной", cat:1, kind:"interior"},
       {t:"Экстерьер виллы", cat:2, kind:"exterior"},
-      {t:"Спальня — зона отдыха", cat:1, img:"images/gallery-1.jpg"},
-      {t:"Спальня — гардеробная зона", cat:1, img:"images/gallery-2.jpg"},
-      {t:"Спальня — детали кровати", cat:1, img:"images/gallery-3.jpg"},
-      {t:"Спальня — общий вид", cat:1, img:"images/gallery-4.jpg"},
-      {t:"Спальня — расширенная зона", cat:1, img:"images/gallery-5.jpg"},
-      {t:"Спальня — вид спереди", cat:1, img:"images/gallery-6.jpg"},
-      {t:"Спальня — гардеробная", cat:1, img:"images/gallery-7.jpg"},
-      {t:"Спальня — зона с телевизором", cat:1, img:"images/gallery-8.jpg"},
-      {t:"Спальня — TV-панель", cat:1, img:"images/gallery-9.jpg"},
+      {t:"Спальня — зона отдыха", cat:5, img:"images/gallery-1.jpg"},
+      {t:"Спальня — гардеробная зона", cat:5, img:"images/gallery-2.jpg"},
+      {t:"Спальня — детали кровати", cat:5, img:"images/gallery-3.jpg"},
+      {t:"Спальня — общий вид", cat:5, img:"images/gallery-4.jpg"},
+      {t:"Спальня — расширенная зона", cat:5, img:"images/gallery-5.jpg"},
+      {t:"Спальня — вид спереди", cat:5, img:"images/gallery-6.jpg"},
+      {t:"Спальня — гардеробная", cat:5, img:"images/gallery-7.jpg"},
+      {t:"Спальня — зона с телевизором", cat:5, img:"images/gallery-8.jpg"},
+      {t:"Спальня — TV-панель", cat:5, img:"images/gallery-9.jpg"},
     ],
     "faq.heading":"Часто задаваемые вопросы",
     "faq.items":[
@@ -1203,7 +1260,7 @@ const I18N = {
     "gallery.note":"* Project photos for other categories will be added here soon.",
     "gallery.ba_label":"Before / After — drag to compare",
     "gallery.before":"Before","gallery.after":"After",
-    "gallery.filters":["All","Interior","Exterior","Landscape","Office"],
+    "gallery.filters":["All","Interior","Exterior","Landscape","Office","Bedroom"],
     "gallery.items":[
       {t:"Modern apartment", cat:1, kind:"interior"},
       {t:"Private house facade", cat:2, kind:"exterior"},
@@ -1211,15 +1268,15 @@ const I18N = {
       {t:"Office space", cat:4, kind:"office"},
       {t:"Living room interior", cat:1, kind:"interior"},
       {t:"Villa exterior", cat:2, kind:"exterior"},
-      {t:"Bedroom — lounge corner", cat:1, img:"images/gallery-1.jpg"},
-      {t:"Bedroom — wardrobe area", cat:1, img:"images/gallery-2.jpg"},
-      {t:"Bedroom — bedding details", cat:1, img:"images/gallery-3.jpg"},
-      {t:"Bedroom — overview", cat:1, img:"images/gallery-4.jpg"},
-      {t:"Bedroom — extended view", cat:1, img:"images/gallery-5.jpg"},
-      {t:"Bedroom — front view", cat:1, img:"images/gallery-6.jpg"},
-      {t:"Bedroom — walk-in closet", cat:1, img:"images/gallery-7.jpg"},
-      {t:"Bedroom — TV area", cat:1, img:"images/gallery-8.jpg"},
-      {t:"Bedroom — TV wall panel", cat:1, img:"images/gallery-9.jpg"},
+      {t:"Bedroom — lounge corner", cat:5, img:"images/gallery-1.jpg"},
+      {t:"Bedroom — wardrobe area", cat:5, img:"images/gallery-2.jpg"},
+      {t:"Bedroom — bedding details", cat:5, img:"images/gallery-3.jpg"},
+      {t:"Bedroom — overview", cat:5, img:"images/gallery-4.jpg"},
+      {t:"Bedroom — extended view", cat:5, img:"images/gallery-5.jpg"},
+      {t:"Bedroom — front view", cat:5, img:"images/gallery-6.jpg"},
+      {t:"Bedroom — walk-in closet", cat:5, img:"images/gallery-7.jpg"},
+      {t:"Bedroom — TV area", cat:5, img:"images/gallery-8.jpg"},
+      {t:"Bedroom — TV wall panel", cat:5, img:"images/gallery-9.jpg"},
     ],
     "faq.heading":"Frequently asked questions",
     "faq.items":[
@@ -1338,15 +1395,27 @@ function renderGallery(lang){
   const wrap = document.getElementById('galleryGrid');
   const items = I18N[lang]["gallery.items"];
   galleryItemsCache = items;
-  wrap.innerHTML = items.map((it,i)=>`
+  const bedroomCount = items.filter(it=>it.cat===5).length;
+  let bedroomSeen = 0;
+  wrap.innerHTML = items.map((it,i)=>{
+    let badge = '';
+    if(it.cat === 5){
+      bedroomSeen++;
+      if(bedroomSeen === 1 && bedroomCount > 1){
+        badge = `<span class="g-badge">+${bedroomCount - 1} rasm</span>`;
+      }
+    }
+    return `
     <div class="g-item${i % 3 === 1 ? ' tall' : ''}" data-cat="${it.cat}" data-index="${i}" tabindex="0" role="button" aria-label="${it.t}">
       ${it.img ? `<img src="${it.img}" alt="${it.t}" loading="lazy">` : scene(it.kind)}
+      ${badge}
       <div class="g-caption">
         <span class="line"></span>
         <div class="cat">${I18N[lang]["gallery.filters"][it.cat]}</div>
         <div class="title">${it.t}</div>
       </div>
-    </div>`).join('');
+    </div>`;
+  }).join('');
   wrap.querySelectorAll('.g-item').forEach((el, i)=>{
     el.addEventListener('click', ()=>openLightbox(parseInt(el.dataset.index)));
     el.addEventListener('keydown', e=>{ if(e.key==='Enter' || e.key===' '){ e.preventDefault(); openLightbox(parseInt(el.dataset.index)); }});
@@ -1364,9 +1433,19 @@ function renderGallery(lang){
 }
 
 function applyGalleryFilter(){
+  let bedroomShown = false;
   document.querySelectorAll('.g-item').forEach(el=>{
     const cat = parseInt(el.dataset.cat);
-    el.classList.toggle('hide', galleryFilter !== 0 && cat !== galleryFilter);
+    let hide = galleryFilter !== 0 && cat !== galleryFilter;
+    /* "Barchasi" ko'rinishida yotoqxona rasmlaridan faqat bittasi (birinchisi) chiqadi,
+       qolganlarini lightbox ichida (< >) ko'rish mumkin. "Yotoqxona" filtri tanlanganda hammasi chiqadi. */
+    if(!hide && galleryFilter === 0 && cat === 5){
+      if(bedroomShown){ hide = true; } else { bedroomShown = true; }
+    }
+    el.classList.toggle('hide', hide);
+  });
+  document.querySelectorAll('.g-badge').forEach(b=>{
+    b.style.display = (galleryFilter === 0) ? '' : 'none';
   });
 }
 
@@ -1457,28 +1536,31 @@ document.addEventListener('DOMContentLoaded', ()=>{
   /* Hero entrance */
   requestAnimationFrame(()=> document.querySelector('.hero').classList.add('is-ready'));
 
-  /* Hero CTA quick-contact dropdown */
-  const heroCtaBtn = document.getElementById('heroCtaBtn');
-  const heroCtaMenu = document.getElementById('heroCtaMenu');
-  if(heroCtaBtn && heroCtaMenu){
-    heroCtaBtn.addEventListener('click', (e)=>{
+  /* Quick-contact dropdown (hero va nav tugmalari uchun umumiy) */
+  function wireCtaDropdown(btnId, menuId){
+    const btn = document.getElementById(btnId);
+    const menu = document.getElementById(menuId);
+    if(!btn || !menu) return;
+    btn.addEventListener('click', (e)=>{
       e.stopPropagation();
-      const isOpen = heroCtaMenu.classList.toggle('open');
-      heroCtaBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      const isOpen = menu.classList.toggle('open');
+      btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
     });
     document.addEventListener('click', (e)=>{
-      if(!heroCtaMenu.contains(e.target) && e.target !== heroCtaBtn){
-        heroCtaMenu.classList.remove('open');
-        heroCtaBtn.setAttribute('aria-expanded', 'false');
+      if(!menu.contains(e.target) && e.target !== btn && !btn.contains(e.target)){
+        menu.classList.remove('open');
+        btn.setAttribute('aria-expanded', 'false');
       }
     });
     document.addEventListener('keydown', (e)=>{
       if(e.key === 'Escape'){
-        heroCtaMenu.classList.remove('open');
-        heroCtaBtn.setAttribute('aria-expanded', 'false');
+        menu.classList.remove('open');
+        btn.setAttribute('aria-expanded', 'false');
       }
     });
   }
+  wireCtaDropdown('heroCtaBtn', 'heroCtaMenu');
+  wireCtaDropdown('navCtaBtn', 'navCtaMenu');
 
   /* Language buttons (all instances) */
   document.querySelectorAll('.lang-btn').forEach(b=>{
@@ -1805,6 +1887,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
         <option value="2">Eksteryer</option>
         <option value="3">Landshaft</option>
         <option value="4">Ofis</option>
+        <option value="5">Yotoqxona</option>
       </select>
       <button id="adminMigrateBtn" style="background:transparent; border:1px solid var(--bronze,#D4AF37); color:var(--bronze,#D4AF37); margin-top:10px;">Eski (statik) rasmlarni Firebasega ko'chirish</button>
       <button id="adminUploadBtn">Yuklash</button>
