@@ -1491,6 +1491,9 @@ document.addEventListener('DOMContentLoaded', ()=>{
     const btn = document.getElementById(btnId);
     const menu = document.getElementById(menuId);
     if(!btn || !menu) return;
+    /* Menyuni <body> ga ko'chiramiz: animatsiyali (transform) ota-elementlar
+       position:fixed ni buzmasligi va hero overflow:hidden kesib qo'ymasligi uchun */
+    document.body.appendChild(menu);
     function positionMenu(){
       const r = btn.getBoundingClientRect();
       let left = r.left + r.width/2;
