@@ -651,27 +651,39 @@ html.js-ready .reveal.in{opacity:1; transform:none;}
 .mobile-drawer .lang-btn{color:var(--ink, #F5F3EE); font-size:16px;}
 
 /* ADMIN PANEL */
-#adminPanel{position:fixed; inset:0; z-index:9999; background:rgba(5,5,5,.92); display:none; align-items:flex-start; justify-content:center; overflow:auto; padding:60px 20px;}
+#adminPanel{position:fixed; inset:0; z-index:9999; background:rgba(5,5,5,.94); display:none; align-items:flex-start; justify-content:center; overflow:auto; padding:48px 16px;}
 #adminPanel.open{display:flex;}
-.admin-box{background:var(--ivory-deep,#141416); border:1px solid var(--line-on-dark,rgba(245,243,238,.24)); border-radius:10px; padding:28px; width:100%; max-width:480px; font-family:'Inter',sans-serif; color:var(--ink,#F5F3EE);}
-.admin-box h3{font-family:'Spectral',serif; font-size:22px; margin:0 0 18px; color:var(--bronze,#D4AF37);}
+.admin-box{position:relative; background:var(--ivory-deep,#141416); border:1px solid var(--line-on-dark,rgba(245,243,238,.24)); border-radius:10px; padding:26px; width:100%; max-width:560px; font-family:'Inter',sans-serif; color:var(--ink,#F5F3EE);}
+.admin-box h3{font-family:'Spectral',serif; font-size:22px; margin:0 0 6px; color:var(--bronze,#D4AF37);}
 .admin-box label{display:block; font-size:13px; margin:14px 0 6px; color:var(--ink-soft,rgba(245,243,238,.66));}
-.admin-box input[type=text],.admin-box input[type=password],.admin-box select{width:100%; padding:12px; background:var(--brown-800,#0A0A0B); border:1px solid var(--line,rgba(245,243,238,.12)); border-radius:6px; color:var(--ink,#F5F3EE); font-size:16px;}
+.admin-box input[type=text],.admin-box input[type=password],.admin-box input[type=number],.admin-box select{width:100%; padding:12px; background:var(--brown-800,#0A0A0B); border:1px solid var(--line,rgba(245,243,238,.12)); border-radius:6px; color:var(--ink,#F5F3EE); font-size:16px; font-family:inherit;}
 .admin-box input[type=file]{width:100%; margin-top:4px; color:var(--ink-soft,rgba(245,243,238,.66)); font-size:13px;}
-.admin-box button{margin-top:20px; width:100%; padding:12px; background:var(--bronze,#D4AF37); color:#0A0A0B; border:none; border-radius:6px; font-weight:600; cursor:pointer; font-size:14px;}
-.admin-box button:disabled{opacity:.5; cursor:not-allowed;}
-.admin-box .admin-msg{margin-top:12px; font-size:13px; min-height:18px;}
-.admin-box .admin-close{position:absolute; top:14px; right:18px; background:none; border:none; color:var(--ink-soft,rgba(245,243,238,.66)); font-size:22px; cursor:pointer;}
-.admin-box{position:relative;}
-.admin-list{margin-top:22px; border-top:1px solid var(--line,rgba(245,243,238,.12)); padding-top:14px; max-height:220px; overflow:auto;}
-.admin-list-item{display:flex; align-items:center; gap:10px; padding:8px 0; border-bottom:1px solid var(--line,rgba(245,243,238,.12)); font-size:13px;}
-.admin-list-item img{width:44px; height:44px; object-fit:cover; border-radius:4px; flex-shrink:0;}
-.admin-list-item span{flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
-.admin-list-item button{margin:0; width:auto; padding:5px 10px; font-size:12px; background:rgba(220,80,80,.85); color:#fff;}
+.admin-btn{display:block; margin-top:18px; width:100%; padding:12px; background:var(--bronze,#D4AF37); color:#0A0A0B; border:none; border-radius:6px; font-weight:600; cursor:pointer; font-size:14px; font-family:inherit;}
+.admin-btn:disabled{opacity:.5; cursor:not-allowed;}
+.admin-btn.ghost{background:transparent; border:1px solid var(--bronze,#D4AF37); color:var(--bronze,#D4AF37);}
+.admin-btn.small{display:inline-block; margin:0; width:auto; padding:8px 12px; font-size:12px;}
+.admin-btn.danger{background:rgba(220,80,80,.9); color:#fff;}
+.admin-msg{margin-top:14px; font-size:13px; min-height:18px; line-height:1.4;}
+.admin-close{position:absolute; top:12px; right:16px; background:none; border:none; color:var(--ink-soft,rgba(245,243,238,.66)); font-size:26px; cursor:pointer; line-height:1;}
+.admin-top{display:flex; align-items:center; justify-content:space-between; gap:12px; margin:0 34px 14px 0;}
+.admin-top h3{margin:0;}
+.admin-tabs{display:flex; gap:8px; margin-bottom:6px;}
+.admin-tabs button{flex:1; padding:10px; background:transparent; border:1px solid var(--line,rgba(245,243,238,.12)); color:var(--ink-soft,rgba(245,243,238,.66)); border-radius:6px; cursor:pointer; font-size:14px; font-family:inherit;}
+.admin-tabs button.active{background:rgba(212,175,55,.14); border-color:var(--bronze,#D4AF37); color:var(--bronze-light,#E9CE7A);}
+.admin-list{margin-top:22px; border-top:1px solid var(--line,rgba(245,243,238,.12)); padding-top:6px;}
+.admin-empty{opacity:.6; font-size:13px; margin:14px 0 0;}
+.admin-row{display:flex; align-items:center; gap:12px; padding:10px 0; border-bottom:1px solid var(--line,rgba(245,243,238,.12));}
+.admin-row img{width:56px; height:56px; object-fit:cover; border-radius:4px; flex-shrink:0;}
+.admin-row-main{flex:1; min-width:0;}
+.admin-row-title{font-size:14px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; margin-bottom:6px;}
+.admin-row select{padding:8px 10px; font-size:14px;}
+.admin-price-row{display:flex; align-items:center; gap:10px; color:var(--ink-soft,rgba(245,243,238,.66));}
+.admin-price-row input{flex:1;}
+.admin-hint{font-size:12.5px; color:var(--ink-soft,rgba(245,243,238,.66)); margin:8px 0 0; line-height:1.5;}
+.admin-link{background:none; border:none; color:var(--ink-soft,rgba(245,243,238,.66)); font-size:12px; letter-spacing:.08em; text-transform:uppercase; cursor:pointer; opacity:.6; padding:8px 10px; font-family:inherit;}
+.admin-link:hover{opacity:1; color:var(--bronze-light,#E9CE7A);}
 </style>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
 
@@ -889,6 +901,7 @@ html.js-ready .reveal.in{opacity:1; transform:none;}
   <div class="container">
     <img src="images/logo.png" alt="YAHYO.DESIGN" style="opacity:.85;">
     <span data-i18n="footer.rights">© 2026 YAHYO.DESIGN. Barcha huquqlar himoyalangan.</span>
+    <button type="button" class="admin-link" id="adminOpenBtn">Admin</button>
   </div>
 </footer>
 
@@ -1296,6 +1309,7 @@ function renderServices(lang){
 const CHECK_ICON = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>`;
 const CROSS_ICON = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>`;
 
+var priceValues = {};
 function renderPricing(lang){
   const wrap = document.getElementById('pricingGrid');
   const allFeatures = I18N[lang]["pricing.features"];
@@ -1304,7 +1318,7 @@ function renderPricing(lang){
     <div class="pricing-card${i===1 ? ' popular' : ''}">
       ${i===1 ? `<span class="badge">${I18N[lang]["pricing.popular"]}</span>` : ''}
       <div class="p-name">${p.name}</div>
-      <div class="p-price"><span class="amount">${p.price}</span><span class="unit">${p.unit}</span></div>
+      <div class="p-price"><span class="amount">${priceValues[i] != null ? '$' + priceValues[i] : p.price}</span><span class="unit">${p.unit}</span></div>
       <ul class="p-features">
         ${allFeatures.map((f,fi)=>{
           const has = p.included.includes(fi);
@@ -1623,245 +1637,425 @@ document.addEventListener('DOMContentLoaded', ()=>{
 });
 
 /* =====================================================
-   AKA UCHUN: RASM YUKLASH TIZIMI (Firebase)
-   1) https://console.firebase.google.com ga kiring, yangi loyiha yarating
-   2) Build > Firestore Database > Create database (test mode) ni yoqing
-   3) Build > Storage > Get started ni yoqing
-   4) Project settings > General > "Add app" > Web (</>) ni bosing
-   5) Chiqqan firebaseConfig obyektini pastdagi FIREBASE_CONFIG ga qo'ying
-   6) ADMIN_PASSWORD ni o'zingiz xohlagan parolga o'zgartiring
-   Sahifani ochish uchun: sayt-manzili.html#admin
+   ADMIN TIZIMI (Supabase)
+   Sozlash: supabase/QOLLANMA.md faylini o'qing.
+   Pastdagi ikki qiymatni to'ldiring (ochiq kalitlar, xavfsiz):
    ===================================================== */
-const FIREBASE_CONFIG = {
-  apiKey: "REPLACE_ME",
-  authDomain: "REPLACE_ME.firebaseapp.com",
-  projectId: "REPLACE_ME",
-  storageBucket: "REPLACE_ME.appspot.com",
-  messagingSenderId: "REPLACE_ME",
-  appId: "REPLACE_ME"
-};
-const ADMIN_PASSWORD = "yahyo2026"; // <-- shu yerda o'zgartiring
+const SUPABASE_URL = "REPLACE_ME";
+const SUPABASE_ANON_KEY = "REPLACE_ME";
 
-let fbDb = null, fbStorage = null, fbReady = false;
+const SB_BUCKET = 'gallery';
+const PLAN_KEYS = ['standard','premium','vip'];
+const ADMIN_CATS = [
+  {v:1, n:'Interyer'}, {v:2, n:'Eksteryer'}, {v:3, n:'Landshaft'}, {v:4, n:'Ofis'}, {v:5, n:'Yotoqxona'}
+];
+
+let sb = null, sbReady = false;
 try{
-  if(FIREBASE_CONFIG.apiKey !== "REPLACE_ME"){
-    firebase.initializeApp(FIREBASE_CONFIG);
-    fbDb = firebase.firestore();
-    fbStorage = firebase.storage();
-    fbReady = true;
+  if(SUPABASE_URL.indexOf('REPLACE_ME') === -1 && window.supabase){
+    sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    sbReady = true;
   }
-} catch(e){ console.error('Firebase init error:', e); }
+} catch(e){ console.error('Supabase init xatosi:', e); }
 
 let uploadedItems = [];
 let galleryMigrated = false;
 
-async function loadUploadedItems(){
-  if(!fbReady) return;
-  try{
-    const metaDoc = await fbDb.collection('meta').doc('gallery').get();
-    galleryMigrated = metaDoc.exists && metaDoc.data().migrated === true;
-
-    const snap = await fbDb.collection('gallery_uploads').orderBy('createdAt','desc').get();
-    uploadedItems = snap.docs.map(d=>({ id:d.id, t:d.data().title, cat:d.data().cat, img:d.data().url, kind:null, storagePath:d.data().storagePath }));
-    renderGallery(currentLang);
-  } catch(e){ console.error('Yuklashda xato:', e); }
+function byId(id){ return document.getElementById(id); }
+function adminEsc(s){
+  return String(s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 }
+function cleanTitle(s){ return String(s).replace(/[<>"&]/g,'').trim().slice(0,120); }
 
-/* renderGallery ni statik + yuklangan rasmlar bilan ishlaydigan qilib kengaytiramiz.
-   Migratsiya qilingandan so'ng, mahalliy "images/gallery-*" rasmli statik elementlar
-   yashiriladi (chunki ular endi Firebase orqali keladi), takrorlanmasin uchun. */
+/* ---------- Ommaviy qism: galereya va narxlarni bazadan olish ---------- */
 const _origRenderGallery = renderGallery;
 renderGallery = function(lang){
   let staticItems = I18N[lang]["gallery.items"];
   if(galleryMigrated){
     staticItems = staticItems.filter(it => !(it.img && it.img.indexOf('images/gallery-') === 0));
   }
-  const combined = staticItems.concat(uploadedItems);
-  const savedItems = I18N[lang]["gallery.items"];
-  I18N[lang]["gallery.items"] = combined;
-  _origRenderGallery(lang);
-  I18N[lang]["gallery.items"] = savedItems;
+  const saved = I18N[lang]["gallery.items"];
+  I18N[lang]["gallery.items"] = staticItems.concat(uploadedItems);
+  try{ _origRenderGallery(lang); }
+  finally{ I18N[lang]["gallery.items"] = saved; }
 };
 
-async function migrateStaticImages(){
-  if(!fbReady) return;
-  if(galleryMigrated){ adminLog("Rasmlar allaqachon Firebasega ko'chirilgan."); return; }
-  if(!confirm("Barcha eski (statik) rasmlar Firebasega ko'chiriladi. Davom etasizmi?")) return;
-  const btn = document.getElementById('adminMigrateBtn');
-  btn.disabled = true;
-  const sourceItems = I18N["uz"]["gallery.items"].filter(it => it.img && it.img.indexOf('images/gallery-') === 0);
-  let done = 0;
-  for(const it of sourceItems){
-    try{
-      adminLog(`Ko'chirilmoqda: ${done+1}/${sourceItems.length}...`);
-      const resp = await fetch(it.img);
-      const blob = await resp.blob();
-      const storagePath = 'gallery/' + Date.now() + '_' + it.img.split('/').pop();
-      const ref = fbStorage.ref(storagePath);
-      await ref.put(blob);
-      const url = await ref.getDownloadURL();
-      await fbDb.collection('gallery_uploads').add({
-        title: it.t,
-        cat: it.cat,
-        url: url,
-        storagePath: storagePath,
-        createdAt: firebase.firestore.FieldValue.serverTimestamp()
-      });
-      done++;
-    } catch(e){ console.error('Migratsiya xatosi:', it.img, e); }
-  }
-  await fbDb.collection('meta').doc('gallery').set({ migrated:true, migratedAt: firebase.firestore.FieldValue.serverTimestamp() });
-  galleryMigrated = true;
-  adminLog(`Tayyor! ${done}/${sourceItems.length} rasm Firebasega ko'chirildi.`);
-  await loadUploadedItems();
-  renderAdminList();
-  btn.style.display = 'none';
+async function loadGallery(){
+  if(!sbReady) return;
+  try{
+    const res = await sb.from('gallery_items').select('*').order('created_at', {ascending:false});
+    if(res.error) throw res.error;
+    const flag = await sb.from('site_flags').select('value').eq('key','gallery_migrated').maybeSingle();
+    uploadedItems = res.data.map(r=>({id:r.id, t:r.title, cat:r.cat, img:r.image_url, path:r.image_path, kind:null}));
+    galleryMigrated = !!(flag && flag.data && flag.data.value === '1');
+    renderGallery(currentLang);
+  } catch(e){ console.error('Galereyani yuklashda xato:', e); }
 }
 
-function adminLog(msg, isError){
-  const el = document.getElementById('adminMsg');
-  if(el){ el.textContent = msg; el.style.color = isError ? '#e08080' : '#8fd18f'; }
-}
-
-function renderAdminList(){
-  const wrap = document.getElementById('adminList');
-  if(!wrap) return;
-  if(!uploadedItems.length){ wrap.innerHTML = '<p style="opacity:.6;font-size:13px;">Hozircha yuklangan rasm yo\'q.</p>'; return; }
-  wrap.innerHTML = uploadedItems.map(it=>`
-    <div class="admin-list-item">
-      <img src="${it.img}" alt="">
-      <span>${it.t}</span>
-      <button data-id="${it.id}" data-path="${it.storagePath||''}">O'chirish</button>
-    </div>`).join('');
-  wrap.querySelectorAll('button[data-id]').forEach(b=>{
-    b.addEventListener('click', ()=> deleteUploadedItem(b.dataset.id, b.dataset.path));
+function applyPricesToDom(){
+  document.querySelectorAll('#pricingGrid .pricing-card .amount').forEach((el,i)=>{
+    if(priceValues[i] != null) el.textContent = '$' + priceValues[i];
   });
 }
 
-async function deleteUploadedItem(id, storagePath){
-  if(!fbReady) return;
-  if(!confirm('Bu rasmni o\'chirmoqchimisiz?')) return;
+async function loadPrices(){
+  if(!sbReady) return;
   try{
-    await fbDb.collection('gallery_uploads').doc(id).delete();
-    if(storagePath){ try{ await fbStorage.ref(storagePath).delete(); } catch(e){} }
-    await loadUploadedItems();
-    renderAdminList();
-    adminLog('O\'chirildi.');
-  } catch(e){ adminLog('Xato: ' + e.message, true); }
+    const res = await sb.from('site_prices').select('*');
+    if(res.error) throw res.error;
+    res.data.forEach(r=>{
+      const i = PLAN_KEYS.indexOf(r.plan_key);
+      if(i > -1) priceValues[i] = Number(r.value);
+    });
+    applyPricesToDom();
+  } catch(e){ console.error('Narxlarni yuklashda xato:', e); }
 }
 
-function openAdminPanel(){
-  if(!fbReady){
-    alert('Firebase hali sozlanmagan. Kod ichidagi FIREBASE_CONFIG maydonini to\'ldiring.');
+/* ---------- Admin: kirish / chiqish ---------- */
+function adminMsg(text, kind){
+  const el = byId('adminMsg');
+  el.textContent = text || '';
+  el.style.color = kind === 'err' ? '#e08080' : '#8fd18f';
+}
+function adminErrText(e){
+  const m = (e && e.message) ? e.message : String(e);
+  if(/jwt|expired|not authenticated|401|row-level security|permission/i.test(m)){
+    return 'Ruxsat yo\'q yoki sessiya tugagan. Chiqib, qaytadan kiring.';
+  }
+  return 'Xato: ' + m;
+}
+function showAdminView(name){
+  byId('adminLoginView').style.display = name === 'login' ? '' : 'none';
+  byId('adminMainView').style.display = name === 'main' ? '' : 'none';
+}
+async function isAdminUser(){
+  const res = await sb.rpc('is_admin');
+  return !res.error && res.data === true;
+}
+
+async function openAdminPanel(){
+  byId('adminPanel').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  adminMsg('');
+  showAdminView('login');
+  if(!sbReady){
+    adminMsg('Baza hali ulanmagan (SUPABASE_URL va SUPABASE_ANON_KEY to\'ldirilmagan).', 'err');
     return;
   }
-  const authed = sessionStorage.getItem('adminAuthed') === '1';
-  document.getElementById('adminPanel').classList.add('open');
-  document.getElementById('adminLoginView').style.display = authed ? 'none' : 'block';
-  document.getElementById('adminUploadView').style.display = authed ? 'block' : 'none';
-  const migBtn = document.getElementById('adminMigrateBtn');
-  if(migBtn) migBtn.style.display = galleryMigrated ? 'none' : 'block';
-  if(authed) renderAdminList();
+  try{
+    const s = await sb.auth.getSession();
+    if(s.data && s.data.session){
+      if(await isAdminUser()) await enterAdmin();
+      else await sb.auth.signOut();
+    }
+  } catch(e){ console.error(e); }
 }
 
 function closeAdminPanel(){
-  document.getElementById('adminPanel').classList.remove('open');
-  history.replaceState(null, '', location.pathname + location.search);
+  byId('adminPanel').classList.remove('open');
+  document.body.style.overflow = '';
+  if(location.hash === '#admin') history.replaceState(null, '', location.pathname + location.search);
 }
 
+async function adminLogin(){
+  if(!sbReady){ adminMsg('Baza hali ulanmagan.', 'err'); return; }
+  const email = byId('adminEmail').value.trim();
+  const password = byId('adminPass').value;
+  if(!email || !password){ adminMsg('Email va parolni kiriting.', 'err'); return; }
+  const btn = byId('adminLoginBtn');
+  btn.disabled = true; adminMsg('Tekshirilmoqda...');
+  try{
+    const res = await sb.auth.signInWithPassword({email, password});
+    if(res.error){ adminMsg('Email yoki parol noto\'g\'ri.', 'err'); return; }
+    if(!(await isAdminUser())){
+      await sb.auth.signOut();
+      adminMsg('Bu hisobda admin huquqi yo\'q.', 'err');
+      return;
+    }
+    byId('adminPass').value = '';
+    await enterAdmin();
+  } catch(e){ adminMsg(adminErrText(e), 'err'); }
+  finally{ btn.disabled = false; }
+}
+
+async function adminLogout(){
+  try{ await sb.auth.signOut(); } catch(e){}
+  showAdminView('login');
+  adminMsg('');
+}
+
+async function enterAdmin(){
+  showAdminView('main');
+  switchAdminTab('images');
+  await loadGallery();
+  renderAdminImages();
+  renderPriceForm();
+  updateMigrateUi();
+}
+
+function switchAdminTab(name){
+  document.querySelectorAll('.admin-tabs button').forEach(b=> b.classList.toggle('active', b.dataset.tab === name));
+  byId('adminTabImages').style.display = name === 'images' ? '' : 'none';
+  byId('adminTabPrices').style.display = name === 'prices' ? '' : 'none';
+  adminMsg('');
+}
+
+/* ---------- Admin: rasmlar ---------- */
+function catOptions(sel){
+  return ADMIN_CATS.map(c=>`<option value="${c.v}"${c.v === sel ? ' selected' : ''}>${c.n}</option>`).join('');
+}
+
+function renderAdminImages(){
+  const wrap = byId('adminList');
+  if(!uploadedItems.length){
+    wrap.innerHTML = '<p class="admin-empty">Hozircha bazada rasm yo\'q.</p>';
+    return;
+  }
+  wrap.innerHTML = uploadedItems.map(it=>`
+    <div class="admin-row" data-id="${adminEsc(it.id)}">
+      <img src="${adminEsc(it.img)}" alt="">
+      <div class="admin-row-main">
+        <div class="admin-row-title">${adminEsc(it.t)}</div>
+        <select class="admin-cat" aria-label="Kategoriya">${catOptions(it.cat)}</select>
+      </div>
+      <button type="button" class="admin-btn small danger admin-del">O'chirish</button>
+    </div>`).join('');
+  wrap.querySelectorAll('.admin-row').forEach(row=>{
+    const id = row.dataset.id;
+    row.querySelector('.admin-cat').addEventListener('change', e=> changeCategory(id, parseInt(e.target.value, 10)));
+    row.querySelector('.admin-del').addEventListener('click', ()=> deleteImage(id));
+  });
+}
+
+async function changeCategory(id, cat){
+  try{
+    const res = await sb.from('gallery_items').update({cat}).eq('id', id);
+    if(res.error) throw res.error;
+    const it = uploadedItems.find(x=>x.id === id);
+    if(it) it.cat = cat;
+    renderGallery(currentLang);
+    adminMsg('Kategoriya o\'zgartirildi.');
+  } catch(e){ adminMsg(adminErrText(e), 'err'); await loadGallery(); renderAdminImages(); }
+}
+
+async function deleteImage(id){
+  const it = uploadedItems.find(x=>x.id === id);
+  if(!it || !confirm('Bu rasmni o\'chirmoqchimisiz?')) return;
+  try{
+    const res = await sb.from('gallery_items').delete().eq('id', id);
+    if(res.error) throw res.error;
+    if(it.path){ try{ await sb.storage.from(SB_BUCKET).remove([it.path]); } catch(e){} }
+    await loadGallery();
+    renderAdminImages();
+    adminMsg('O\'chirildi.');
+  } catch(e){ adminMsg(adminErrText(e), 'err'); }
+}
+
+function compressImage(file, maxSide, quality){
+  maxSide = maxSide || 1800; quality = quality || 0.85;
+  return new Promise((resolve, reject)=>{
+    const url = URL.createObjectURL(file);
+    const img = new Image();
+    img.onload = ()=>{
+      const s = Math.min(1, maxSide / Math.max(img.width, img.height));
+      const w = Math.round(img.width * s), h = Math.round(img.height * s);
+      const c = document.createElement('canvas');
+      c.width = w; c.height = h;
+      c.getContext('2d').drawImage(img, 0, 0, w, h);
+      c.toBlob(b=>{
+        URL.revokeObjectURL(url);
+        b ? resolve(b) : reject(new Error('Rasmni qayta ishlab bo\'lmadi'));
+      }, 'image/jpeg', quality);
+    };
+    img.onerror = ()=>{ URL.revokeObjectURL(url); reject(new Error('Rasm fayli o\'qilmadi')); };
+    img.src = url;
+  });
+}
+
+async function uploadBlob(blob){
+  const path = Date.now() + '_' + Math.random().toString(36).slice(2, 8) + '.jpg';
+  const res = await sb.storage.from(SB_BUCKET).upload(path, blob, {contentType:'image/jpeg', cacheControl:'31536000'});
+  if(res.error) throw res.error;
+  const url = sb.storage.from(SB_BUCKET).getPublicUrl(path).data.publicUrl;
+  return {path, url};
+}
+
+async function adminUpload(){
+  const fileInput = byId('adminFileInput'), titleInput = byId('adminTitleInput');
+  const file = fileInput.files[0];
+  const title = cleanTitle(titleInput.value);
+  if(!file){ adminMsg('Rasm tanlanmagan.', 'err'); return; }
+  if(!title){ adminMsg('Sarlavha kiriting.', 'err'); return; }
+  const btn = byId('adminUploadBtn');
+  btn.disabled = true; adminMsg('Yuklanmoqda...');
+  try{
+    const blob = await compressImage(file);
+    const up = await uploadBlob(blob);
+    const res = await sb.from('gallery_items').insert({
+      title, cat: parseInt(byId('adminCatSelect').value, 10), image_path: up.path, image_url: up.url
+    });
+    if(res.error){
+      try{ await sb.storage.from(SB_BUCKET).remove([up.path]); } catch(e){}
+      throw res.error;
+    }
+    fileInput.value = ''; titleInput.value = '';
+    await loadGallery();
+    renderAdminImages();
+    adminMsg('Yuklandi! Rasm saytda ko\'rinadi.');
+  } catch(e){ adminMsg(adminErrText(e), 'err'); }
+  finally{ btn.disabled = false; }
+}
+
+function staticPhotoItems(){
+  return I18N.uz["gallery.items"].filter(it => it.img && it.img.indexOf('images/gallery-') === 0);
+}
+function updateMigrateUi(){
+  const show = !galleryMigrated && staticPhotoItems().length > 0;
+  byId('adminMigrateBtn').style.display = show ? '' : 'none';
+  byId('adminMigrateHint').style.display = show ? '' : 'none';
+}
+
+async function migrateStatic(){
+  if(galleryMigrated) return;
+  const src = staticPhotoItems().slice().reverse();
+  if(!src.length){ adminMsg('Ko\'chiriladigan rasm topilmadi.', 'err'); return; }
+  if(!confirm(src.length + ' ta eski rasm bazaga ko\'chiriladi. Davom etasizmi?')) return;
+  const btn = byId('adminMigrateBtn');
+  btn.disabled = true;
+  let done = 0;
+  try{
+    for(const it of src){
+      adminMsg('Ko\'chirilmoqda: ' + (done + 1) + '/' + src.length + '...');
+      const resp = await fetch(it.img);
+      if(!resp.ok) throw new Error('Fayl topilmadi: ' + it.img);
+      const blob = new Blob([await resp.blob()], {type:'image/jpeg'});
+      const up = await uploadBlob(blob);
+      const res = await sb.from('gallery_items').insert({
+        title: cleanTitle(it.t), cat: it.cat, image_path: up.path, image_url: up.url
+      });
+      if(res.error) throw res.error;
+      done++;
+    }
+    const fl = await sb.from('site_flags').upsert({key:'gallery_migrated', value:'1'}, {onConflict:'key'});
+    if(fl.error) throw fl.error;
+    adminMsg('Tayyor! ' + done + ' ta rasm ko\'chirildi.');
+  } catch(e){
+    adminMsg(adminErrText(e) + ' (' + done + ' ta ko\'chirildi. Qayta urinishdan oldin ro\'yxatni tekshiring, takror rasm bo\'lmasin.)', 'err');
+  }
+  btn.disabled = false;
+  await loadGallery();
+  renderAdminImages();
+  updateMigrateUi();
+}
+
+/* ---------- Admin: narxlar ---------- */
+function renderPriceForm(){
+  const plans = I18N.uz["pricing.plans"];
+  byId('adminPriceList').innerHTML = plans.map((p,i)=>{
+    const cur = (priceValues[i] != null) ? priceValues[i] : parseFloat(String(p.price).replace(/[^0-9.]/g, ''));
+    return `<label for="adminPrice${i}">${adminEsc(p.name)}</label>
+      <div class="admin-price-row"><span>$</span>
+        <input type="number" id="adminPrice${i}" min="0" max="100000" step="0.01" inputmode="decimal" value="${isFinite(cur) ? cur : ''}">
+        <span>/ m²</span></div>`;
+  }).join('');
+}
+
+async function savePrices(){
+  const plans = I18N.uz["pricing.plans"];
+  const rows = [];
+  for(let i = 0; i < PLAN_KEYS.length; i++){
+    const raw = byId('adminPrice' + i).value.trim();
+    const v = Number(raw);
+    if(raw === '' || !isFinite(v) || v < 0 || v > 100000){
+      adminMsg('"' + plans[i].name + '" narxi noto\'g\'ri kiritilgan.', 'err');
+      return;
+    }
+    rows.push({plan_key: PLAN_KEYS[i], value: v, updated_at: new Date().toISOString()});
+  }
+  const btn = byId('adminPriceSaveBtn');
+  btn.disabled = true; adminMsg('Saqlanmoqda...');
+  try{
+    const res = await sb.from('site_prices').upsert(rows, {onConflict:'plan_key'});
+    if(res.error) throw res.error;
+    rows.forEach((r,i)=>{ priceValues[i] = r.value; });
+    applyPricesToDom();
+    adminMsg('Narxlar saqlandi.');
+  } catch(e){ adminMsg(adminErrText(e), 'err'); }
+  finally{ btn.disabled = false; }
+}
+
+/* ---------- Ulash ---------- */
 document.addEventListener('DOMContentLoaded', ()=>{
+  const openBtn = byId('adminOpenBtn');
+  if(openBtn) openBtn.addEventListener('click', openAdminPanel);
+  byId('adminCloseBtn').addEventListener('click', closeAdminPanel);
+  byId('adminLoginBtn').addEventListener('click', adminLogin);
+  ['adminEmail','adminPass'].forEach(id=> byId(id).addEventListener('keydown', e=>{ if(e.key === 'Enter') adminLogin(); }));
+  byId('adminLogoutBtn').addEventListener('click', adminLogout);
+  document.querySelectorAll('.admin-tabs button').forEach(b=> b.addEventListener('click', ()=> switchAdminTab(b.dataset.tab)));
+  byId('adminUploadBtn').addEventListener('click', adminUpload);
+  byId('adminMigrateBtn').addEventListener('click', migrateStatic);
+  byId('adminPriceSaveBtn').addEventListener('click', savePrices);
+  document.addEventListener('keydown', e=>{
+    if(e.key === 'Escape' && byId('adminPanel').classList.contains('open')) closeAdminPanel();
+  });
+  window.addEventListener('hashchange', ()=>{ if(location.hash === '#admin') openAdminPanel(); });
   if(location.hash === '#admin') openAdminPanel();
-
-  const loginBtn = document.getElementById('adminLoginBtn');
-  if(loginBtn){
-    loginBtn.addEventListener('click', ()=>{
-      const pass = document.getElementById('adminPassInput').value;
-      if(pass === ADMIN_PASSWORD){
-        sessionStorage.setItem('adminAuthed', '1');
-        document.getElementById('adminLoginView').style.display = 'none';
-        document.getElementById('adminUploadView').style.display = 'block';
-        renderAdminList();
-      } else {
-        adminLog('Parol noto\'g\'ri.', true);
-      }
-    });
-  }
-
-  const closeBtn = document.getElementById('adminCloseBtn');
-  if(closeBtn) closeBtn.addEventListener('click', closeAdminPanel);
-
-  const migrateBtn = document.getElementById('adminMigrateBtn');
-  if(migrateBtn) migrateBtn.addEventListener('click', migrateStaticImages);
-
-  const uploadBtn = document.getElementById('adminUploadBtn');
-  if(uploadBtn){
-    uploadBtn.addEventListener('click', async ()=>{
-      const fileInput = document.getElementById('adminFileInput');
-      const titleInput = document.getElementById('adminTitleInput');
-      const catSelect = document.getElementById('adminCatSelect');
-      const file = fileInput.files[0];
-      if(!file){ adminLog('Rasm tanlanmagan.', true); return; }
-      if(!titleInput.value.trim()){ adminLog('Sarlavha kiriting.', true); return; }
-      uploadBtn.disabled = true;
-      adminLog('Yuklanmoqda...');
-      try{
-        const storagePath = 'gallery/' + Date.now() + '_' + file.name;
-        const ref = fbStorage.ref(storagePath);
-        await ref.put(file);
-        const url = await ref.getDownloadURL();
-        await fbDb.collection('gallery_uploads').add({
-          title: titleInput.value.trim(),
-          cat: parseInt(catSelect.value, 10),
-          url: url,
-          storagePath: storagePath,
-          createdAt: firebase.firestore.FieldValue.serverTimestamp()
-        });
-        adminLog('Muvaffaqiyatli yuklandi!');
-        fileInput.value = '';
-        titleInput.value = '';
-        await loadUploadedItems();
-        renderAdminList();
-      } catch(e){
-        adminLog('Xato: ' + e.message, true);
-      } finally {
-        uploadBtn.disabled = false;
-      }
-    });
-  }
-
-  if(fbReady) loadUploadedItems();
+  if(sbReady){ loadGallery(); loadPrices(); }
 });
 </script>
 
-<!-- ADMIN PANEL MARKUP -->
-<div id="adminPanel">
+<!-- ADMIN PANEL -->
+<div id="adminPanel" role="dialog" aria-modal="true" aria-label="Admin panel">
   <div class="admin-box">
-    <button class="admin-close" id="adminCloseBtn">&times;</button>
+    <button class="admin-close" id="adminCloseBtn" type="button" aria-label="Yopish">&times;</button>
+
     <div id="adminLoginView">
       <h3>Admin kirish</h3>
-      <label>Parol</label>
-      <input type="password" id="adminPassInput" placeholder="Parolni kiriting">
-      <button id="adminLoginBtn">Kirish</button>
+      <label for="adminEmail">Email</label>
+      <input type="text" id="adminEmail" autocomplete="username" inputmode="email" autocapitalize="off" placeholder="email@example.com">
+      <label for="adminPass">Parol</label>
+      <input type="password" id="adminPass" autocomplete="current-password" placeholder="Parol">
+      <button class="admin-btn" id="adminLoginBtn" type="button">Kirish</button>
     </div>
-    <div id="adminUploadView" style="display:none;">
-      <h3>Yangi rasm qo'shish</h3>
-      <label>Rasm</label>
-      <input type="file" id="adminFileInput" accept="image/*">
-      <label>Sarlavha</label>
-      <input type="text" id="adminTitleInput" placeholder="Masalan: Yotoqxona dizayni">
-      <label>Kategoriya</label>
-      <select id="adminCatSelect">
-        <option value="1">Interyer</option>
-        <option value="2">Eksteryer</option>
-        <option value="3">Landshaft</option>
-        <option value="4">Ofis</option>
-        <option value="5">Yotoqxona</option>
-      </select>
-      <button id="adminMigrateBtn" style="background:transparent; border:1px solid var(--bronze,#D4AF37); color:var(--bronze,#D4AF37); margin-top:10px;">Eski (statik) rasmlarni Firebasega ko'chirish</button>
-      <button id="adminUploadBtn">Yuklash</button>
-      <div class="admin-list" id="adminList"></div>
+
+    <div id="adminMainView" style="display:none;">
+      <div class="admin-top">
+        <h3>Admin panel</h3>
+        <button class="admin-btn ghost small" id="adminLogoutBtn" type="button">Chiqish</button>
+      </div>
+      <div class="admin-tabs">
+        <button type="button" data-tab="images" class="active">Rasmlar</button>
+        <button type="button" data-tab="prices">Narxlar</button>
+      </div>
+
+      <div id="adminTabImages">
+        <label for="adminFileInput">Yangi rasm</label>
+        <input type="file" id="adminFileInput" accept="image/*">
+        <label for="adminTitleInput">Sarlavha</label>
+        <input type="text" id="adminTitleInput" maxlength="120" placeholder="Masalan: Yotoqxona dizayni">
+        <label for="adminCatSelect">Kategoriya</label>
+        <select id="adminCatSelect">
+          <option value="1">Interyer</option>
+          <option value="2">Eksteryer</option>
+          <option value="3">Landshaft</option>
+          <option value="4">Ofis</option>
+          <option value="5">Yotoqxona</option>
+        </select>
+        <button class="admin-btn" id="adminUploadBtn" type="button">Yuklash</button>
+        <button class="admin-btn ghost" id="adminMigrateBtn" type="button" style="display:none;">Eski rasmlarni bazaga ko'chirish (bir marta)</button>
+        <p class="admin-hint" id="adminMigrateHint" style="display:none;">Saytdagi hozirgi yotoqxona rasmlarini ham shu yerdan boshqarish (kategoriyasini o'zgartirish, o'chirish) uchun bir marta ko'chirib oling.</p>
+        <div class="admin-list" id="adminList"></div>
+      </div>
+
+      <div id="adminTabPrices" style="display:none;">
+        <p class="admin-hint">Faqat raqamni kiriting. $ belgisi va / m² saytda o'zi qo'shiladi.</p>
+        <div id="adminPriceList"></div>
+        <button class="admin-btn" id="adminPriceSaveBtn" type="button">Narxlarni saqlash</button>
+      </div>
     </div>
-    <div class="admin-msg" id="adminMsg"></div>
+
+    <div class="admin-msg" id="adminMsg" role="status"></div>
   </div>
 </div>
 </body>
