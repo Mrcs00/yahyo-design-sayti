@@ -541,6 +541,8 @@ footer img{height:22px; opacity:.85;}
 .lightbox-inner{max-width:min(90vw,720px); width:100%; text-align:center;}
 .lightbox-inner .lb-svg{width:100%; max-width:100%; height:auto; max-height:min(62vh,576px); aspect-ratio:4/5; background:var(--brown-800, #0A0A0B); border-radius:2px; overflow:hidden; margin:0 auto;}
 .lightbox-inner .lb-svg svg{width:100%; height:100%;}
+.lightbox-inner .lb-svg.lb-photo{aspect-ratio:auto; max-height:none; background:transparent; overflow:visible; display:flex; align-items:center; justify-content:center;}
+.lightbox-inner .lb-svg.lb-photo img{display:block; max-width:100%; width:auto; height:auto; max-height:calc(100vh - 210px); max-height:calc(100dvh - 210px); object-fit:contain; border-radius:2px;}
 .lightbox-inner .lb-title{color:var(--ink, #F5F3EE); font-family:'Spectral',serif; margin-top:20px; font-size:20px;}
 .lightbox-inner .lb-cat{color:var(--bronze-light, #E9CE7A); font-style:normal; font-size:13px; margin-top:6px;}
 .lb-close, .lb-prev, .lb-next{
@@ -1340,14 +1342,34 @@ function renderPricing(lang){
   } catch(e){ console.error('Pricing observer error:', e); }
 }
 
+/* Kategoriyalar: bazadan kelsa o'sha, kelmasa eski 5 ta (zaxira).
+   "Barchasi" (id 0) doim birinchi, uning nomi tilga qarab o'zgaradi. */
+let dynamicCategories = null;
+function currentCategories(lang){
+  const all = I18N[lang]["gallery.filters"][0];
+  if(dynamicCategories){
+    return [{id:0, name:all}].concat(dynamicCategories.map(c=>({id:c.id, name:c.name})));
+  }
+  return I18N[lang]["gallery.filters"].map((name,i)=>({id:i, name}));
+}
+function categoryName(catId, lang){
+  const f = currentCategories(lang).find(c=>c.id === catId);
+  return f ? f.name : '';
+}
+function escHtml(s){
+  return String(s).replace(/[&<>"']/g, ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+}
+
 function renderFilters(lang){
   const wrap = document.getElementById('filterList');
-  wrap.innerHTML = I18N[lang]["gallery.filters"].map((f,i)=>
-    `<button class="filter-btn ${i===galleryFilter?'active':''}" data-cat="${i}">${f}</button>`
+  const cats = currentCategories(lang);
+  if(!cats.some(c=>c.id === galleryFilter)) galleryFilter = 0;
+  wrap.innerHTML = cats.map(c=>
+    `<button class="filter-btn ${c.id===galleryFilter?'active':''}" data-cat="${c.id}">${escHtml(c.name)}</button>`
   ).join('');
   wrap.querySelectorAll('.filter-btn').forEach(b=>{
     b.addEventListener('click', ()=>{
-      galleryFilter = parseInt(b.dataset.cat);
+      galleryFilter = parseInt(b.dataset.cat, 10);
       renderFilters(currentLang);
       applyGalleryFilter();
     });
@@ -1355,28 +1377,44 @@ function renderFilters(lang){
 }
 
 let galleryItemsCache = [];
+let galleryCoverIdx = {};
+const MORE_WORD = {uz:'rasm', ru:'фото', en:'photos'};  /* en: 1 bo'lsa 'photo' */
+
+/* Har kategoriyadan bitta muqova: eng oxirgi yuklangan haqiqiy rasm
+   (haqiqiy rasm bo'lmasa, namuna chizma). counts: kategoriyadagi jami rasm. */
+function pickCovers(items){
+  const covers = {}, counts = {};
+  items.forEach((it,i)=>{
+    counts[it.cat] = (counts[it.cat] || 0) + 1;
+    const cur = covers[it.cat];
+    if(cur === undefined){ covers[it.cat] = i; return; }
+    const c = items[cur];
+    const better = (it.img && !c.img) || (!!it.img === !!c.img && it.img && (it.at || '') > (c.at || ''));
+    if(better) covers[it.cat] = i;
+  });
+  return {covers, counts};
+}
+
 function renderGallery(lang){
   const wrap = document.getElementById('galleryGrid');
   const items = I18N[lang]["gallery.items"];
   galleryItemsCache = items;
-  const bedroomCount = items.filter(it=>it.cat===5).length;
-  let bedroomSeen = 0;
+  const pc = pickCovers(items);
+  galleryCoverIdx = pc.covers;
+  const moreWord = (n)=> lang === 'en' ? (n === 1 ? 'photo' : 'photos') : (MORE_WORD[lang] || MORE_WORD.uz);
   wrap.innerHTML = items.map((it,i)=>{
     let badge = '';
-    if(it.cat === 5){
-      bedroomSeen++;
-      if(bedroomSeen === 1 && bedroomCount > 1){
-        badge = `<span class="g-badge">+${bedroomCount - 1} rasm</span>`;
-      }
+    if(pc.covers[it.cat] === i && pc.counts[it.cat] > 1){
+      badge = `<span class="g-badge">+${pc.counts[it.cat] - 1} ${moreWord(pc.counts[it.cat] - 1)}</span>`;
     }
     return `
-    <div class="g-item${i % 3 === 1 ? ' tall' : ''}" data-cat="${it.cat}" data-index="${i}" tabindex="0" role="button" aria-label="${it.t}">
-      ${it.img ? `<img src="${it.img}" alt="${it.t}" loading="lazy">` : scene(it.kind)}
+    <div class="g-item" data-cat="${it.cat}" data-index="${i}" tabindex="0" role="button" aria-label="${escHtml(it.t)}">
+      ${it.img ? `<img src="${it.img}" alt="${escHtml(it.t)}" loading="lazy">` : scene(it.kind)}
       ${badge}
       <div class="g-caption">
         <span class="line"></span>
-        <div class="cat">${I18N[lang]["gallery.filters"][it.cat]}</div>
-        <div class="title">${it.t}</div>
+        <div class="cat">${escHtml(categoryName(it.cat, lang))}</div>
+        <div class="title">${escHtml(it.t)}</div>
       </div>
     </div>`;
   }).join('');
@@ -1397,17 +1435,25 @@ function renderGallery(lang){
 }
 
 function applyGalleryFilter(){
-  let bedroomShown = false;
+  const cats = currentCategories(currentLang);
+  const visible = [];
   document.querySelectorAll('.g-item').forEach(el=>{
-    const cat = parseInt(el.dataset.cat);
-    let hide = galleryFilter !== 0 && cat !== galleryFilter;
-    /* "Barchasi" ko'rinishida yotoqxona rasmlaridan faqat bittasi (birinchisi) chiqadi,
-       qolganlarini lightbox ichida (< >) ko'rish mumkin. "Yotoqxona" filtri tanlanganda hammasi chiqadi. */
-    if(!hide && galleryFilter === 0 && cat === 5){
-      if(bedroomShown){ hide = true; } else { bedroomShown = true; }
-    }
+    const i = parseInt(el.dataset.index, 10);
+    const cat = parseInt(el.dataset.cat, 10);
+    /* "Barchasi": har kategoriyadan faqat muqova. Kategoriya tanlansa: uning hamma rasmlari. */
+    const hide = galleryFilter === 0 ? galleryCoverIdx[cat] !== i : cat !== galleryFilter;
     el.classList.toggle('hide', hide);
+    if(!hide){
+      visible.push(el);
+      if(galleryFilter === 0){
+        const pos = cats.findIndex(x=>x.id === cat);
+        el.style.order = pos === -1 ? 999 : pos;
+      } else {
+        el.style.order = '';
+      }
+    }
   });
+  visible.forEach((el,k)=> el.classList.toggle('tall', k % 3 === 1));
   document.querySelectorAll('.g-badge').forEach(b=>{
     b.style.display = (galleryFilter === 0) ? '' : 'none';
   });
@@ -1477,9 +1523,14 @@ function updateLightbox(){
   const full = galleryItemsCache;
   let idx = lbIndex;
   const it = full[idx];
-  document.getElementById('lbSvg').innerHTML = it.img ? `<img src="${it.img}" alt="${it.t}" style="width:100%;height:100%;object-fit:cover;display:block;">` : scene(it.kind);
+  const box = document.getElementById('lbSvg');
+  box.classList.toggle('lb-photo', !!it.img);
+  box.innerHTML = it.img ? `<img src="${it.img}" alt="${escHtml(it.t)}">` : scene(it.kind);
+  const many = full.filter(x=>x.cat === it.cat).length > 1;
+  document.getElementById('lbPrev').style.display = many ? '' : 'none';
+  document.getElementById('lbNext').style.display = many ? '' : 'none';
   document.getElementById('lbTitle').textContent = it.t;
-  document.getElementById('lbCat').textContent = I18N[currentLang]["gallery.filters"][it.cat];
+  document.getElementById('lbCat').textContent = categoryName(it.cat, currentLang);
 }
 function closeLightbox(){ document.getElementById('lightbox').classList.remove('open'); }
 
@@ -1613,14 +1664,18 @@ document.addEventListener('DOMContentLoaded', ()=>{
   /* Lightbox controls */
   document.getElementById('lbClose').addEventListener('click', closeLightbox);
   document.getElementById('lightbox').addEventListener('click', (e)=>{ if(e.target.id === 'lightbox') closeLightbox(); });
-  document.getElementById('lbPrev').addEventListener('click', ()=>{
-    lbIndex = (lbIndex - 1 + galleryItemsCache.length) % galleryItemsCache.length;
+  function lbStep(dir){
+    const full = galleryItemsCache;
+    const cat = full[lbIndex].cat;
+    const idxs = [];
+    full.forEach((x,i)=>{ if(x.cat === cat) idxs.push(i); });
+    if(idxs.length < 2) return;
+    const pos = idxs.indexOf(lbIndex);
+    lbIndex = idxs[(pos + dir + idxs.length) % idxs.length];
     updateLightbox();
-  });
-  document.getElementById('lbNext').addEventListener('click', ()=>{
-    lbIndex = (lbIndex + 1) % galleryItemsCache.length;
-    updateLightbox();
-  });
+  }
+  document.getElementById('lbPrev').addEventListener('click', ()=> lbStep(-1));
+  document.getElementById('lbNext').addEventListener('click', ()=> lbStep(1));
   document.addEventListener('keydown', (e)=>{
     if(!document.getElementById('lightbox').classList.contains('open')) return;
     if(e.key === 'Escape') closeLightbox();
@@ -1646,9 +1701,6 @@ const SUPABASE_ANON_KEY = "sb_publishable_bNYJiNv1dbRlnShgNY21BA_SWjH12aS";
 
 const SB_BUCKET = 'gallery';
 const PLAN_KEYS = ['standard','premium','vip'];
-const ADMIN_CATS = [
-  {v:1, n:'Interyer'}, {v:2, n:'Eksteryer'}, {v:3, n:'Landshaft'}, {v:4, n:'Ofis'}, {v:5, n:'Yotoqxona'}
-];
 
 let sb = null, sbReady = false;
 try{
@@ -1680,13 +1732,24 @@ renderGallery = function(lang){
   finally{ I18N[lang]["gallery.items"] = saved; }
 };
 
+async function loadCategories(){
+  if(!sbReady) return;
+  try{
+    const res = await sb.from('site_categories').select('id,name').order('id');
+    if(res.error) throw res.error;
+    dynamicCategories = res.data;
+    renderFilters(currentLang);
+    renderGallery(currentLang);
+  } catch(e){ console.error('Kategoriyalarni yuklashda xato (3-kategoriyalar.sql ishga tushirilganmi?):', e); }
+}
+
 async function loadGallery(){
   if(!sbReady) return;
   try{
     const res = await sb.from('gallery_items').select('*').order('created_at', {ascending:false});
     if(res.error) throw res.error;
     const flag = await sb.from('site_flags').select('value').eq('key','gallery_migrated').maybeSingle();
-    uploadedItems = res.data.map(r=>({id:r.id, t:r.title, cat:r.cat, img:r.image_url, path:r.image_path, kind:null}));
+    uploadedItems = res.data.map(r=>({id:r.id, t:r.title, cat:r.cat, img:r.image_url, path:r.image_path, at:r.created_at, kind:null}));
     galleryMigrated = !!(flag && flag.data && flag.data.value === '1');
     renderGallery(currentLang);
   } catch(e){ console.error('Galereyani yuklashda xato:', e); }
@@ -1787,8 +1850,10 @@ async function adminLogout(){
 async function enterAdmin(){
   showAdminView('main');
   switchAdminTab('images');
+  await loadCategories();
   await loadGallery();
-  renderAdminImages();
+  refreshCatSelects();
+  renderAdminCategories();
   renderPriceForm();
   updateMigrateUi();
 }
@@ -1796,13 +1861,24 @@ async function enterAdmin(){
 function switchAdminTab(name){
   document.querySelectorAll('.admin-tabs button').forEach(b=> b.classList.toggle('active', b.dataset.tab === name));
   byId('adminTabImages').style.display = name === 'images' ? '' : 'none';
+  byId('adminTabCategories').style.display = name === 'categories' ? '' : 'none';
   byId('adminTabPrices').style.display = name === 'prices' ? '' : 'none';
   adminMsg('');
 }
 
 /* ---------- Admin: rasmlar ---------- */
 function catOptions(sel){
-  return ADMIN_CATS.map(c=>`<option value="${c.v}"${c.v === sel ? ' selected' : ''}>${c.n}</option>`).join('');
+  return currentCategories(currentLang).filter(c=>c.id !== 0)
+    .map(c=>`<option value="${c.id}"${c.id === sel ? ' selected' : ''}>${adminEsc(c.name)}</option>`).join('');
+}
+
+function refreshCatSelects(){
+  const sel = byId('adminCatSelect');
+  if(sel){
+    const cur = sel.value;
+    sel.innerHTML = catOptions(parseInt(cur, 10));
+  }
+  renderAdminImages();
 }
 
 function renderAdminImages(){
@@ -1948,6 +2024,73 @@ async function migrateStatic(){
   updateMigrateUi();
 }
 
+/* ---------- Admin: kategoriyalar ---------- */
+function renderAdminCategories(){
+  const wrap = byId('adminCategoryList');
+  if(dynamicCategories === null){
+    wrap.innerHTML = '<p class="admin-empty">Kategoriyalarni boshqarish hali yoqilmagan. Supabase\'da <b>3-kategoriyalar.sql</b> faylini bir marta ishga tushiring (supabase/QOLLANMA.md ga qarang).</p>';
+    byId('adminAddCatBox').style.display = 'none';
+    return;
+  }
+  byId('adminAddCatBox').style.display = '';
+  if(!dynamicCategories.length){
+    wrap.innerHTML = '<p class="admin-empty">Hozircha kategoriya yo\'q. Pastdan qo\'shing.</p>';
+    return;
+  }
+  wrap.innerHTML = dynamicCategories.map(c=>`
+    <div class="admin-row" data-id="${c.id}">
+      <div class="admin-row-main"><div class="admin-row-title" style="margin:0">${adminEsc(c.name)}</div></div>
+      <button type="button" class="admin-btn small danger admin-cat-del">O'chirish</button>
+    </div>`).join('');
+  wrap.querySelectorAll('.admin-row').forEach(row=>{
+    row.querySelector('.admin-cat-del').addEventListener('click', ()=> deleteCategory(parseInt(row.dataset.id, 10)));
+  });
+}
+
+async function addCategory(){
+  const input = byId('adminNewCatInput');
+  const name = cleanTitle(input.value).slice(0, 60);
+  if(!name){ adminMsg('Kategoriya nomini kiriting.', 'err'); return; }
+  if(dynamicCategories && dynamicCategories.some(c=>c.name.toLowerCase() === name.toLowerCase())){
+    adminMsg('Bunday kategoriya allaqachon bor.', 'err'); return;
+  }
+  const btn = byId('adminAddCatBtn');
+  btn.disabled = true; adminMsg('Qo\'shilmoqda...');
+  try{
+    const res = await sb.from('site_categories').insert({name});
+    if(res.error) throw res.error;
+    input.value = '';
+    await loadCategories();
+    renderAdminCategories();
+    refreshCatSelects();
+    adminMsg('Kategoriya qo\'shildi. Saytda filtr tugmasi paydo bo\'ldi.');
+  } catch(e){
+    adminMsg(/duplicate|unique/i.test(e && e.message) ? 'Bunday kategoriya allaqachon bor.' : adminErrText(e), 'err');
+  }
+  finally{ btn.disabled = false; }
+}
+
+async function deleteCategory(id){
+  const cat = dynamicCategories && dynamicCategories.find(c=>c.id === id);
+  if(!cat || !confirm('"' + cat.name + '" kategoriyasini o\'chirmoqchimisiz?')) return;
+  try{
+    const cnt = await sb.from('gallery_items').select('id', {count:'exact', head:true}).eq('cat', id);
+    if(cnt.error) throw cnt.error;
+    if((cnt.count || 0) > 0){
+      adminMsg('Bu kategoriyada ' + cnt.count + ' ta rasm bor. Avval ularni o\'chiring yoki boshqa kategoriyaga o\'tkazing.', 'err');
+      return;
+    }
+    const res = await sb.from('site_categories').delete().eq('id', id);
+    if(res.error) throw res.error;
+    await loadCategories();
+    renderAdminCategories();
+    refreshCatSelects();
+    adminMsg('Kategoriya o\'chirildi.');
+  } catch(e){
+    adminMsg(/foreign key|violates/i.test(e && e.message) ? 'Bu kategoriyada rasmlar bor, o\'chirib bo\'lmaydi.' : adminErrText(e), 'err');
+  }
+}
+
 /* ---------- Admin: narxlar ---------- */
 function renderPriceForm(){
   const plans = I18N.uz["pricing.plans"];
@@ -1996,12 +2139,14 @@ document.addEventListener('DOMContentLoaded', ()=>{
   byId('adminUploadBtn').addEventListener('click', adminUpload);
   byId('adminMigrateBtn').addEventListener('click', migrateStatic);
   byId('adminPriceSaveBtn').addEventListener('click', savePrices);
+  byId('adminAddCatBtn').addEventListener('click', addCategory);
+  byId('adminNewCatInput').addEventListener('keydown', e=>{ if(e.key === 'Enter') addCategory(); });
   document.addEventListener('keydown', e=>{
     if(e.key === 'Escape' && byId('adminPanel').classList.contains('open')) closeAdminPanel();
   });
   window.addEventListener('hashchange', ()=>{ if(location.hash === '#admin') openAdminPanel(); });
   if(location.hash === '#admin') openAdminPanel();
-  if(sbReady){ loadGallery(); loadPrices(); }
+  if(sbReady){ loadCategories(); loadGallery(); loadPrices(); }
 });
 </script>
 
@@ -2026,6 +2171,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
       </div>
       <div class="admin-tabs">
         <button type="button" data-tab="images" class="active">Rasmlar</button>
+        <button type="button" data-tab="categories">Kategoriyalar</button>
         <button type="button" data-tab="prices">Narxlar</button>
       </div>
 
@@ -2035,17 +2181,21 @@ document.addEventListener('DOMContentLoaded', ()=>{
         <label for="adminTitleInput">Sarlavha</label>
         <input type="text" id="adminTitleInput" maxlength="120" placeholder="Masalan: Yotoqxona dizayni">
         <label for="adminCatSelect">Kategoriya</label>
-        <select id="adminCatSelect">
-          <option value="1">Interyer</option>
-          <option value="2">Eksteryer</option>
-          <option value="3">Landshaft</option>
-          <option value="4">Ofis</option>
-          <option value="5">Yotoqxona</option>
-        </select>
+        <select id="adminCatSelect"></select>
         <button class="admin-btn" id="adminUploadBtn" type="button">Yuklash</button>
         <button class="admin-btn ghost" id="adminMigrateBtn" type="button" style="display:none;">Eski rasmlarni bazaga ko'chirish (bir marta)</button>
         <p class="admin-hint" id="adminMigrateHint" style="display:none;">Saytdagi hozirgi yotoqxona rasmlarini ham shu yerdan boshqarish (kategoriyasini o'zgartirish, o'chirish) uchun bir marta ko'chirib oling.</p>
         <div class="admin-list" id="adminList"></div>
+      </div>
+
+      <div id="adminTabCategories" style="display:none;">
+        <p class="admin-hint">Bu saytdagi filtr tugmalari ("Barchasi" doim turadi). Nomi hamma tillarda bir xil chiqadi. Rasmi bor kategoriyani o'chirib bo'lmaydi.</p>
+        <div class="admin-list" id="adminCategoryList"></div>
+        <div id="adminAddCatBox">
+          <label for="adminNewCatInput">Yangi kategoriya</label>
+          <input type="text" id="adminNewCatInput" maxlength="60" placeholder="Masalan: Landshaft stol">
+          <button class="admin-btn" id="adminAddCatBtn" type="button">Qo'shish</button>
+        </div>
       </div>
 
       <div id="adminTabPrices" style="display:none;">

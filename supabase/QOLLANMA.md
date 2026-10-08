@@ -16,6 +16,9 @@ Bir marta qilinadi, taxminan 10 daqiqa. Tugma nomlari Supabase yangilanganda bir
 2. O'zingizning email va parolingizni kiriting, **Auto Confirm User** ni belgilang. Parolni o'zingiz saqlang: admin panelga shu bilan kirasiz.
 3. **SQL Editor** > yangi query. `2-admin-qoshish.sql` ichidagi `AKAMNING-EMAILI@example.com` ni o'sha emailga almashtirib **Run** bosing. Pastda emailingiz chiqsa, tayyor.
 
+## 3.1. Kategoriyalarni boshqarish (keyin qo'shilgan)
+Admin paneldagi **Kategoriyalar** bo'limi ishlashi uchun **SQL Editor**'da `3-kategoriyalar.sql` faylini bir marta ishga tushiring. Mavjud rasmlarga tegmaydi. Ishga tushirilmaguncha sayt eski 5 ta kategoriya bilan ishlayveradi.
+
 ## 4. Begona ro'yxatdan o'tishni o'chirish
 **Authentication** > **Sign In / Providers** (yoki Settings) bo'limida **Allow new users to sign up** ni **o'chiring**. Shunda faqat siz ochgan hisob kira oladi.
 
@@ -32,6 +35,7 @@ Bu ikkisi ochiq kalit, saytning kodida turadi, ularni yuborish xavfsiz.
 ## 6. Ishlatish
 Saytning eng pastidagi **Admin** tugmasini bosing (yoki manzil oxiriga `#admin` qo'shing), email va parol bilan kiring.
 - **Rasmlar:** yangi rasm yuklash, kategoriyasini o'zgartirish, o'chirish. Saytdagi hozirgi yotoqxona rasmlarini boshqarish uchun **"Eski rasmlarni bazaga ko'chirish"** tugmasini bir marta bosing.
+- **Kategoriyalar:** yangi kategoriya qo'shish (masalan "Landshaft stol") va o'chirish. Nomi hamma tillarda bir xil chiqadi. Rasmi bor kategoriyani o'chirib bo'lmaydi: avval rasmlarni o'chiring yoki boshqa kategoriyaga o'tkazing. "Barchasi" tugmasi doim turadi.
 - **Narxlar:** uchta tarifning narxini (faqat raqam) o'zgartirish.
 
 ## Eslatma
