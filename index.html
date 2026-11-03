@@ -682,6 +682,15 @@ html.js-ready .reveal.in{opacity:1; transform:none;}
 .admin-row-main{flex:1; min-width:0;}
 .admin-row-title{font-size:14px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; margin-bottom:6px;}
 .admin-row select{padding:8px 10px; font-size:14px;}
+.admin-proj{border-bottom:1px solid var(--line,rgba(245,243,238,.12)); padding-bottom:10px;}
+.admin-proj .admin-row{border-bottom:none; padding-bottom:4px;}
+.admin-sub{font-size:12.5px; color:var(--ink-soft,rgba(245,243,238,.66)); margin:-2px 0 6px;}
+.admin-actions{display:flex; flex-wrap:wrap; gap:8px; margin-top:6px;}
+.admin-row-title.editing{white-space:normal; overflow:visible;}
+.admin-thumbs{display:flex; flex-wrap:wrap; gap:10px; padding:12px 0 4px;}
+.admin-thumb{position:relative; width:68px; height:68px;}
+.admin-thumb img{width:100%; height:100%; object-fit:cover; border-radius:4px; display:block;}
+.admin-thumb button{position:absolute; top:-7px; right:-7px; width:24px; height:24px; border-radius:50%; border:none; background:rgba(220,80,80,.95); color:#fff; font-size:15px; line-height:1; cursor:pointer; padding:0;}
 .admin-price-row{display:flex; align-items:center; gap:10px; color:var(--ink-soft,rgba(245,243,238,.66));}
 .admin-price-row input{flex:1;}
 .admin-hint{font-size:12.5px; color:var(--ink-soft,rgba(245,243,238,.66)); margin:8px 0 0; line-height:1.5;}
@@ -1036,15 +1045,15 @@ const I18N = {
     "gallery.before":"Oldin","gallery.after":"Keyin",
     "gallery.filters":["Barchasi","Interyer","Eksteryer","Landshaft","Ofis","Yotoqxona"],
     "gallery.items":[
-      {t:"Yotoq xonasi — dam olish burchagi", cat:5, img:"images/gallery-1.jpg"},
-      {t:"Yotoq xonasi — shkaf zonasi", cat:5, img:"images/gallery-2.jpg"},
-      {t:"Yotoq xonasi — to'shak tafsilotlari", cat:5, img:"images/gallery-3.jpg"},
-      {t:"Yotoq xonasi — umumiy ko'rinish", cat:5, img:"images/gallery-4.jpg"},
-      {t:"Yotoq xonasi — kengaytirilgan zona", cat:5, img:"images/gallery-5.jpg"},
-      {t:"Yotoq xonasi — old tomondan ko'rinish", cat:5, img:"images/gallery-6.jpg"},
-      {t:"Yotoq xonasi — kiyim shkafi", cat:5, img:"images/gallery-7.jpg"},
-      {t:"Yotoq xonasi — televizor zonasi", cat:5, img:"images/gallery-8.jpg"},
-      {t:"Yotoq xonasi — TV devor paneli", cat:5, img:"images/gallery-9.jpg"},
+      {t:"Yotoq xonasi", cat:5, img:"images/gallery-1.jpg"},
+      {t:"Yotoq xonasi", cat:5, img:"images/gallery-2.jpg"},
+      {t:"Yotoq xonasi", cat:5, img:"images/gallery-3.jpg"},
+      {t:"Yotoq xonasi", cat:5, img:"images/gallery-4.jpg"},
+      {t:"Yotoq xonasi", cat:5, img:"images/gallery-5.jpg"},
+      {t:"Yotoq xonasi", cat:5, img:"images/gallery-6.jpg"},
+      {t:"Yotoq xonasi", cat:5, img:"images/gallery-7.jpg"},
+      {t:"Yotoq xonasi", cat:5, img:"images/gallery-8.jpg"},
+      {t:"Yotoq xonasi", cat:5, img:"images/gallery-9.jpg"},
     ],
     "faq.heading":"Tez-tez so'raladigan savollar",
     "faq.items":[
@@ -1362,42 +1371,48 @@ function renderFilters(lang){
 }
 
 let galleryItemsCache = [];
-let galleryCoverIdx = {};
+let galleryProjects = [];
 let galleryCatCounts = {};
 const MORE_WORD = {uz:'rasm', ru:'фото', en:'photos'};  /* en: 1 bo'lsa 'photo' */
 
-/* Har kategoriyadan bitta muqova: birinchi yuklangan rasm (massivda birinchi).
-   counts: kategoriyadagi jami rasm soni. */
-function pickCovers(items){
-  const covers = {}, counts = {};
+/* Loyiha = bir kategoriyadagi bir xil sarlavhali rasmlar to'plami.
+   Saytda har loyiha bitta kartochka (muqova: birinchi yuklangan rasm). */
+function buildProjects(items){
+  const map = new Map(), list = [];
   items.forEach((it,i)=>{
-    counts[it.cat] = (counts[it.cat] || 0) + 1;
-    if(covers[it.cat] === undefined) covers[it.cat] = i;
+    const key = it.cat + '\u0001' + it.t;
+    let p = map.get(key);
+    if(!p){ p = {key, cat:it.cat, title:it.t, idxs:[]}; map.set(key, p); list.push(p); }
+    p.idxs.push(i);
   });
-  return {covers, counts};
+  return list;
+}
+function projectIdxsOf(items, i){
+  const it = items[i], out = [];
+  items.forEach((x,j)=>{ if(x.cat === it.cat && x.t === it.t) out.push(j); });
+  return out;
 }
 
 function renderGallery(lang){
   const wrap = document.getElementById('galleryGrid');
   const items = I18N[lang]["gallery.items"];
   galleryItemsCache = items;
-  const pc = pickCovers(items);
-  galleryCoverIdx = pc.covers;
-  galleryCatCounts = pc.counts;
+  galleryProjects = buildProjects(items);
+  galleryCatCounts = {};
+  galleryProjects.forEach(p=>{ galleryCatCounts[p.cat] = (galleryCatCounts[p.cat] || 0) + 1; });
   const moreWord = (n)=> lang === 'en' ? (n === 1 ? 'photo' : 'photos') : (MORE_WORD[lang] || MORE_WORD.uz);
-  wrap.innerHTML = items.map((it,i)=>{
-    let badge = '';
-    if(pc.covers[it.cat] === i && pc.counts[it.cat] > 1){
-      badge = `<span class="g-badge">+${pc.counts[it.cat] - 1} ${moreWord(pc.counts[it.cat] - 1)}</span>`;
-    }
+  wrap.innerHTML = galleryProjects.map((p,pi)=>{
+    const it = items[p.idxs[0]];
+    const more = p.idxs.length - 1;
+    const badge = more > 0 ? `<span class="g-badge">+${more} ${moreWord(more)}</span>` : '';
     return `
-    <div class="g-item" data-cat="${it.cat}" data-index="${i}" tabindex="0" role="button" aria-label="${escHtml(it.t)}">
-      ${it.img ? `<img src="${it.img}" alt="${escHtml(it.t)}" loading="lazy">` : scene(it.kind)}
+    <div class="g-item" data-cat="${p.cat}" data-index="${p.idxs[0]}" data-proj="${pi}" tabindex="0" role="button" aria-label="${escHtml(p.title)}">
+      ${it.img ? `<img src="${it.img}" alt="${escHtml(p.title)}" loading="lazy">` : scene(it.kind)}
       ${badge}
       <div class="g-caption">
         <span class="line"></span>
-        <div class="cat">${escHtml(categoryName(it.cat, lang))}</div>
-        <div class="title">${escHtml(it.t)}</div>
+        <div class="cat">${escHtml(categoryName(p.cat, lang))}</div>
+        <div class="title">${escHtml(p.title)}</div>
       </div>
     </div>`;
   }).join('');
@@ -1422,25 +1437,20 @@ function applyGalleryFilter(){
   const cats = currentCategories(currentLang);
   const visible = [];
   document.querySelectorAll('.g-item').forEach(el=>{
-    const i = parseInt(el.dataset.index, 10);
-    const cat = parseInt(el.dataset.cat, 10);
-    /* "Barchasi": har kategoriyadan faqat muqova. Kategoriya tanlansa: uning hamma rasmlari. */
-    const hide = galleryFilter === 0 ? galleryCoverIdx[cat] !== i : cat !== galleryFilter;
+    const cat = parseInt(el.dataset.cat, 10), pi = parseInt(el.dataset.proj, 10);
+    const hide = galleryFilter !== 0 && cat !== galleryFilter;
     el.classList.toggle('hide', hide);
     if(!hide){
       visible.push(el);
       if(galleryFilter === 0){
         const pos = cats.findIndex(x=>x.id === cat);
-        el.style.order = pos === -1 ? 999 : pos;
+        el.style.order = (pos === -1 ? 99 : pos) * 1000 + pi;
       } else {
-        el.style.order = '';
+        el.style.order = pi;
       }
     }
   });
   visible.forEach((el,k)=> el.classList.toggle('tall', k % 3 === 1));
-  document.querySelectorAll('.g-badge').forEach(b=>{
-    b.style.display = (galleryFilter === 0) ? '' : 'none';
-  });
 }
 
 function renderFaq(lang){
@@ -1505,19 +1515,18 @@ function openLightbox(index){
 }
 function updateLightbox(){
   const full = galleryItemsCache;
-  let idx = lbIndex;
+  const idx = lbIndex;
   const it = full[idx];
   const box = document.getElementById('lbSvg');
   box.classList.toggle('lb-photo', !!it.img);
   box.innerHTML = it.img ? `<img src="${it.img}" alt="${escHtml(it.t)}">` : scene(it.kind);
-  const many = full.filter(x=>x.cat === it.cat).length > 1;
+  const idxs = projectIdxsOf(full, idx);
+  const many = idxs.length > 1;
   document.getElementById('lbPrev').style.display = many ? '' : 'none';
   document.getElementById('lbNext').style.display = many ? '' : 'none';
   document.getElementById('lbTitle').textContent = it.t;
   document.getElementById('lbCat').textContent = categoryName(it.cat, currentLang);
-  const idxs = [];
-  full.forEach((x,i)=>{ if(x.cat === it.cat) idxs.push(i); });
-  document.getElementById('lbCount').textContent = idxs.length > 1 ? (idxs.indexOf(idx) + 1) + ' / ' + idxs.length : '';
+  document.getElementById('lbCount').textContent = many ? (idxs.indexOf(idx) + 1) + ' / ' + idxs.length : '';
 }
 function closeLightbox(){ document.getElementById('lightbox').classList.remove('open'); }
 
@@ -1653,15 +1662,12 @@ document.addEventListener('DOMContentLoaded', ()=>{
   document.getElementById('lightbox').addEventListener('click', (e)=>{ if(e.target.id === 'lightbox') closeLightbox(); });
   function lbStep(dir){
     const full = galleryItemsCache;
-    const cat = full[lbIndex].cat;
-    const idxs = [];
-    full.forEach((x,i)=>{ if(x.cat === cat) idxs.push(i); });
+    const idxs = projectIdxsOf(full, lbIndex);
     if(idxs.length < 2) return;
     const pos = idxs.indexOf(lbIndex);
     lbIndex = idxs[(pos + dir + idxs.length) % idxs.length];
     updateLightbox();
   }
-  /* Telefonda barmoq bilan chapga/o'ngga surish */
   (function(){
     const lb = document.getElementById('lightbox');
     let sx = 0, sy = 0;
@@ -1870,46 +1876,162 @@ function catOptions(sel){
     .map(c=>`<option value="${c.id}"${c.id === sel ? ' selected' : ''}>${adminEsc(c.name)}</option>`).join('');
 }
 
+/* ---------- Loyihalar (bir kategoriyadagi bir xil sarlavhali rasmlar) ---------- */
+let adminOpenKey = null;     /* rasmlari ochib ko'rsatilgan loyiha */
+let adminProjOpts = [];      /* yuklash formasidagi loyihalar ro'yxati */
+function projKey(cat, title){ return cat + '\u0001' + title; }
+
+/* Bazadagi loyihalar, kategoriya tartibida */
+function adminProjects(){
+  const order = currentCategories(currentLang).map(c=>c.id);
+  const list = buildProjects(uploadedItems);
+  const pos = p=>{ const k = order.indexOf(p.cat); return k === -1 ? 99 : k; };
+  return list.map((p,i)=>({p,i})).sort((x,y)=> pos(x.p) - pos(y.p) || x.i - y.i).map(x=>x.p);
+}
+/* Saytda ko'rinadigan loyihalar (ko'chirilmagan eski rasmlar ham) */
+function siteProjectsOfCat(cat){
+  const st = galleryMigrated ? [] : staticPhotoItems();
+  return buildProjects(st.concat(uploadedItems)).filter(p=>p.cat === cat);
+}
+function nameTaken(cat, name, exceptTitle){
+  const n = name.trim().toLowerCase();
+  return siteProjectsOfCat(cat).some(p=> p.title.trim().toLowerCase() === n && p.title !== exceptTitle);
+}
+
+function updateTitleFieldVisibility(){
+  byId('adminTitleBox').style.display = byId('adminProjectSelect').value === 'new' ? '' : 'none';
+}
+function refreshProjectSelect(keepTitle){
+  const sel = byId('adminProjectSelect');
+  const cat = parseInt(byId('adminCatSelect').value, 10);
+  let prev = keepTitle;
+  if(prev === undefined){
+    const cur = adminProjOpts[parseInt(sel.value, 10)];
+    prev = (sel.value !== 'new' && cur) ? cur.title : null;
+  }
+  adminProjOpts = siteProjectsOfCat(cat);
+  sel.innerHTML = '';
+  const o = document.createElement('option'); o.value = 'new'; o.textContent = '+ Yangi loyiha'; sel.appendChild(o);
+  adminProjOpts.forEach((p,i)=>{
+    const op = document.createElement('option');
+    op.value = String(i); op.textContent = p.title + ' (' + p.idxs.length + ' ta rasm)';
+    sel.appendChild(op);
+  });
+  const k = prev ? adminProjOpts.findIndex(p=>p.title === prev) : -1;
+  sel.value = k === -1 ? 'new' : String(k);
+  updateTitleFieldVisibility();
+}
+
 function refreshCatSelects(){
   const sel = byId('adminCatSelect');
   if(sel){
     const cur = sel.value;
     sel.innerHTML = catOptions(parseInt(cur, 10));
   }
+  refreshProjectSelect();
   renderAdminImages();
 }
 
 function renderAdminImages(){
   const wrap = byId('adminList');
-  if(!uploadedItems.length){
+  const projects = adminProjects();
+  if(!projects.length){
     wrap.innerHTML = '<p class="admin-empty">Hozircha bazada rasm yo\'q.</p>';
     return;
   }
-  wrap.innerHTML = uploadedItems.map(it=>`
-    <div class="admin-row" data-id="${adminEsc(it.id)}">
-      <img src="${adminEsc(it.img)}" alt="">
-      <div class="admin-row-main">
-        <div class="admin-row-title">${adminEsc(it.t)}</div>
-        <select class="admin-cat" aria-label="Kategoriya">${catOptions(it.cat)}</select>
+  wrap.innerHTML = projects.map((p,pi)=>{
+    const open = adminOpenKey === p.key;
+    return `
+    <div class="admin-proj" data-pi="${pi}">
+      <div class="admin-row">
+        <img src="${adminEsc(uploadedItems[p.idxs[0]].img)}" alt="">
+        <div class="admin-row-main">
+          <div class="admin-row-title admin-proj-name">${adminEsc(p.title)}</div>
+          <div class="admin-sub">${p.idxs.length} ta rasm</div>
+          <select class="admin-cat" aria-label="Kategoriya">${catOptions(p.cat)}</select>
+        </div>
       </div>
-      <button type="button" class="admin-btn small danger admin-del">O'chirish</button>
-    </div>`).join('');
-  wrap.querySelectorAll('.admin-row').forEach(row=>{
-    const id = row.dataset.id;
-    row.querySelector('.admin-cat').addEventListener('change', e=> changeCategory(id, parseInt(e.target.value, 10)));
-    row.querySelector('.admin-del').addEventListener('click', ()=> deleteImage(id));
+      <div class="admin-actions">
+        <button type="button" class="admin-btn small ghost js-photos">${open ? 'Rasmlarni yopish' : 'Rasmlar'}</button>
+        <button type="button" class="admin-btn small ghost js-rename">Nomini o'zgartirish</button>
+        <button type="button" class="admin-btn small danger js-delproj">Loyihani o'chirish</button>
+      </div>
+      <div class="admin-thumbs" style="${open ? '' : 'display:none'}">
+        ${p.idxs.map(i=>`<div class="admin-thumb" data-id="${adminEsc(uploadedItems[i].id)}"><img src="${adminEsc(uploadedItems[i].img)}" alt=""><button type="button" class="js-delphoto" aria-label="Rasmni o'chirish">&times;</button></div>`).join('')}
+      </div>
+    </div>`;
+  }).join('');
+  wrap.querySelectorAll('.admin-proj').forEach(el=>{
+    const p = projects[parseInt(el.dataset.pi, 10)];
+    el.querySelector('.admin-cat').addEventListener('change', e=> moveProject(p, parseInt(e.target.value, 10)));
+    el.querySelector('.js-photos').addEventListener('click', ()=>{ adminOpenKey = adminOpenKey === p.key ? null : p.key; renderAdminImages(); });
+    el.querySelector('.js-rename').addEventListener('click', ()=> startRename(el, p));
+    el.querySelector('.js-delproj').addEventListener('click', ()=> deleteProject(p));
+    el.querySelectorAll('.js-delphoto').forEach(b=> b.addEventListener('click', ()=> deleteImage(b.closest('.admin-thumb').dataset.id)));
   });
 }
 
-async function changeCategory(id, cat){
+function startRename(el, p){
+  const box = el.querySelector('.admin-proj-name');
+  box.classList.add('editing');
+  box.innerHTML = '<input type="text" class="admin-rename-input" maxlength="120" aria-label="Loyiha nomi">'
+    + '<div class="admin-actions"><button type="button" class="admin-btn small js-rn-ok">Saqlash</button>'
+    + '<button type="button" class="admin-btn small ghost js-rn-cancel">Bekor qilish</button></div>';
+  const inp = box.querySelector('input');
+  inp.value = p.title; inp.focus();
+  box.querySelector('.js-rn-ok').addEventListener('click', ()=> renameProject(p, inp.value));
+  box.querySelector('.js-rn-cancel').addEventListener('click', ()=> renderAdminImages());
+  inp.addEventListener('keydown', e=>{
+    if(e.key === 'Enter') renameProject(p, inp.value);
+    if(e.key === 'Escape'){ e.stopPropagation(); renderAdminImages(); }
+  });
+}
+
+async function afterProjectChange(msg){
+  await loadGallery();
+  refreshProjectSelect();
+  renderAdminImages();
+  if(msg) adminMsg(msg);
+}
+
+async function renameProject(p, raw){
+  const name = cleanTitle(raw);
+  if(!name){ adminMsg('Nom kiriting.', 'err'); return; }
+  if(name === p.title){ renderAdminImages(); return; }
+  if(nameTaken(p.cat, name, p.title)){ adminMsg('Bu kategoriyada shu nomli loyiha bor.', 'err'); return; }
   try{
-    const res = await sb.from('gallery_items').update({cat}).eq('id', id);
+    const res = await sb.from('gallery_items').update({title:name}).eq('cat', p.cat).eq('title', p.title);
     if(res.error) throw res.error;
-    const it = uploadedItems.find(x=>x.id === id);
-    if(it) it.cat = cat;
-    renderGallery(currentLang);
-    adminMsg('Kategoriya o\'zgartirildi.');
-  } catch(e){ adminMsg(adminErrText(e), 'err'); await loadGallery(); renderAdminImages(); }
+    if(adminOpenKey === p.key) adminOpenKey = projKey(p.cat, name);
+    await afterProjectChange('Nomi o\'zgartirildi.');
+  } catch(e){ adminMsg(adminErrText(e), 'err'); }
+}
+
+async function moveProject(p, newCat){
+  if(newCat === p.cat) return;
+  if(nameTaken(newCat, p.title, null)){
+    adminMsg('Bu kategoriyada "' + p.title + '" nomli loyiha bor. Avval nomini o\'zgartiring.', 'err');
+    renderAdminImages();
+    return;
+  }
+  try{
+    const res = await sb.from('gallery_items').update({cat:newCat}).eq('cat', p.cat).eq('title', p.title);
+    if(res.error) throw res.error;
+    if(adminOpenKey === p.key) adminOpenKey = projKey(newCat, p.title);
+    await afterProjectChange('Loyiha boshqa kategoriyaga o\'tkazildi.');
+  } catch(e){ adminMsg(adminErrText(e), 'err'); await afterProjectChange(); }
+}
+
+async function deleteProject(p){
+  if(!confirm('"' + p.title + '" loyihasini (' + p.idxs.length + ' ta rasm) o\'chirmoqchimisiz?')) return;
+  const paths = p.idxs.map(i=>uploadedItems[i].path).filter(Boolean);
+  try{
+    const res = await sb.from('gallery_items').delete().eq('cat', p.cat).eq('title', p.title);
+    if(res.error) throw res.error;
+    if(paths.length){ try{ await sb.storage.from(SB_BUCKET).remove(paths); } catch(e){} }
+    if(adminOpenKey === p.key) adminOpenKey = null;
+    await afterProjectChange('Loyiha o\'chirildi.');
+  } catch(e){ adminMsg(adminErrText(e), 'err'); }
 }
 
 async function deleteImage(id){
@@ -1919,9 +2041,7 @@ async function deleteImage(id){
     const res = await sb.from('gallery_items').delete().eq('id', id);
     if(res.error) throw res.error;
     if(it.path){ try{ await sb.storage.from(SB_BUCKET).remove([it.path]); } catch(e){} }
-    await loadGallery();
-    renderAdminImages();
-    adminMsg('O\'chirildi.');
+    await afterProjectChange('Rasm o\'chirildi.');
   } catch(e){ adminMsg(adminErrText(e), 'err'); }
 }
 
@@ -1954,23 +2074,22 @@ async function uploadBlob(blob){
   return {path, url};
 }
 
-/* Saytda shu kategoriyadagi rasmlar (tartib bilan): ko'chirilmagan eski rasmlar + bazadagilar */
-function siteItemsOfCat(cat){
-  const st = galleryMigrated ? [] : staticPhotoItems().filter(it=>it.cat === cat);
-  return st.concat(uploadedItems.filter(it=>it.cat === cat));
-}
-
 async function adminUpload(){
   const fileInput = byId('adminFileInput'), titleInput = byId('adminTitleInput');
   const files = Array.from(fileInput.files || []);
   const cat = parseInt(byId('adminCatSelect').value, 10);
   if(!files.length){ adminMsg('Rasm tanlanmagan.', 'err'); return; }
   if(!cat){ adminMsg('Kategoriyani tanlang.', 'err'); return; }
-  const existing = siteItemsOfCat(cat);
-  let title = cleanTitle(titleInput.value);
-  if(!title){
-    if(!existing.length){ adminMsg('Bu kategoriyaga birinchi rasm: sarlavha kiriting.', 'err'); return; }
-    title = existing[0].t;   /* keyingi rasmlar: birinchi rasm sarlavhasi */
+  let title;
+  const psel = byId('adminProjectSelect').value;
+  if(psel === 'new'){
+    title = cleanTitle(titleInput.value);
+    if(!title){ adminMsg('Yangi loyiha uchun nom kiriting.', 'err'); return; }
+    if(nameTaken(cat, title, null)){ adminMsg('Bu kategoriyada shu nomli loyiha bor. Uni ro\'yxatdan tanlang.', 'err'); return; }
+  } else {
+    const p = adminProjOpts[parseInt(psel, 10)];
+    if(!p){ adminMsg('Loyihani tanlang.', 'err'); return; }
+    title = p.title;
   }
   const btn = byId('adminUploadBtn');
   btn.disabled = true;
@@ -1990,12 +2109,13 @@ async function adminUpload(){
       done++;
     }
     fileInput.value = ''; titleInput.value = '';
-    adminMsg(done + ' ta rasm yuklandi. Saytda ko\'rinadi.');
+    adminMsg(done + ' ta rasm "' + title + '" loyihasiga yuklandi. Saytda ko\'rinadi.');
   } catch(e){
     adminMsg(adminErrText(e) + (done ? ' (' + done + ' ta rasm yuklandi.)' : ''), 'err');
   }
   finally{ btn.disabled = false; }
   await loadGallery();
+  refreshProjectSelect(title);
   renderAdminImages();
 }
 
@@ -2154,6 +2274,8 @@ document.addEventListener('DOMContentLoaded', ()=>{
   byId('adminLogoutBtn').addEventListener('click', adminLogout);
   document.querySelectorAll('.admin-tabs button').forEach(b=> b.addEventListener('click', ()=> switchAdminTab(b.dataset.tab)));
   byId('adminUploadBtn').addEventListener('click', adminUpload);
+  byId('adminCatSelect').addEventListener('change', ()=> refreshProjectSelect());
+  byId('adminProjectSelect').addEventListener('change', updateTitleFieldVisibility);
   byId('adminMigrateBtn').addEventListener('click', migrateStatic);
   byId('adminPriceSaveBtn').addEventListener('click', savePrices);
   byId('adminAddCatBtn').addEventListener('click', addCategory);
@@ -2193,13 +2315,17 @@ document.addEventListener('DOMContentLoaded', ()=>{
       </div>
 
       <div id="adminTabImages">
-        <label for="adminFileInput">Yangi rasmlar (bir nechtasini tanlash mumkin)</label>
-        <input type="file" id="adminFileInput" accept="image/*" multiple>
-        <label for="adminTitleInput">Sarlavha</label>
-        <input type="text" id="adminTitleInput" maxlength="120" placeholder="Masalan: Yotoqxona dizayni">
-        <p class="admin-hint" style="margin-top:6px">Kategoriyaga birinchi rasm uchun sarlavha majburiy. Keyingi rasmlarda bo'sh qoldirsangiz, birinchi rasmning sarlavhasi qo'yiladi.</p>
         <label for="adminCatSelect">Kategoriya</label>
         <select id="adminCatSelect"></select>
+        <label for="adminProjectSelect">Loyiha</label>
+        <select id="adminProjectSelect"></select>
+        <div id="adminTitleBox">
+          <label for="adminTitleInput">Yangi loyiha nomi</label>
+          <input type="text" id="adminTitleInput" maxlength="120" placeholder="Masalan: Yotoq xonasi, Karimovlar uyi">
+        </div>
+        <label for="adminFileInput">Rasmlar (bir nechtasini tanlash mumkin)</label>
+        <input type="file" id="adminFileInput" accept="image/*" multiple>
+        <p class="admin-hint">Bir loyihaning rasmlari saytda bitta kartochka bo'lib turadi, bosilganda ichida aylantiriladi. Boshqa yotoqxona bo'lsa, "+ Yangi loyiha" tanlab boshqa nom bering.</p>
         <button class="admin-btn" id="adminUploadBtn" type="button">Yuklash</button>
         <button class="admin-btn ghost" id="adminMigrateBtn" type="button" style="display:none;">Eski rasmlarni bazaga ko'chirish (bir marta)</button>
         <p class="admin-hint" id="adminMigrateHint" style="display:none;">Saytdagi hozirgi yotoqxona rasmlarini ham shu yerdan boshqarish (kategoriyasini o'zgartirish, o'chirish) uchun bir marta ko'chirib oling.</p>

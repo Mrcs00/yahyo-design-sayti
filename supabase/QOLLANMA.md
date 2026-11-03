@@ -19,6 +19,10 @@ Bir marta qilinadi, taxminan 10 daqiqa. Tugma nomlari Supabase yangilanganda bir
 ## 3.1. Kategoriyalarni boshqarish (keyin qo'shilgan)
 Admin paneldagi **Kategoriyalar** bo'limi ishlashi uchun **SQL Editor**'da `3-kategoriyalar.sql` faylini bir marta ishga tushiring. Mavjud rasmlarga tegmaydi. Ishga tushirilmaguncha sayt eski 5 ta kategoriya bilan ishlayveradi.
 
+## 3.2. Loyihalar (keyin qo'shilgan)
+Saytda har bir **loyiha** bitta kartochka bo'ladi: bir kategoriyadagi bir xil nomli rasmlar to'plami. Kartochka bosilganda ichida shu loyihaning rasmlari aylantiriladi. Bu uchun yangi SQL kerak emas.
+Faqat admin paneldagi **"Eski rasmlarni bazaga ko'chirish"** tugmasi avval bosilgan bo'lsa, `4-eski-rasmlarni-loyihaga.sql` ni bir marta ishga tushiring (eski rasmlar bitta "Yotoq xonasi" loyihasiga birlashadi va tartibi to'g'rilanadi). Tugma hali bosilmagan bo'lsa, bu fayl kerak emas.
+
 ## 4. Begona ro'yxatdan o'tishni o'chirish
 **Authentication** > **Sign In / Providers** (yoki Settings) bo'limida **Allow new users to sign up** ni **o'chiring**. Shunda faqat siz ochgan hisob kira oladi.
 
@@ -34,7 +38,7 @@ Bu ikkisi ochiq kalit, saytning kodida turadi, ularni yuborish xavfsiz.
 
 ## 6. Ishlatish
 Saytning eng pastidagi **Admin** tugmasini bosing (yoki manzil oxiriga `#admin` qo'shing), email va parol bilan kiring.
-- **Rasmlar:** bir nechta rasmni birdan tanlab yuklash, kategoriyasini o'zgartirish, o'chirish. Kategoriyaga birinchi rasm uchun sarlavha majburiy; keyingi rasmlarda bo'sh qoldirilsa, birinchi rasmning sarlavhasi qo'yiladi. Birinchi yuklangan rasm birinchi turadi va "Barchasi"da muqova bo'ladi. Rasmi yo'q kategoriya saytda ko'rinmaydi. Saytdagi hozirgi yotoqxona rasmlarini boshqarish uchun **"Eski rasmlarni bazaga ko'chirish"** tugmasini bir marta bosing.
+- **Rasmlar:** avval kategoriya, keyin loyiha tanlanadi ("+ Yangi loyiha" desangiz nom yoziladi, mavjud loyihani tanlasangiz rasmlar unga qo'shiladi). Bir nechta rasmni birdan yuklash mumkin. Ro'yxatda har bir loyiha uchun: kategoriyasini o'zgartirish, nomini o'zgartirish, alohida rasmni o'chirish ("Rasmlar" tugmasi), butun loyihani o'chirish. Birinchi yuklangan rasm birinchi turadi va kartochka muqovasi bo'ladi. Rasmi yo'q kategoriya saytda ko'rinmaydi.
 - **Kategoriyalar:** yangi kategoriya qo'shish (masalan "Landshaft stol") va o'chirish. Nomi hamma tillarda bir xil chiqadi. Rasmi bor kategoriyani o'chirib bo'lmaydi: avval rasmlarni o'chiring yoki boshqa kategoriyaga o'tkazing. "Barchasi" tugmasi doim turadi.
 - **Narxlar:** uchta tarifning narxini (faqat raqam) o'zgartirish.
 
