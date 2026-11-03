@@ -34,7 +34,7 @@ Bu ikkisi ochiq kalit, saytning kodida turadi, ularni yuborish xavfsiz.
 
 ## 6. Ishlatish
 Saytning eng pastidagi **Admin** tugmasini bosing (yoki manzil oxiriga `#admin` qo'shing), email va parol bilan kiring.
-- **Rasmlar:** yangi rasm yuklash, kategoriyasini o'zgartirish, o'chirish. Saytdagi hozirgi yotoqxona rasmlarini boshqarish uchun **"Eski rasmlarni bazaga ko'chirish"** tugmasini bir marta bosing.
+- **Rasmlar:** bir nechta rasmni birdan tanlab yuklash, kategoriyasini o'zgartirish, o'chirish. Kategoriyaga birinchi rasm uchun sarlavha majburiy; keyingi rasmlarda bo'sh qoldirilsa, birinchi rasmning sarlavhasi qo'yiladi. Birinchi yuklangan rasm birinchi turadi va "Barchasi"da muqova bo'ladi. Rasmi yo'q kategoriya saytda ko'rinmaydi. Saytdagi hozirgi yotoqxona rasmlarini boshqarish uchun **"Eski rasmlarni bazaga ko'chirish"** tugmasini bir marta bosing.
 - **Kategoriyalar:** yangi kategoriya qo'shish (masalan "Landshaft stol") va o'chirish. Nomi hamma tillarda bir xil chiqadi. Rasmi bor kategoriyani o'chirib bo'lmaydi: avval rasmlarni o'chiring yoki boshqa kategoriyaga o'tkazing. "Barchasi" tugmasi doim turadi.
 - **Narxlar:** uchta tarifning narxini (faqat raqam) o'zgartirish.
 

@@ -544,6 +544,7 @@ footer img{height:22px; opacity:.85;}
 .lightbox-inner .lb-svg.lb-photo{aspect-ratio:auto; max-height:none; background:transparent; overflow:visible; display:flex; align-items:center; justify-content:center;}
 .lightbox-inner .lb-svg.lb-photo img{display:block; max-width:100%; width:auto; height:auto; max-height:calc(100vh - 210px); max-height:calc(100dvh - 210px); object-fit:contain; border-radius:2px;}
 .lightbox-inner .lb-title{color:var(--ink, #F5F3EE); font-family:'Spectral',serif; margin-top:20px; font-size:20px;}
+.lightbox-inner .lb-count{color:var(--ink-soft, rgba(245,243,238,.66)); font-size:13px; margin-top:6px; letter-spacing:.06em;}
 .lightbox-inner .lb-cat{color:var(--bronze-light, #E9CE7A); font-style:normal; font-size:13px; margin-top:6px;}
 .lb-close, .lb-prev, .lb-next{
   position:absolute; background:none; border:1px solid var(--line-on-dark, rgba(245,243,238,.24)); color:var(--ink, #F5F3EE);
@@ -552,6 +553,7 @@ footer img{height:22px; opacity:.85;}
 }
 .lb-close:hover, .lb-prev:hover, .lb-next:hover{background:var(--bronze, #D4AF37); transform:scale(1.1);}
 .lb-close{top:26px; right:26px;}
+.lb-prev, .lb-next{width:52px; height:52px; z-index:3; font-size:32px; line-height:1; padding:0 0 4px; background:rgba(10,10,11,.82); border:1.5px solid rgba(245,243,238,.75); box-shadow:0 4px 18px rgba(0,0,0,.6);}
 .lb-prev{left:26px; top:50%; transform:translateY(-50%);}
 .lb-next{right:26px; top:50%; transform:translateY(-50%);}
 .lb-prev:hover, .lb-next:hover{transform:translateY(-50%) scale(1.1);}
@@ -627,7 +629,8 @@ html.js-ready .reveal.in{opacity:1; transform:none;}
   .floaters{right:14px; bottom:14px; gap:10px;}
   .float-btn{width:46px; height:46px;}
   .float-btn svg{width:20px; height:20px;}
-  .lb-close, .lb-prev, .lb-next{width:38px; height:38px;}
+  .lb-close{width:38px; height:38px;}
+  .lb-prev, .lb-next{width:44px; height:44px; font-size:28px;}
   .lb-close{top:12px; right:12px;}
   .lb-prev{left:8px;}
   .lb-next{right:8px;}
@@ -796,7 +799,6 @@ html.js-ready .reveal.in{opacity:1; transform:none;}
     </div>
     <div class="filters reveal" id="filterList"></div>
     <div class="gallery-grid reveal" id="galleryGrid"></div>
-    <p class="gallery-note" data-i18n="gallery.note">* Bu yerda tez orada haqiqiy loyiha suratlari joylashtiriladi. Hozircha namuna sifatida sxematik tasvirlar ko'rsatilmoqda.</p>
 
     <div class="ba-wrap reveal">
       <span class="ba-label" data-i18n="gallery.ba_label">Oldin / Keyin — suring va solishtiring</span>
@@ -926,6 +928,7 @@ html.js-ready .reveal.in{opacity:1; transform:none;}
     <div class="lb-svg" id="lbSvg"></div>
     <div class="lb-title" id="lbTitle"></div>
     <div class="lb-cat" id="lbCat"></div>
+    <div class="lb-count" id="lbCount"></div>
   </div>
 </div>
 
@@ -1033,12 +1036,6 @@ const I18N = {
     "gallery.before":"Oldin","gallery.after":"Keyin",
     "gallery.filters":["Barchasi","Interyer","Eksteryer","Landshaft","Ofis","Yotoqxona"],
     "gallery.items":[
-      {t:"Zamonaviy kvartira", cat:1, kind:"interior"},
-      {t:"Shaxsiy uy fasadi", cat:2, kind:"exterior"},
-      {t:"Hovli landshafti", cat:3, kind:"landscape"},
-      {t:"Ofis makoni", cat:4, kind:"office"},
-      {t:"Mehmonxona interyeri", cat:1, kind:"interior"},
-      {t:"Villa eksteryeri", cat:2, kind:"exterior"},
       {t:"Yotoq xonasi — dam olish burchagi", cat:5, img:"images/gallery-1.jpg"},
       {t:"Yotoq xonasi — shkaf zonasi", cat:5, img:"images/gallery-2.jpg"},
       {t:"Yotoq xonasi — to'shak tafsilotlari", cat:5, img:"images/gallery-3.jpg"},
@@ -1130,12 +1127,6 @@ const I18N = {
     "gallery.before":"До","gallery.after":"После",
     "gallery.filters":["Все","Интерьер","Экстерьер","Ландшафт","Офис","Спальня"],
     "gallery.items":[
-      {t:"Современная квартира", cat:1, kind:"interior"},
-      {t:"Фасад частного дома", cat:2, kind:"exterior"},
-      {t:"Ландшафт двора", cat:3, kind:"landscape"},
-      {t:"Офисное пространство", cat:4, kind:"office"},
-      {t:"Интерьер гостиной", cat:1, kind:"interior"},
-      {t:"Экстерьер виллы", cat:2, kind:"exterior"},
       {t:"Спальня — зона отдыха", cat:5, img:"images/gallery-1.jpg"},
       {t:"Спальня — гардеробная зона", cat:5, img:"images/gallery-2.jpg"},
       {t:"Спальня — детали кровати", cat:5, img:"images/gallery-3.jpg"},
@@ -1227,12 +1218,6 @@ const I18N = {
     "gallery.before":"Before","gallery.after":"After",
     "gallery.filters":["All","Interior","Exterior","Landscape","Office","Bedroom"],
     "gallery.items":[
-      {t:"Modern apartment", cat:1, kind:"interior"},
-      {t:"Private house facade", cat:2, kind:"exterior"},
-      {t:"Courtyard landscape", cat:3, kind:"landscape"},
-      {t:"Office space", cat:4, kind:"office"},
-      {t:"Living room interior", cat:1, kind:"interior"},
-      {t:"Villa exterior", cat:2, kind:"exterior"},
       {t:"Bedroom — lounge corner", cat:5, img:"images/gallery-1.jpg"},
       {t:"Bedroom — wardrobe area", cat:5, img:"images/gallery-2.jpg"},
       {t:"Bedroom — bedding details", cat:5, img:"images/gallery-3.jpg"},
@@ -1362,7 +1347,7 @@ function escHtml(s){
 
 function renderFilters(lang){
   const wrap = document.getElementById('filterList');
-  const cats = currentCategories(lang);
+  const cats = currentCategories(lang).filter(c=> c.id === 0 || galleryCatCounts[c.id] > 0);
   if(!cats.some(c=>c.id === galleryFilter)) galleryFilter = 0;
   wrap.innerHTML = cats.map(c=>
     `<button class="filter-btn ${c.id===galleryFilter?'active':''}" data-cat="${c.id}">${escHtml(c.name)}</button>`
@@ -1378,19 +1363,16 @@ function renderFilters(lang){
 
 let galleryItemsCache = [];
 let galleryCoverIdx = {};
+let galleryCatCounts = {};
 const MORE_WORD = {uz:'rasm', ru:'фото', en:'photos'};  /* en: 1 bo'lsa 'photo' */
 
-/* Har kategoriyadan bitta muqova: eng oxirgi yuklangan haqiqiy rasm
-   (haqiqiy rasm bo'lmasa, namuna chizma). counts: kategoriyadagi jami rasm. */
+/* Har kategoriyadan bitta muqova: birinchi yuklangan rasm (massivda birinchi).
+   counts: kategoriyadagi jami rasm soni. */
 function pickCovers(items){
   const covers = {}, counts = {};
   items.forEach((it,i)=>{
     counts[it.cat] = (counts[it.cat] || 0) + 1;
-    const cur = covers[it.cat];
-    if(cur === undefined){ covers[it.cat] = i; return; }
-    const c = items[cur];
-    const better = (it.img && !c.img) || (!!it.img === !!c.img && it.img && (it.at || '') > (c.at || ''));
-    if(better) covers[it.cat] = i;
+    if(covers[it.cat] === undefined) covers[it.cat] = i;
   });
   return {covers, counts};
 }
@@ -1401,6 +1383,7 @@ function renderGallery(lang){
   galleryItemsCache = items;
   const pc = pickCovers(items);
   galleryCoverIdx = pc.covers;
+  galleryCatCounts = pc.counts;
   const moreWord = (n)=> lang === 'en' ? (n === 1 ? 'photo' : 'photos') : (MORE_WORD[lang] || MORE_WORD.uz);
   wrap.innerHTML = items.map((it,i)=>{
     let badge = '';
@@ -1431,6 +1414,7 @@ function renderGallery(lang){
     }, {threshold:.15});
     wrap.querySelectorAll('.g-item').forEach(el=> galleryObserver.observe(el));
   } catch(e){ console.error('Gallery observer error:', e); }
+  renderFilters(lang);
   applyGalleryFilter();
 }
 
@@ -1531,6 +1515,9 @@ function updateLightbox(){
   document.getElementById('lbNext').style.display = many ? '' : 'none';
   document.getElementById('lbTitle').textContent = it.t;
   document.getElementById('lbCat').textContent = categoryName(it.cat, currentLang);
+  const idxs = [];
+  full.forEach((x,i)=>{ if(x.cat === it.cat) idxs.push(i); });
+  document.getElementById('lbCount').textContent = idxs.length > 1 ? (idxs.indexOf(idx) + 1) + ' / ' + idxs.length : '';
 }
 function closeLightbox(){ document.getElementById('lightbox').classList.remove('open'); }
 
@@ -1674,6 +1661,17 @@ document.addEventListener('DOMContentLoaded', ()=>{
     lbIndex = idxs[(pos + dir + idxs.length) % idxs.length];
     updateLightbox();
   }
+  /* Telefonda barmoq bilan chapga/o'ngga surish */
+  (function(){
+    const lb = document.getElementById('lightbox');
+    let sx = 0, sy = 0;
+    lb.addEventListener('touchstart', e=>{ const t = e.changedTouches[0]; sx = t.clientX; sy = t.clientY; }, {passive:true});
+    lb.addEventListener('touchend', e=>{
+      if(!lb.classList.contains('open')) return;
+      const t = e.changedTouches[0], dx = t.clientX - sx, dy = t.clientY - sy;
+      if(Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5) lbStep(dx < 0 ? 1 : -1);
+    }, {passive:true});
+  })();
   document.getElementById('lbPrev').addEventListener('click', ()=> lbStep(-1));
   document.getElementById('lbNext').addEventListener('click', ()=> lbStep(1));
   document.addEventListener('keydown', (e)=>{
@@ -1746,7 +1744,7 @@ async function loadCategories(){
 async function loadGallery(){
   if(!sbReady) return;
   try{
-    const res = await sb.from('gallery_items').select('*').order('created_at', {ascending:false});
+    const res = await sb.from('gallery_items').select('*').order('created_at', {ascending:true});
     if(res.error) throw res.error;
     const flag = await sb.from('site_flags').select('value').eq('key','gallery_migrated').maybeSingle();
     uploadedItems = res.data.map(r=>({id:r.id, t:r.title, cat:r.cat, img:r.image_url, path:r.image_path, at:r.created_at, kind:null}));
@@ -1956,30 +1954,49 @@ async function uploadBlob(blob){
   return {path, url};
 }
 
+/* Saytda shu kategoriyadagi rasmlar (tartib bilan): ko'chirilmagan eski rasmlar + bazadagilar */
+function siteItemsOfCat(cat){
+  const st = galleryMigrated ? [] : staticPhotoItems().filter(it=>it.cat === cat);
+  return st.concat(uploadedItems.filter(it=>it.cat === cat));
+}
+
 async function adminUpload(){
   const fileInput = byId('adminFileInput'), titleInput = byId('adminTitleInput');
-  const file = fileInput.files[0];
-  const title = cleanTitle(titleInput.value);
-  if(!file){ adminMsg('Rasm tanlanmagan.', 'err'); return; }
-  if(!title){ adminMsg('Sarlavha kiriting.', 'err'); return; }
+  const files = Array.from(fileInput.files || []);
+  const cat = parseInt(byId('adminCatSelect').value, 10);
+  if(!files.length){ adminMsg('Rasm tanlanmagan.', 'err'); return; }
+  if(!cat){ adminMsg('Kategoriyani tanlang.', 'err'); return; }
+  const existing = siteItemsOfCat(cat);
+  let title = cleanTitle(titleInput.value);
+  if(!title){
+    if(!existing.length){ adminMsg('Bu kategoriyaga birinchi rasm: sarlavha kiriting.', 'err'); return; }
+    title = existing[0].t;   /* keyingi rasmlar: birinchi rasm sarlavhasi */
+  }
   const btn = byId('adminUploadBtn');
-  btn.disabled = true; adminMsg('Yuklanmoqda...');
+  btn.disabled = true;
+  let done = 0;
   try{
-    const blob = await compressImage(file);
-    const up = await uploadBlob(blob);
-    const res = await sb.from('gallery_items').insert({
-      title, cat: parseInt(byId('adminCatSelect').value, 10), image_path: up.path, image_url: up.url
-    });
-    if(res.error){
-      try{ await sb.storage.from(SB_BUCKET).remove([up.path]); } catch(e){}
-      throw res.error;
+    for(const file of files){
+      adminMsg('Yuklanmoqda: ' + (done + 1) + '/' + files.length + '...');
+      const blob = await compressImage(file);
+      const up = await uploadBlob(blob);
+      const res = await sb.from('gallery_items').insert({
+        title, cat, image_path: up.path, image_url: up.url
+      });
+      if(res.error){
+        try{ await sb.storage.from(SB_BUCKET).remove([up.path]); } catch(e){}
+        throw res.error;
+      }
+      done++;
     }
     fileInput.value = ''; titleInput.value = '';
-    await loadGallery();
-    renderAdminImages();
-    adminMsg('Yuklandi! Rasm saytda ko\'rinadi.');
-  } catch(e){ adminMsg(adminErrText(e), 'err'); }
+    adminMsg(done + ' ta rasm yuklandi. Saytda ko\'rinadi.');
+  } catch(e){
+    adminMsg(adminErrText(e) + (done ? ' (' + done + ' ta rasm yuklandi.)' : ''), 'err');
+  }
   finally{ btn.disabled = false; }
+  await loadGallery();
+  renderAdminImages();
 }
 
 function staticPhotoItems(){
@@ -1993,7 +2010,7 @@ function updateMigrateUi(){
 
 async function migrateStatic(){
   if(galleryMigrated) return;
-  const src = staticPhotoItems().slice().reverse();
+  const src = staticPhotoItems().slice();
   if(!src.length){ adminMsg('Ko\'chiriladigan rasm topilmadi.', 'err'); return; }
   if(!confirm(src.length + ' ta eski rasm bazaga ko\'chiriladi. Davom etasizmi?')) return;
   const btn = byId('adminMigrateBtn');
@@ -2176,10 +2193,11 @@ document.addEventListener('DOMContentLoaded', ()=>{
       </div>
 
       <div id="adminTabImages">
-        <label for="adminFileInput">Yangi rasm</label>
-        <input type="file" id="adminFileInput" accept="image/*">
+        <label for="adminFileInput">Yangi rasmlar (bir nechtasini tanlash mumkin)</label>
+        <input type="file" id="adminFileInput" accept="image/*" multiple>
         <label for="adminTitleInput">Sarlavha</label>
         <input type="text" id="adminTitleInput" maxlength="120" placeholder="Masalan: Yotoqxona dizayni">
+        <p class="admin-hint" style="margin-top:6px">Kategoriyaga birinchi rasm uchun sarlavha majburiy. Keyingi rasmlarda bo'sh qoldirsangiz, birinchi rasmning sarlavhasi qo'yiladi.</p>
         <label for="adminCatSelect">Kategoriya</label>
         <select id="adminCatSelect"></select>
         <button class="admin-btn" id="adminUploadBtn" type="button">Yuklash</button>
